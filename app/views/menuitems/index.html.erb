@@ -1,2 +1,41 @@
-<h1>Menuitems#index</h1>
+<!-- <h1>Menuitems#index</h1>
 <p>Find me in app/views/menuitems/index.html.erb</p>
+
+ -->
+ <h1><%= @restaurant.name %></h1>
+
+<!-- 	<img scr= <%#= cl_image_tag(@restaurant.image_url) %>
+	<img scr= <%#= cl_image_tag(@restaurant.image2_url) %>
+	<img scr= <%#= cl_image_tag(@restaurant.image3_url) %> -->
+
+	<% @menuitems.each do |item| %>
+	<p><%= item.item %>
+	<%= item.price %>
+	<%= link_to 'Edit', edit_restaurant_menuitem_path(@restaurant, item) %>
+	<%= link_to 'Delete', restaurant_menuitem_path(@restaurant, item),
+								method: :delete,
+        				data: { confirm: 'Are you sure?' } %></p>
+	<% end %>
+
+
+<h1>Add a new menu item</h1>
+	<%= form_with scope: :menuitem, url: restaurant_menuitems_path, local: true do |form| %>
+
+	<p>
+		<%= form.label :item %><br>
+		<%= form.text_field :item %>
+	</p>
+
+	<p>
+		<%= form.label :price %><br>
+		<%= form.text_field :price %>
+	</p>
+
+
+	<%= form.hidden_field :restaurant_id, value:@restaurant.id %>
+
+	<p>
+		<%= form.submit %>
+	</p>
+
+<% end %>
