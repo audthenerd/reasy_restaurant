@@ -44,7 +44,16 @@ class RestaurantsController < ApplicationController
   
     if @restaurant.userrest == current_userrest
       @restaurant.update(restro_params)
-      redirect_to @restaurant
+      if @restaurant.image_url
+        uploaded_file = params[:restaurant][:image_url].path
+        cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+        @restaurant.image_url = cloudnary_file['public_id']
+      end
+      if @restaurant.save
+        redirect_to @restaurant
+      else
+        render 'index'
+      end
     else
       render 'index'
     end
