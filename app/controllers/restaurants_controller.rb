@@ -17,7 +17,7 @@ class RestaurantsController < ApplicationController
 
   def create
     #render plain: params[:restaurant].inspect
-    @restaurant = Restaurant.new(restro_params) 
+    @restaurant = Restaurant.new(restro_params)
     @restaurant.userrest = current_userrest
 
     if @restaurant.image_url
@@ -41,7 +41,7 @@ class RestaurantsController < ApplicationController
 
   def update
     @restaurant = Restaurant.find(params[:id])
-  
+
     if @restaurant.userrest == current_userrest
       @restaurant.update(restro_params)
       if @restaurant.image_url

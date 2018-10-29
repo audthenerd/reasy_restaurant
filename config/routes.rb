@@ -4,7 +4,15 @@ Rails.application.routes.draw do
   devise_for :customers, path: 'customers', controllers: {sessions: 'customers/sessions'}
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :restaurants
-  
+  resources :customers do
+    resources :restaurants
+    resources :reservations
+  end
+
+  resources :restaurants do
+    resources :customers
+    resources :reservations
+  end
+
   root to: "restaurants#index"
 end
