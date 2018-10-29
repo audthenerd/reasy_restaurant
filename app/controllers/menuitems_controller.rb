@@ -1,10 +1,18 @@
 class MenuitemsController < ApplicationController
-  before_action :authenticate_userrest!
+  before_action :authenticate_userrest!, :except => [ :index ]
 
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
+
+    if @restaurant.userrest == current_userrest
+
     @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
     #@restaurants = Restaurant.where(userrest_id: current_userrest.id)
+    end
+    if current_customer
+    @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
+
+    end
   end
 
   def new
