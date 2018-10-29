@@ -1,2 +1,44 @@
-<h1>Restaurants#new</h1>
-<p>Find me in app/views/restaurants/new.html.erb</p>
+<div class="container">
+    <div class="row">
+        <h1>Add Restaurant</h1>
+    </div>
+    <div class="row">
+        <%= form_with model: @restaurant do |form| %>
+
+            <div>
+                <%= form.label :name %><br>
+                <%= form.text_field :name, {class: 'form-control'}%>
+            </div>
+
+            <div>
+                <%= form.label :image_url %><br>
+                <%= form.file_field :image_url, {class: 'form-control'} %>
+            </div>
+
+            <div>
+                <%= form.label :location %><br>
+                <%= form.text_field :location, {class: 'form-control'} %>
+            </div>
+
+            <div>
+                <%= form.hidden_field :cityLat, {class: 'form-control'}%>
+            </div>
+
+            <div>
+                <%= form.hidden_field :citylong, {class: 'form-control'} %>
+            </div>            
+
+
+            <br>
+
+            <p>
+                <%= form.submit class: 'btn btn-primary'%>
+            </p>
+        <% end %>
+    </div>
+
+    <div class="row">
+        <%= link_to 'Back', restaurants_path, class: 'btn btn-primary' %>
+    </div>
+
+</div>

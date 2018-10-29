@@ -1,2 +1,22 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<div class="container">
+<div class="row">
+    <h1>Show</h1>
+</div>
+<div class="row">
+        <h5><%= @restaurant.name %></h5>
+
+        <%= cl_image_tag(@restaurant.image_url) %>
+
+        <% @restaurant.menuitems.each do |menuitems| %>
+            <div><%= menuitems.item %></div>
+        <% end %>
+
+        <p><%= link_to 'Edit', edit_restaurant_path(@restaurant) %></p>
+        <p><%= link_to 'Destroy', restaurant_path(@restaurant),
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %></p>
+
+        <p><%= link_to 'Back', restaurants_path %></p>
+
+</div>
+</div>
