@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= restaurant.name %></h5>
                     <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
-                    <% # login is userrest %> 
+                    <% # login is userrest %>
                         <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
                         <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
                         <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
