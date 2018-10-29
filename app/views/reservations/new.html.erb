@@ -1,36 +1,23 @@
 <%#= link_to 'log out', destroy_user_session_url, method: :delete %>
 
 <h1>Make a reservation</h1>
-<%= form_with scope: :article, url: articles_path, local: true do |form| %>
+<%= form_with scope: @reservation, local: true do |form| %>
 
 	<p>
-		<%= form.label :title %><br>
-		<%= form.text_field :title %>
+		<%= form.label :reservation_date %><br>
+		<%= form.text_field :reservation_date %>
 	</p>
 
 	<p>
-		<%= form.label :post %><br>
-		<%= form.text_area :post %>
+		<%= form.label :reservation_time %><br>
+		<%= form.text_area :reservation_time %>
 	</p>
 
-	<p>
-		<%= form.label :author %><br>
-		<%= form.text_area :author %>
-	</p>
-
-		<p>
-			<%= form.label :photo_url %><br>
-			<%= form.text_area :photo_url, :value => $sticker %>
-		</p>
-
-		<p>
-			<%= form.label :date %><br>
-			<%= form.text_area :date_taken, value: Date.today.to_s  %>
-		</p>
+	<%= form.hidden_field :customer_id, value: @customer.id %>
 
 	<p>
 		<%= form.submit %>
 	</p>
 <% end %>
 
-<%= link_to 'Back', articles_path %>
+<%= link_to 'Back', customers_path %>
