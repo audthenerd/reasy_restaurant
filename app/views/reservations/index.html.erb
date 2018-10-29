@@ -1,0 +1,10 @@
+<% if params.keys[2] == "customer_id" %>
+	<h1><%= @customer[0].name %>: Your Reservations</h1>
+
+<% elsif params.keys[2] == "restaurant_id" %>
+	<h1><%= @restaurant[0].name %>: Your Customer Reservations</h1>
+<% end %>
+
+
+
+
