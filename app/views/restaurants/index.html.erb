@@ -1,2 +1,27 @@
-<h1>Restaurants#index</h1>
-<p>Find me in app/views/restaurants/index.html.erb</p>
+<h1> home </h1>
+<div class = "container">
+
+ <div class="row">
+        <%# if user_signed_in? %>
+            <% @restaurants.each do |restaurant| %>
+            <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <br/>
+                <%= cl_image_tag(restaurant.image_url,  class: "card-img-top") %>
+                <div class="card-body">
+                    <h5 class="card-title"><%= restaurant.name %></h5>
+                    <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
+                    <% # login is userrest %> 
+                        <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
+                        <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
+                        <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' } %></p>
+                    <% # end %>
+                </div>
+            </div>
+            <%# end %>
+        <% end %>
+    </div>
+
+</div>
+
