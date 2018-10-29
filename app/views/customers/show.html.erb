@@ -1,0 +1,8 @@
+<h1>Search for your favourite restaurant</h1>
+
+
+
+<%= form_tag(customer_restaurants_path(@customer), method: :get) do %>
+  <%= text_field_tag :name, nil, placeholder: "Search for restaurants by Name or Category" %>
+  <%= submit_tag 'Search' %>
+<% end %>
