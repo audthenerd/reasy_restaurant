@@ -1,2 +1,25 @@
 <h1>Menuitems#edit</h1>
 <p>Find me in app/views/menuitems/edit.html.erb</p>
+
+<h1>edit <%= @menuitem.item %></h1>
+
+<%= form_with model: @menuitem, url: restaurant_menuitem_path(@restaurant),  local: true do |form| %>
+
+<p>
+	<%= form.label :item %><br>
+	<%= form.text_field :item %>
+</p>
+
+<p>
+	<%= form.label :price %><br>
+	<%= form.text_field :price %>
+</p>
+
+<%= form.hidden_field :restaurant_id, value:@restaurant.id %>
+<p>
+	<%= form.submit %>
+</p>
+<% end %>
+
+<%= link_to 'Back', restaurant_menuitems_path %>
+
