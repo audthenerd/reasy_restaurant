@@ -43,6 +43,7 @@
 
 
 <% if customer_signed_in? %>
+
 	<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
 
   <% @menuitems.each do |item| %>
@@ -59,5 +60,6 @@
 	<%= f.submit %>
 
 
+<% end %>
 <% end %>
 <% end %>
