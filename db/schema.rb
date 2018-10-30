@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_053528) do
+ActiveRecord::Schema.define(version: 2018_10_30_173116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 2018_10_30_053528) do
     t.datetime "remember_created_at"
     t.string "name"
     t.text "image_url"
-    t.decimal "lat"
-    t.decimal "long"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "latitude"
+    t.decimal "longitude"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -66,15 +66,17 @@ ActiveRecord::Schema.define(version: 2018_10_30_053528) do
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.text "category"
-    t.text "location"
-    t.decimal "lat", precision: 10, scale: 8
-    t.decimal "long", precision: 10, scale: 8
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "userrest_id"
     t.text "image_url"
     t.text "image2_url"
     t.text "image3_url"
+    t.string "street"
+    t.string "zip"
+    t.string "city"
+    t.decimal "latitude"
+    t.decimal "longitude"
     t.index ["userrest_id"], name: "index_restaurants_on_userrest_id"
   end
 

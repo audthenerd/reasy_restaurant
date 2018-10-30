@@ -76,7 +76,7 @@ class RestaurantsController < ApplicationController
 
   def restro_params
 
-    params.require(:restaurant).permit(:name, :category, :location, :lat, :long, :image_url, :image2_url, :image3_url, :userrest_id)
+    params.require(:restaurant).permit(:name, :category, :street, :city, :zip, :latitude, :longitude, :image_url, :image2_url, :image3_url, :userrest_id)
   end
 
 end
