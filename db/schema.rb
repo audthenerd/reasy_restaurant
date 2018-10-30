@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_10_30_023802) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,8 +24,8 @@ ActiveRecord::Schema.define(version: 2018_10_30_023802) do
     t.datetime "remember_created_at"
     t.string "name"
     t.text "image_url"
-    t.decimal "lat", precision: 10, scale: 8
-    t.decimal "long", precision: 10, scale: 8
+    t.decimal "lat"
+    t.decimal "long"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
