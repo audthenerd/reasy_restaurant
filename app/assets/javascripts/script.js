@@ -1,19 +1,19 @@
 window.onload = function() {
-
+    if($("#customer_lat").length){
         getLocation();
-
+    }
 }
 
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     }
+    console.log("getlocation working")
 }
 
 function showPosition(position) {
-    document.querySelector('#loginLat').value = position.coords.latitude;
-    document.querySelector('#loginLong').value = position.coords.longitude;
-
+    document.querySelector('#customer_lat').value = position.coords.latitude;
+    document.querySelector('#customer_long').value = position.coords.longitude;
 }
 
 function accessDatabase() {
@@ -66,9 +66,8 @@ function accessDatabase() {
     requestOne.send();
 }
 
-
 function saveLocation() {
-    var input = document.getElementById('location');
+    var input = document.getElementById('restaurant_location');
     var autocomplete = new google.maps.places.Autocomplete(input);
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
@@ -76,9 +75,9 @@ function saveLocation() {
         var long = place.geometry.location.lng()
 
 
-        document.getElementById('city2').value = place.name;
-        document.getElementById('cityLat').value = lat;
-        document.getElementById('cityLng').value = long;
+        document.getElementById('restaurant_location').value = place.name;
+        document.getElementById('restaurant_lat').value = lat;
+        document.getElementById('restaurant_long').value = long;
         //alert("This function is working!");
         //alert(place.name);
         // alert(place.address_components[0].long_name);
