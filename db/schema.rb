@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_051439) do
-
+ActiveRecord::Schema.define(version: 2018_10_30_053528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +44,14 @@ ActiveRecord::Schema.define(version: 2018_10_30_051439) do
     t.index ["restaurant_id"], name: "index_menuitems_on_restaurant_id"
   end
 
+  create_table "menuitems_reservations", id: false, force: :cascade do |t|
+    t.bigint "reservation_id"
+    t.bigint "menuitem_id"
+    t.integer "quantity"
+    t.index ["menuitem_id"], name: "index_menuitems_reservations_on_menuitem_id"
+    t.index ["reservation_id"], name: "index_menuitems_reservations_on_reservation_id"
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.bigint "restaurant_id"
     t.bigint "customer_id"
@@ -54,14 +61,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_051439) do
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_reservations_on_customer_id"
     t.index ["restaurant_id"], name: "index_reservations_on_restaurant_id"
-  end
-
-  create_table "reservations_menuitems", id: false, force: :cascade do |t|
-    t.bigint "reservation_id"
-    t.bigint "menuitem_id"
-    t.integer "quantity"
-    t.index ["menuitem_id"], name: "index_reservations_menuitems_on_menuitem_id"
-    t.index ["reservation_id"], name: "index_reservations_menuitems_on_reservation_id"
   end
 
   create_table "restaurants", force: :cascade do |t|

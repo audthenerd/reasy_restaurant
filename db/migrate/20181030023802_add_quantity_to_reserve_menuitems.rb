@@ -1,6 +1,6 @@
 class AddQuantityToReserveMenuitems < ActiveRecord::Migration[5.2]
   def change
 
-    add_column :reservations_menuitems, :quantity, :integer
+    add_column :menuitems_reservations, :quantity, :integer
   end
 end
