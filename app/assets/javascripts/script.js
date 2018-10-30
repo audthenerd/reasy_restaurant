@@ -1,3 +1,16 @@
+// document.querySelector('#mainsubmit').addEventListener('click', submitall);
+
+// function submitall(){
+//     var all = document.querySelectorAll('.my-form')
+//     for (var i = 0; i< all.length; i++){
+//         all.submit();
+//     }
+
+//     // document.querySelector('#my-form').submit();
+
+// }
+
+
 window.onload = function() {
     if($("#customer_lat").length){
         getLocation();

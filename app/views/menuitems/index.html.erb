@@ -43,23 +43,23 @@
 
 
 <% if customer_signed_in? %>
-<%= form_with scope: :reservation, url: customer_reservations_path(current_customer.id), local: true do |form| %>
-	<% @menuitems.each do |item| %>
-	<%= form.label item.item%><br>
-	<%= form.hidden_field :menuitem_id, value: item.id%><br>
+	<%= form_with model: @reservation, local: true do |f| %>
+	<p>Name</p>
+  <%= f.text_field :name, placeholder: "Author Name" %>
 
-	<%= form.label :quantity %><br>
-	<%= form.number_field :quantity , min: 1 %><br>
+  <%= f.fields_for :reservations_menuitems, Reservation.new do |book_f| %>
+  	 <%= book_f.label :menuitem_id%>
+  	 <%= book_f.text_field :menuitem_id %>
 
-	<%= form.hidden_field :restaurant_id, value:@restaurant.id %>
-	<%= form.hidden_field :customer_id, value:current_customer.id %>
+  	 <%= book_f.label :customer_id%>
+  	 <%= book_f.text_field :customer_id %>
 
-	<% end %>
+  	 <%= book_f.label :quantity%>
+  	 <%= book_f.text_field :quantity %>
 
+<% end %>
+	 <%= f.submit %>
 
-	<p>
-		<%= form.submit %>
-	</p>
 
 <% end %>
 <% end %>
