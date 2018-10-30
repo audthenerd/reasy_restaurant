@@ -45,6 +45,11 @@
 <% if customer_signed_in? %>
 
 	<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
+	<%= f.label :reservation_date %><br>
+	<%= f.date_field :reservation_date %><br>
+
+	<%= f.label :reservation_time %><br>
+	<%= f.time_field :reservation_time %>
 
 	<%= f.hidden_field :customer_id, value: current_customer.id %>
 	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>

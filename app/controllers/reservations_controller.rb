@@ -29,7 +29,10 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     # ["menuitems_reservations_attributes"]["0"])
 
+
+    @reservation = Reservation.new(reservation_params)
     @reservation.save
+
 
     if @reservation.save
 
