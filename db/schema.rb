@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_173116) do
+ActiveRecord::Schema.define(version: 2018_10_30_174555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 2018_10_30_173116) do
     t.text "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "latitude"
-    t.decimal "longitude"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 2018_10_30_173116) do
     t.string "street"
     t.string "zip"
     t.string "city"
-    t.decimal "latitude"
-    t.decimal "longitude"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["userrest_id"], name: "index_restaurants_on_userrest_id"
   end
 

@@ -2,14 +2,15 @@ class RestaurantsController < ApplicationController
   def index
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
-    else
+    elsif current_customer
       if params[:name] != nil
-      @restaurants = Restaurant.where('name LIKE ?', "%#{params[:name]}%")
+        @restaurants = Restaurant.where('name LIKE ?', "%#{params[:name]}%")
       else
-      @categories = Category.all
-      @restaurants = Restaurant.all
-
+        @restaurants = Restaurant.near([current_customer.latitude, current_customer.longitude])
+        @categories = Category.all
       end
+    else
+      @restuarants = Restaurant.all
     end
   end
 
