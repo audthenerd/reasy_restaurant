@@ -27,11 +27,11 @@ class ReservationsController < ApplicationController
   end
 
   def create
+    @customer = Customer.find(params[:customer_id])
+    @reservation = Reservation.new(reservation_params)
+    @reservation.save
 
-    @customer = Customer.new(customer_params)
-    @customer.save
-
-    redirect_to customers_path
+    redirect_to customer_reservation_path(@customer, @reservation.id)
 
   end
 
