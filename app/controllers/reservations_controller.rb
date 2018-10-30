@@ -25,28 +25,25 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @customer = Customer.find(params[:customer_id])
+
+    @reservation = Reservation.new(reservation_params)
+    # ["menuitems_reservations_attributes"]["0"])
+
 
     @reservation = Reservation.new(reservation_params)
     @reservation.save
 
-    # reservation_params["menuitems_reservations_attributes"].each do |item|
-    #   byebug
-    #   para = ["#{item}"][1]
 
-    #    @reservation = Reservation.new(para)
-    #    @reservation.save
-    # end
+    if @reservation.save
 
+#reservation_params["menuitems_reservations_attributes"].each do |item| ["#{item}"] end
+    @customer = Customer.find(params[:customer_id])
+    @reservationid = Reservation.where(id: params[:customer_id])
 
-    #@reservation = Reservation.new(reservation_params)
-
-    #@reservation.save
-    render plain: 'WORK'
-
-    #@reservationid = Reservation.where(id: params[:customer_id])
-
-    #redirect_to customer_reservation_path(@customer, @reservationid)
+    redirect_to customer_reservation_path(@customer, @reservationid)
+  else
+    render plain: "fail lei"
+  end
 
   end
 
@@ -72,7 +69,7 @@ class ReservationsController < ApplicationController
 
   def reservation_params
 
-    params.require(:reservation).permit(:customer_id, :reservation_date, :reservation_time,  menuitems_reservations_attributes: [:customer_id, :menuitem_id, :quantity ])
+    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time,  menuitems_reservations_attributes: [:id, :reservation_id, :menuitem_id, :quantity, :destroy])
 
   end
 

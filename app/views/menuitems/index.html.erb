@@ -51,11 +51,24 @@
 	<%= f.label :reservation_time %><br>
 	<%= f.time_field :reservation_time %>
 
+	<%= f.hidden_field :customer_id, value: current_customer.id %>
+	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
+	<p>
+		<%= f.label :reservation_date %><br>
+		<%= f.date_field :reservation_date %>
+	</p>
+	<p>
+		<%= f.label :reservation_time %><br>
+		<%= f.time_field :reservation_time %>
+	</p>
+
   <% @menuitems.each do |item| %>
 
   	<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
 
+  		<%= form.label :quantity %><br>
   		<%= form.number_field :quantity %>
+
   		<%= form.hidden_field :menuitem_id, value: item.id %>
 
 		<% end %>
@@ -67,4 +80,4 @@
 
 <% end %>
 <% end %>
-<% end %>
+
