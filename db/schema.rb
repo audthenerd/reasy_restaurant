@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2018_10_30_023802) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +24,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_023802) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
-    t.text "location"
     t.text "image_url"
     t.decimal "lat", precision: 10, scale: 8
     t.decimal "long", precision: 10, scale: 8
