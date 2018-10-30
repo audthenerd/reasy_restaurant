@@ -44,18 +44,20 @@
 
 <% if customer_signed_in? %>
 
-<% @menuitems.each do |item| %>
-	<%= form_with model: @reservation, local: true do |f| %>
-	<p>Name</p>
-  <%= f.text_field :name, placeholder: "Author Name" %>
+	<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
 
-  <%= f.fields_for :menuitems, Reservation.new do |book_f| %>
+  <% @menuitems.each do |item| %>
 
-  	 <%= book_f.label :quantity%>
-  	 <%= book_f.text_field :quantity %>
+  	<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
 
-<% end %>
-	 <%= f.submit %>
+  		<%= form.number_field :quantity %>
+  		<%= form.hidden_field :menuitem_id, value: item.id %>
+
+		<% end %>
+
+  <% end %>
+
+	<%= f.submit %>
 
 
 <% end %>

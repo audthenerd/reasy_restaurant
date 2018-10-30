@@ -26,11 +26,16 @@ class ReservationsController < ApplicationController
 
   def create
     @customer = Customer.find(params[:customer_id])
-    @reservation = Reservation.new(reservation_params)
-    @reservation.save
+    @reservation = Reservation.new(reservation_params["menuitems_reservations_attributes"]["0"])
 
-    render @reservation.param.inspect
-    #redirect_to customer_reservations_path(@customer)
+    @reservation.save
+              byebug
+
+
+#reservation_params["menuitems_reservations_attributes"].each do |item| ["#{item}"] end
+    @reservationid = Reservation.where(id: params[:customer_id])
+
+    redirect_to customer_reservation_path(@customer, @reservationid)
 
   end
 
@@ -55,7 +60,9 @@ class ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:customer_id, :reservation_date, :reservation_time,  reservations_menuitems_attributes: [:reservation_id, :menuitem_id, :quantity ])
+
+    params.require(:reservation).permit(:customer_id, :reservation_date, :reservation_time,  menuitems_reservations_attributes: [:customer_id, :menuitem_id, :quantity ])
+
   end
 
 

@@ -3,6 +3,9 @@ class RestaurantsController < ApplicationController
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
     else
+
+      # byebug
+
       @restaurants = Restaurant.all
     end
   end

@@ -13,6 +13,8 @@ class MenuitemsController < ApplicationController
     @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
 
     end
+
+    @reservation = Reservation.new
   end
 
   def new
@@ -51,6 +53,7 @@ class MenuitemsController < ApplicationController
 
   private
   def menuitem_params
-    params.require(:menuitem).permit(:item, :restaurant_id, :price, reservations_menuitems_attributes: [:reservation_id, :menuitem_id, :quantity ])
+    params.require(:menuitem).permit(:item, :restaurant_id, :price, menuitems_reservations_attributes: [:customer_id, :menuitem_id, :quantity ])
+
   end
 end
