@@ -3,7 +3,7 @@ class RestaurantsController < ApplicationController
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
     else
-      byebug
+      # byebug
       @restaurants = Restaurant.all
     end
   end
@@ -71,7 +71,7 @@ class RestaurantsController < ApplicationController
 
   def restro_params
 
-    params.require(:restaurant).permit(:name, :category, :location, :lat, :long, :image_url, :image2_url, :image3_url, :userrest_id, :search)
+    params.require(:restaurant).permit(:name, :category, :location, :lat, :long, :image_url, :image2_url, :image3_url, :userrest_id)
   end
 
 end

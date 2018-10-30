@@ -7,7 +7,7 @@
 
 
 <%= form_tag(restaurants_path, method: :get) do %>
-  <%= text_field_tag :name, nil, :search, params[:search], placeholder: "Search for restaurants by Name or Category", id: "search-rest" %>
+  <%= text_field_tag :name, nil, placeholder: "Search for restaurants by Name or Category", id: "search-rest" %>
   <%= submit_tag 'Search' %>
 <% end %>
 
