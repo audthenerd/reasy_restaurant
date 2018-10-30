@@ -26,16 +26,27 @@ class ReservationsController < ApplicationController
 
   def create
     @customer = Customer.find(params[:customer_id])
-    @reservation = Reservation.new(reservation_params["menuitems_reservations_attributes"]["0"])
 
+    @reservation = Reservation.new(reservation_params)
     @reservation.save
-              byebug
+
+    # reservation_params["menuitems_reservations_attributes"].each do |item|
+    #   byebug
+    #   para = ["#{item}"][1]
+
+    #    @reservation = Reservation.new(para)
+    #    @reservation.save
+    # end
 
 
-#reservation_params["menuitems_reservations_attributes"].each do |item| ["#{item}"] end
-    @reservationid = Reservation.where(id: params[:customer_id])
+    #@reservation = Reservation.new(reservation_params)
 
-    redirect_to customer_reservation_path(@customer, @reservationid)
+    #@reservation.save
+    render plain: 'WORK'
+
+    #@reservationid = Reservation.where(id: params[:customer_id])
+
+    #redirect_to customer_reservation_path(@customer, @reservationid)
 
   end
 
