@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_020907) do
+
+ActiveRecord::Schema.define(version: 2018_10_30_023802) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +24,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_020907) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
-    t.text "location"
     t.text "image_url"
     t.decimal "lat", precision: 10, scale: 8
     t.decimal "long", precision: 10, scale: 8
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 2018_10_30_020907) do
   create_table "reservations_menuitems", id: false, force: :cascade do |t|
     t.bigint "reservation_id"
     t.bigint "menuitem_id"
+    t.integer "quantity"
     t.index ["menuitem_id"], name: "index_reservations_menuitems_on_menuitem_id"
     t.index ["reservation_id"], name: "index_reservations_menuitems_on_reservation_id"
   end
