@@ -45,10 +45,15 @@
 <% if customer_signed_in? %>
 <%= form_with scope: :reservation, url: customer_reservations_path(current_customer.id), local: true do |form| %>
 	<% @menuitems.each do |item| %>
-	<%= form.text_field :menuitem_id, value: item.id%><br>
+	<%= form.label item.item%><br>
+	<%= form.hidden_field :menuitem_id, value: item.id%><br>
+
 	<%= form.label :quantity %><br>
-	<%= form.text_field :quantity %><br>
+	<%= form.number_field :quantity , min: 1 %><br>
+
 	<%= form.hidden_field :restaurant_id, value:@restaurant.id %>
+	<%= form.hidden_field :customer_id, value:current_customer.id %>
+
 	<% end %>
 
 

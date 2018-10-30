@@ -18,7 +18,6 @@ class ReservationsController < ApplicationController
 
 
   def show
-
   end
 
   def edit
@@ -30,7 +29,8 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.save
 
-    redirect_to customer_reservation_path(@customer, @reservation.id)
+    render @reservation.param.inspect
+    #redirect_to customer_reservations_path(@customer)
 
   end
 
