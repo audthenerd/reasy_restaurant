@@ -26,6 +26,11 @@ class ReservationsController < ApplicationController
   end
 
   def create
+    @customer = Customer.find(params[:customer_id])
+    @reservation = Reservation.new(reservation_params)
+    @reservation.save
+
+    redirect_to customer_reservation_path(@customer, @reservation.id)
 
   end
 
@@ -51,7 +56,6 @@ class ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservation).permit(:customer_id, :reservation_date, :reservation_time)
   end
-
 
 
 end

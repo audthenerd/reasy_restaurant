@@ -5,15 +5,16 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :customers do
-    resources :restaurants
-    resources :reservations
-  end
-
   resources :restaurants do
     resources :customers
     resources :reservations
     resources :menuitems
+  end
+
+  resources :customers do
+  resources :reservations
+  resources :restaurants
+  resources :menuitems
   end
 
   root to: "restaurants#index"
