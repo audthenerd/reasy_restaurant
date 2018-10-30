@@ -12,9 +12,13 @@ class Customers::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    @customer = Customer.find(current_customer.id)
+    @customer.update(lat: params[:customer][:lat], long: params[:customer][:long])
+    customer_session["latitude"] = params[:customer][:lat]
+    customer_session["longitude:"] = params[:customer][:long]
+    super
+  end
 
   # DELETE /resource/sign_out
   # def destroy
@@ -25,6 +29,7 @@ class Customers::SessionsController < Devise::SessionsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:lat, :long])
   # end
+
 end

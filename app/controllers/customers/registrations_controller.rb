@@ -12,9 +12,11 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    customer_session["latitude"] = params[:customer][:lat]
+    customer_session["longitude:"] = params[:customer][:long]
+  end
 
   # GET /resource/edit
   # def edit
