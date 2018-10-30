@@ -9,12 +9,17 @@ Rails.application.routes.draw do
     resources :customers
     resources :reservations
     resources :menuitems
+    resources :categories
   end
 
   resources :customers do
   resources :reservations
   resources :restaurants
   resources :menuitems
+  end
+
+  resources :categories do
+    resources :restaurants
   end
 
   root to: "restaurants#index"
