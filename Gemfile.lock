@@ -96,6 +96,7 @@ GEM
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
+    geocoder (1.5.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     gon (6.2.1)
@@ -251,6 +252,7 @@ DEPENDENCIES
   cloudinary
   coffee-rails (~> 4.2)
   devise
+  geocoder
   gon
   jbuilder (~> 2.5)
   jquery-rails
