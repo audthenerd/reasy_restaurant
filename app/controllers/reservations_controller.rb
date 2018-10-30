@@ -35,6 +35,7 @@ class ReservationsController < ApplicationController
   end
 
   def new
+    @reservation = Reservation.new
     # @customer = Customer.find(params[:customer_id])
 
     # @reservation = Reservation.new(reservation_params)
@@ -54,7 +55,7 @@ class ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:customer_id, :reservation_date, :reservation_time, :menuitem_id => [])
+    params.require(:reservation).permit(:customer_id, :reservation_date, :reservation_time,  reservations_menuitems_attributes: [:customer_id, :menuitem_id, :quantity ])
   end
 
 
