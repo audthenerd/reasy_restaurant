@@ -38,9 +38,7 @@ class ReservationsController < ApplicationController
 
 #reservation_params["menuitems_reservations_attributes"].each do |item| ["#{item}"] end
     @customer = Customer.find(params[:customer_id])
-    @reservationid = Reservation.where(id: params[:customer_id])
-
-    redirect_to customer_reservation_path(@customer, @reservationid)
+    redirect_to customer_reservation_path(@customer, @reservation)
   else
     render plain: "fail lei"
   end
