@@ -1,7 +1,18 @@
 <div class = "container">
 
  <div class="row">
-        <%# if user_signed_in? %>
+        <% if customer_signed_in? %>
+        <h1>Search for your favourite restaurant</h1>
+
+
+
+<%= form_tag(restaurants_path, method: :get) do %>
+  <%= text_field_tag :name, nil, :search, params[:search], placeholder: "Search for restaurants by Name or Category", id: "search-rest" %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+
+
             <% @restaurants.each do |restaurant| %>
             <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <br/>
@@ -18,9 +29,11 @@
                     <% # end %>
                 </div>
             </div>
-            <%# end %>
+            <% end %>
         <% end %>
     </div>
 
 </div>
+
+<%= link_to 'Back', restaurants_path %>
 
