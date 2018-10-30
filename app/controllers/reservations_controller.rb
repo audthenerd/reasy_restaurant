@@ -18,12 +18,11 @@ class ReservationsController < ApplicationController
 
 
   def show
-    @customer = Customer.find(params[:id])
 
   end
 
   def edit
-    @customer = Customer.find(params[:id])
+
   end
 
   def create
@@ -36,14 +35,14 @@ class ReservationsController < ApplicationController
   end
 
   def new
-    @reservation = Reservation.new(reservation_params)
-    @reservation.save
+    # @customer = Customer.find(params[:customer_id])
 
-    redirect_to customers_path
+    # @reservation = Reservation.new(reservation_params)
+    # @reservation.save
+
   end
 
   def update
-
 
   end
 
@@ -55,7 +54,7 @@ class ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time)
+    params.require(:reservation).permit(:customer_id, :reservation_date, :reservation_time)
   end
 
 

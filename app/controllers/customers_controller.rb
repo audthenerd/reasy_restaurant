@@ -51,9 +51,5 @@ class CustomersController < ApplicationController
     params.require(:customer).permit(:name, :image_url)
   end
 
-  def restaurant_params
-    params.require(:restaurant).permit(:name, :category)
-  end
-
 
 end
