@@ -3,10 +3,13 @@ class RestaurantsController < ApplicationController
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
     else
-
-      # byebug
-
+      if params[:name] != nil
+      @restaurants = Restaurant.where('name LIKE ?', "%#{params[:name]}%")
+      else
+      @categories = Category.all
       @restaurants = Restaurant.all
+
+      end
     end
   end
 
