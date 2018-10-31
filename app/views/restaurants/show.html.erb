@@ -1,9 +1,9 @@
 <div class="container">
-    <div class="row">
+   <!--  <div class="row">
         <h1>Show</h1>
-    </div>
+    </div> -->
     <div class="row">
-        <h5><%= @restaurant.name %></h5>
+        <h1><%= @restaurant.name %></h1>
         <%= cl_image_tag(@restaurant.image_url) %>
     </div>
 
@@ -11,6 +11,7 @@
         <h5>Menu</h5>
         <% @restaurant.menuitems.each do |menuitems| %>
             <div><%= menuitems.item %></div>
+            <div><%= menuitems.price %></div>
         <% end %>
     </div>
 
@@ -21,13 +22,17 @@
         <% end %>
     </div>
 
-    <div class="row">
-        <p><%= link_to 'Edit', edit_restaurant_path(@restaurant) %></p>
-        <p><%= link_to 'Destroy', restaurant_path(@restaurant),
+   <div class="row">
+    <!--     <p><%= link_to 'Edit Restaurant Profile', edit_restaurant_path(@restaurant) %></p>
+        <p><%= link_to 'Delete', restaurant_path(@restaurant),
             method: :delete,
-            data: { confirm: 'Are you sure?' } %></p>
-
-        <p><%= link_to 'Back', restaurants_path %></p>
+            data: { confirm: 'Are you sure?' } %></p> -->
+     <% if customer_signed_in? %>
+        <p><%= link_to 'Back to Homepage', restaurants_path, class: "minor-links" %></p>
+        <p><%= link_to 'See other ' + @category[0].name + ' Food', category_path(@category[0]), class: "minor-links" %></p>
+      <% elsif userrest_signed_in? %>
+      	<p><%= link_to 'Back to Homepage', restaurants_path, class: "minor-links" %></p>
+     <% end %>
     </div>
 
 </div>

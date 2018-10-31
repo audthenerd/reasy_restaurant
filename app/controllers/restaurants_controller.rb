@@ -23,6 +23,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @category = @restaurant.categories
     @reviews = Review.where(restaurant_id: @restaurant)
   end
 
