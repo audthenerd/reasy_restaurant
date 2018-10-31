@@ -14,9 +14,32 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
+
     customer_session["latitude"] = params[:customer][:latitude]
     customer_session["longitude:"] = params[:customer][:longitude]
+
+    uploaded_file = params[:customer][:image_url].path
+    cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+    @customer.image_url = cloudnary_file['public_id']
+    @customer.update(image_url: @customer.image_url)
+
   end
+
+  def edit
+    super
+    @customer = Customer.find(current_customer.id)
+    # byebug
+  end
+
+  def update
+    uploaded_file = params[:customer][:image_url].path
+    cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+    @customer.image_url = cloudnary_file['public_id']
+    @customer.update(image_url: @customer.image_url)
+
+    redirect_to @customer
+  end
+
 
   # GET /resource/edit
   # def edit
@@ -72,5 +95,5 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   def account_update_params
     params.require(:customer).permit(:name, :latitude, :longitude, :image_url, :email, :password, :password_confirmation, :current_password)
   end
-  
+
 end
