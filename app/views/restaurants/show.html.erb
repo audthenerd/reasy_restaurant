@@ -5,6 +5,15 @@
         <%= cl_image_tag(@restaurant.image_url) %>
     </div>
 
+
+
+    <h5>Categories</h5>
+      <div class="row">
+        <% @restaurant.categories.each do |cat| %>
+            <a href="<%= category_path(cat.id) %>" class="cat-links"><%= cat.name %></a>
+        <% end %>
+    </div>
+
     <h5>Reviews</h5>
 
     <% if @reviews.blank? %>
@@ -18,12 +27,20 @@
         <div class="star-rating" data-score=<%= @average_rating %></div>
     <% end %>
 
-    <div class="Row">
+
         <h5>Menu</h5>
+
+        <% if @restaurant.menuitems.blank? %>
+        <h5>no menu yet!</h5>
+    <% else %>
+    	<div class="Row">
         <% @restaurant.menuitems.each do |menuitems| %>
             <div><%= menuitems.item %></div>
             <div><%= menuitems.price %></div>
         <% end %>
+      </div>
+       <% end %>
+
  				<% if customer_signed_in? %>
         <p><%= link_to 'Make reservation', restaurant_menuitems_path(@restaurant) %></p>
         <% end %>
@@ -31,6 +48,7 @@
         <p><%= link_to 'Edit menu', restaurant_menuitems_path(@restaurant) %></p>
         <% end %>
     </div>
+
 
     <div class="row">
 
@@ -52,13 +70,17 @@
 
       <% if userrest_signed_in? %>
 
+      <p><%= link_to 'Add Menu', restaurant_menuitems_path(@restaurant) %></p>
+
       	<p><%= link_to 'Back to Homepage', restaurants_path, class: "minor-links" %></p>
       	<% else %>
+      	<p><%= link_to 'View Menu', restaurant_menuitems_path(@restaurant) %></p>
       	 <p><%= link_to 'Back to Homepage', restaurants_path, class: "minor-links" %></p>
        <% if (@category.length > 0) %>
         <p><%= link_to 'See other ' + @category[0].name + ' Food', category_path(@category[0]), class: "minor-links" %></p>
        <% else %>
        	<h1>No category assigned. Pls seed table</h1>
+       	<p><%= link_to 'View Menu', restaurant_menuitems_path(@restaurant) %></p>
        	<p><%= link_to 'Back to Homepage', restaurants_path, class: "minor-links" %></p>
        	<% end %>
      <% end %>

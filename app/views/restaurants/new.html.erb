@@ -19,15 +19,20 @@
                 <%= form.label :street %><br>
                 <%= form.text_field :street, {class: 'form-control'} %>
             </div>
-            
+
             <div>
                 <%= form.label :city %><br>
                 <%= form.text_field :city, {class: 'form-control'} %>
             </div>
-            
+
             <div>
                 <%= form.label :zipcode %><br>
                 <%= form.text_field :zip, {class: 'form-control'} %>
+            </div>
+
+            <div>
+                <%= form.label :categories %><br>
+                <%= form.collection_check_boxes :category_ids, @categories, :id, :name %>
             </div>
 
             <div>
@@ -36,7 +41,7 @@
 
             <div>
                 <%= form.hidden_field :long, {class: 'form-control'} %>
-            </div>            
+            </div>
 
 
             <br>
