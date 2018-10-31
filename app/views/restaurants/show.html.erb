@@ -1,23 +1,35 @@
 <div class="container">
-<div class="row">
-    <h1>Show</h1>
-</div>
-<div class="row">
+    <div class="row">
+        <h1>Show</h1>
+    </div>
+    <div class="row">
         <h5><%= @restaurant.name %></h5>
-
         <%= cl_image_tag(@restaurant.image_url) %>
+    </div>
 
+    <div class="Row">
+        <h5>Menu</h5>
         <% @restaurant.menuitems.each do |menuitems| %>
             <div><%= menuitems.item %></div>
         <% end %>
-        <p><%= link_to 'View Menu', restaurant_menuitems_path(@restaurant) %></p>
+    </div>
 
+    <div class="row">
+        <h5>Reviews</h5>
+        <% @reviews.each do |review| %>
+            <%= review.comment %>
+        <% end %>
+    </div>
+
+
+    <div class="row">
+    	<p><%= link_to 'View Menu', restaurant_menuitems_path(@restaurant) %></p>
         <p><%= link_to 'Edit', edit_restaurant_path(@restaurant) %></p>
         <p><%= link_to 'Destroy', restaurant_path(@restaurant),
             method: :delete,
             data: { confirm: 'Are you sure?' } %></p>
 
         <p><%= link_to 'Back', restaurants_path %></p>
+    </div>
 
-</div>
 </div>

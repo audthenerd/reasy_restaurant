@@ -2,20 +2,28 @@ class RestaurantsController < ApplicationController
   def index
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
+
     elsif current_customer
       if params[:name] != nil
-        @restaurants = Restaurant.where('name LIKE ?', "%#{params[:name]}%")
+        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
+
       else
         @restaurants = Restaurant.near([current_customer.latitude, current_customer.longitude])
-        @categories = Category.all
+         @categories = Category.all
       end
     else
-      @restuarants = Restaurant.all
+      if params[:name] != nil
+        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
+      else
+
+        @categories = Category.all
+      end
     end
   end
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @reviews = Review.where(restaurant_id: @restaurant)
   end
 
   def new
@@ -69,7 +77,7 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant = Restaurant.find(params[:id])
 
-    @restaurant.delete
+    @restaurant.destroy
     redirect_to restaurants_path
   end
 

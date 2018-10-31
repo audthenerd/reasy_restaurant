@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :reservations
     resources :menuitems
     resources :categories
+    resources :reviews, except: [:index, :show]
   end
 
   resources :customers do
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
   resources :categories do
     resources :restaurants
   end
+
+  resources :signups, :path => "signup"
 
   root to: "restaurants#index"
 end
