@@ -30,11 +30,11 @@ If customer is signed in
 		            <div class="card-body">
 		                <h5 class="card-title"><%= restaurant.name %></h5>
 		                <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
-		                    <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
-		                    <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
+		                    <p class="card-text inline"><%= link_to 'Restaurant Profile', restaurant_path(restaurant) %></p>
+		                   <!--  <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
 		                    <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
 		                        method: :delete,
-		                        data: { confirm: 'Are you sure?' } %></p>
+		                        data: { confirm: 'Are you sure?' } %></p> -->
 		            </div>
 		        </div>
 	        	<% end %>
@@ -96,13 +96,6 @@ If not signed in
 
     	<%# if false %>
 
-        <h1>Search for your favourite restaurant</h1>
-
-        <%= form_tag(restaurants_path, method: :get) do %>
-        <%= text_field_tag :name, nil, placeholder: "Search for restaurants by Name or Location", id: "search-rest" %>
-        <%= submit_tag 'Search' %>
-        <% end %>
-
         <!--
 			****************************
 			Upon searching, show results
@@ -116,11 +109,7 @@ If not signed in
 		            <div class="card-body">
 		                <h5 class="card-title"><%= restaurant.name %></h5>
 		                <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
-		                    <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
-		                    <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
-		                    <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
-		                        method: :delete,
-		                        data: { confirm: 'Are you sure?' } %></p>
+		                    <p class="card-text inline"><%= link_to 'Restaurant Profile', restaurant_path(restaurant) %></p>
 		            </div>
 		        </div>
 		        <% end %>
@@ -133,6 +122,13 @@ If not signed in
 			By default, show categories
 			**********************************-->
         <% else %>
+        <h1>Search for your favourite restaurant</h1>
+
+        <%= form_tag(restaurants_path, method: :get) do %>
+        <%= text_field_tag :name, nil, placeholder: "Search for restaurants by Name or Location", id: "search-rest" %>
+        <%= submit_tag 'Search' %>
+        <% end %>
+
 	        <% @categories.each do |cat| %>
 	        <div class="food-cat">
 	        	<%= image_tag cat.image_url, class: "img-thumbnail" %><br />
