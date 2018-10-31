@@ -25,6 +25,7 @@ class ReservationsController < ApplicationController
 
 
   def show
+
     if current_customer
       # customer signed in RESOLVED
       @customer = Customer.find(params[:customer_id])
@@ -36,6 +37,7 @@ class ReservationsController < ApplicationController
      # restaurant signed in UNRESOLVED
 
     end
+
 
   end
 
