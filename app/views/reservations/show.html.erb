@@ -1,1 +1,25 @@
+<!--
+**************************
+If customer signed in
+UNRESOLVED
+************************** -->
 <h1>HELLO</h1>
+
+<%= @reservation.restaurant.name %>
+<br><br>
+
+<% @reservation.menuitems_reservations.each do |x| %>
+<p>
+<%= x.quantity %> <%= x.menuitem.item %> <%= x.menuitem.price %></p>
+
+<% end %>
+
+total
+<%= @price %>
+
+
+<!--
+**************************
+If restaurant signed in
+UNRESOLVED
+************************** -->
