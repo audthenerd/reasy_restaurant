@@ -1,8 +1,8 @@
-<h1>Search for your favourite restaurant</h1>
+<h1>Your Profile</h1>
+
+	<%= cl_image_tag(@customer.image_url,  class: "customer-pic") %>
 
 
 
-<%= form_tag(customer_restaurants_path(@customer), method: :get) do %>
-  <%= text_field_tag :name, nil, placeholder: "Search for restaurants by Name or Category", id: "search-rest" %>
-  <%= submit_tag 'Search' %>
-<% end %>
+
+<div><%= link_to 'Back to Homepage', restaurants_path %></div>

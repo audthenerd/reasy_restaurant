@@ -34,12 +34,15 @@ class RestaurantsController < ApplicationController
 
   def new
     @restaurant = Restaurant.new
+    @categories = Category.all
+
   end
 
   def create
     #render plain: params[:restaurant].inspect
     @restaurant = Restaurant.new(restro_params)
     @restaurant.userrest = current_userrest
+    @categories = Category.all
 
     if @restaurant.image_url
       uploaded_file = params[:restaurant][:image_url].path
@@ -48,7 +51,6 @@ class RestaurantsController < ApplicationController
     # else
     #   @restaurant.photo_url = $result.data.image_url
     end
-
     if @restaurant.save
       redirect_to @restaurant
     else
@@ -91,7 +93,7 @@ class RestaurantsController < ApplicationController
 
   def restro_params
 
-    params.require(:restaurant).permit(:name, :category, :street, :city, :zip, :latitude, :longitude, :image_url, :image2_url, :image3_url, :userrest_id)
+    params.require(:restaurant).permit(:name, :street, :city, :zip, :latitude, :longitude, :image_url, :image2_url, :image3_url, :userrest_id, :category_ids => [])
   end
 
 end
