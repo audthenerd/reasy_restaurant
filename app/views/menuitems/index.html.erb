@@ -64,7 +64,7 @@
 	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
 
 	<%= month_calendar(attribute: :reservation_date, events: @booked) do |date, events| %>
-  <%= date %>
+  <%= date.to_formatted_s(:short) %>
 
 	  <% events.each do |event| %>
 	    <div>
@@ -75,6 +75,9 @@
 	<% end %>
 
   <% @menuitems.each do |item| %>
+
+  	<%= item.item %> | <%= item.price %>
+
 
   	<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
 
