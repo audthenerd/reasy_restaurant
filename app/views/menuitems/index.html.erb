@@ -53,14 +53,17 @@
 
 	<%= f.hidden_field :customer_id, value: current_customer.id %>
 	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
-	<p>
-		<%= f.label :reservation_date %><br>
-		<%= f.date_field :reservation_date %>
-	</p>
-	<p>
-		<%= f.label :reservation_time %><br>
-		<%= f.time_field :reservation_time %>
-	</p>
+
+	<%= month_calendar events: @booked do |date, events| %>
+  <%= date %>
+
+	  <% events.each do |event| %>
+	    <div>
+	      <%= event.customer_id %>
+	    </div>
+	  <% end %>
+
+	<% end %>
 
   <% @menuitems.each do |item| %>
 
