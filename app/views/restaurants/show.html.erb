@@ -1,11 +1,22 @@
 <div class="container">
-   <!--  <div class="row">
-        <h1>Show</h1>
-    </div> -->
+
     <div class="row">
         <h1><%= @restaurant.name %></h1>
         <%= cl_image_tag(@restaurant.image_url) %>
     </div>
+
+    <h5>Reviews</h5>
+
+    <% if @reviews.blank? %>
+        <h5>no reviews yet!</h5>
+    <% else %>
+        <div class="row">
+            <% @reviews.each do |review| %>
+                <div><%= review.comment %></div>
+            <% end %>
+        </div>
+        <div class="star-rating" data-score=<%= @average_rating %></div>
+    <% end %>
 
     <div class="Row">
         <h5>Menu</h5>
@@ -16,6 +27,7 @@
     </div>
 
     <div class="row">
+
         <h5>Reviews</h5>
         <% @reviews.each do |review| %>
             <%= review.comment %>
@@ -41,3 +53,4 @@
     </div>
 
 </div>
+

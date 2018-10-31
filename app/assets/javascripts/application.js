@@ -16,7 +16,7 @@
 //= require_tree .
 //= require jquery3
 //= require popper
+//= require jquery.raty.js
 //= require bootstrap-sprockets
-
 
 //turbolinks causes lat and long not to be saved into db at login
