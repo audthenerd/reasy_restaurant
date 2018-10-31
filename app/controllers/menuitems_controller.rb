@@ -14,6 +14,7 @@ class MenuitemsController < ApplicationController
     if current_customer
     @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
     @reservation = Reservation.new
+    @booked = Reservation.all
     end
 
 

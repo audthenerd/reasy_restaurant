@@ -72,3 +72,5 @@ gem 'jquery-rails'
 gem 'gon'
 
 gem "geocoder"
+
+gem "simple_calendar", "~> 2.0"
