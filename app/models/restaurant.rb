@@ -8,6 +8,7 @@ class Restaurant < ApplicationRecord
   has_many :reservations
   has_many :customers, through: :reservations
   has_many :categories
+  has_many :reviews
 
   def address
     [street, city, zip].compact.join(", ")

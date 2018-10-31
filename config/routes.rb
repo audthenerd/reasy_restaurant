@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :reservations
     resources :menuitems
     resources :categories
+    resources :reviews, except: [:index, :show]
   end
 
   resources :customers do
