@@ -5,36 +5,21 @@ UNRESOLVED
 ************************** -->
 <h1>HELLO</h1>
 
-<% if customer_signed_in? %>
-Reservation for : <%= @restaurant[0].name%>
-<div>
-Your order:<br>
-<% @orders.each do |item| %>
-	<%= item.item %> <%= item.item %><br>
-<% end %>
-</div>
+<%= @reservation.restaurant.name %>
+<br><br>
+
+<% @reservation.menuitems_reservations.each do |x| %>
+<p>
+<%= x.quantity %> <%= x.menuitem.item %> <%= x.menuitem.price %></p>
 
 <% end %>
+
+total
+<%= @price %>
+
 
 <!--
 **************************
 If restaurant signed in
 UNRESOLVED
 ************************** -->
-
-
-
-<% if userrest_signed_in? %>
-
-	<%= month_calendar(attribute: :reservation_date, events: @booked) do |date, events| %>
-  <%= date.to_formatted_s(:short) %>
-
-	  <% events.each do |event| %>
-	    <div>
-	      <%= event.customer_id %>
-	      <%= event.reservation_time %>
-	    </div>
-	  <% end %>
-
-	<% end %>
-		<% end %>

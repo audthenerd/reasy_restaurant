@@ -26,16 +26,11 @@ class ReservationsController < ApplicationController
 
   def show
     if current_customer
-      # customer signed in UNRESOLVED
+      # customer signed in RESOLVED
       @customer = Customer.find(params[:customer_id])
       @reservation = Reservation.find(params[:id])
-      @restaurant = Restaurant.where(id: @reservation.restaurant_id)
 
-      @orders = @reservation.menuitems
-      @quantity = MenuitemsReservation.find(reservation_id: @reservation)
-
-      render plain: @quantity.inspect
-
+      @price = @reservation.menuitems_reservations.map{|y| y.menuitem.price * y.quantity}.reduce(:+)
 
     elsif current_userrest
      # restaurant signed in UNRESOLVED
