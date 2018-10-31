@@ -21,7 +21,9 @@
         <% end %>
     </div>
 
+
     <div class="row">
+    	<p><%= link_to 'View Menu', restaurant_menuitems_path(@restaurant) %></p>
         <p><%= link_to 'Edit', edit_restaurant_path(@restaurant) %></p>
         <p><%= link_to 'Destroy', restaurant_path(@restaurant),
             method: :delete,

@@ -48,13 +48,22 @@
 	<%= f.label :reservation_date %><br>
 	<%= f.date_field :reservation_date %><br>
 
-	<%= f.label :reservation_time %><br>
-	<%= f.time_field :reservation_time %>
+	<%= f.time_select :reservation_time,
+  :combined => true,
+  :default => Time.now.change(:hour => 11, :min => 30),
+  :minute_interval => 15,
+  :time_separator => "",
+  :start_hour => 10,
+  :start_minute => 30,
+  :end_hour => 14,
+  :end_minute => 30,
+  :label => false
+%>
 
 	<%= f.hidden_field :customer_id, value: current_customer.id %>
 	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
 
-	<%= month_calendar events: @booked do |date, events| %>
+	<%= month_calendar(attribute: :reservation_date, events: @booked) do |date, events| %>
   <%= date %>
 
 	  <% events.each do |event| %>

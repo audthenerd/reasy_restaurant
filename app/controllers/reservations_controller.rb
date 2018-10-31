@@ -25,12 +25,12 @@ class ReservationsController < ApplicationController
   end
 
   def create
+    params[:reservation].parse_time_select! :reservation_time
 
     @reservation = Reservation.new(reservation_params)
     # ["menuitems_reservations_attributes"]["0"])
 
 
-    @reservation = Reservation.new(reservation_params)
     @reservation.save
 
 
@@ -67,7 +67,7 @@ class ReservationsController < ApplicationController
 
   def reservation_params
 
-    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time,  menuitems_reservations_attributes: [:id, :reservation_id, :menuitem_id, :quantity, :destroy])
+    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time ,  menuitems_reservations_attributes: [:id, :reservation_id, :menuitem_id, :quantity, :destroy])
 
   end
 
