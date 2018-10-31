@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_174555) do
+ActiveRecord::Schema.define(version: 2018_10_31_034500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.string "image_url"
+  end
+
+  create_table "categories_restaurants", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "restaurant_id"
+    t.index ["category_id"], name: "index_categories_restaurants_on_category_id"
+    t.index ["restaurant_id"], name: "index_categories_restaurants_on_restaurant_id"
   end
 
   create_table "customers", force: :cascade do |t|

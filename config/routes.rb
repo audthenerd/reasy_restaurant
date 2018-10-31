@@ -22,5 +22,7 @@ Rails.application.routes.draw do
     resources :restaurants
   end
 
+  resources :signups, :path => "signup"
+
   root to: "restaurants#index"
 end
