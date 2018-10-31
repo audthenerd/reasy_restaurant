@@ -3,24 +3,29 @@ class ReviewsController < ApplicationController
 
     def new
         @restaurant = Restaurant.find(params[:restaurant_id])
-        @review = Review.new(restaurant_id: @restaurant.id)
-    end
+        @review = Review.new
 
+        if params.has_key?(:restaurant_id)
+          @restaurants = Restaurant.where(id: params[:restaurant_id])
+        else
+          @restaurants = Restaurant.all
+        end
+      end
 
     def create
         @restaurant = Restaurant.find(params[:restaurant_id])
-        # @review = current_customer.reviews.build(review_parmas)
-        @review.customer_id = current_customer.id
-        @review.restaurant_id = @restaurant.id
+        @review = Review.new(review_params)
+        @review.customer = current_customer
 
-        @review.save
-        redirect_to @restaurant
+        if @review.save
+            redirect_to @restaurant
+        end
     end
 
     private
 
     def review_params
-        params.require[:review].permit(:comment, :rating, :restaurant_id, :customer_id)
+        params.require(:review).permit(:comment, :rating, :restaurant_id)
     end
         
 end

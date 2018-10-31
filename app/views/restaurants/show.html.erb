@@ -22,9 +22,14 @@
         <% end %>
     </div>
 
+
    <div class="row">
     <!--     <p><%= link_to 'Edit Restaurant Profile', edit_restaurant_path(@restaurant) %></p>
+            <p><%= link_to 'View Menu', restaurant_menuitems_path(@restaurant) %></p>
         <p><%= link_to 'Delete', restaurant_path(@restaurant),
+
+    	
+   
             method: :delete,
             data: { confirm: 'Are you sure?' } %></p> -->
      <% if customer_signed_in? %>

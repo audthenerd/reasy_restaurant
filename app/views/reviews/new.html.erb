@@ -1,6 +1,9 @@
-<%= form_with models: [@restaurant, @review] do |form| %>
+<%= form_with model: @review, url: restaurant_reviews_path(@restaurant.id) do |form| %>
+
+    <%= form.collection_select :restaurant_id, @restaurants, :id, :name %> 
     <%= form.text_area :comment %>
     <%= form.number_field :rating %>
 
     <%= form.submit %>
+
 <% end %>

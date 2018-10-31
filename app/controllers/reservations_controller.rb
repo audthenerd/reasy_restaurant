@@ -4,20 +4,40 @@ class ReservationsController < ApplicationController
 
   def index
 
-    if params.keys[2] == "customer_id"
+    if current_customer
+      # customer signed in RESOLVED
       @reservation = Reservation.where(customer_id: params[:customer_id])
-      @customer = Customer.where(id: params[:customer_id])
-      @restaurant = Reservation.where(customer_id: params[:customer_id])
+      @customer = Customer.find(params[:customer_id])
+      @booked = Reservation.where(customer_id: params[:customer_id])
+      @restaurant = @customer.restaurants
 
-    elsif params.keys[2] == "restaurant_id"
+
+    elsif current_userrest
+      # restaurant signed in UNRESOLVED
       @reservation = Reservation.where(restaurant_id: params[:restaurant_id])
       @restaurant = Restaurant.where(id: params[:restaurant_id])
       @customer = Reservation.where(restaurant_id: params[:restaurant_id])
+
+
+      @booked = Reservation.all
     end
   end
 
 
   def show
+
+    if current_customer
+      # customer signed in RESOLVED
+      @customer = Customer.find(params[:customer_id])
+      @reservation = Reservation.find(params[:id])
+
+      @price = @reservation.menuitems_reservations.map{|y| y.menuitem.price * y.quantity}.reduce(:+)
+
+    elsif current_userrest
+     # restaurant signed in UNRESOLVED
+
+    end
+
 
   end
 
@@ -26,12 +46,12 @@ class ReservationsController < ApplicationController
   end
 
   def create
+    params[:reservation].parse_time_select! :reservation_time
 
     @reservation = Reservation.new(reservation_params)
     # ["menuitems_reservations_attributes"]["0"])
 
 
-    @reservation = Reservation.new(reservation_params)
     @reservation.save
 
 
@@ -68,7 +88,7 @@ class ReservationsController < ApplicationController
 
   def reservation_params
 
-    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time,  menuitems_reservations_attributes: [:id, :reservation_id, :menuitem_id, :quantity, :destroy])
+    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time ,  menuitems_reservations_attributes: [:id, :reservation_id, :menuitem_id, :quantity, :destroy])
 
   end
 
