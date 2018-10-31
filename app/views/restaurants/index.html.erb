@@ -1,30 +1,65 @@
 <div class = "container">
+
+<!--
+**************************
+If customer is signed in
+************************** -->
+
     <% if customer_signed_in? %>
 
         <div class="row">
+
         <h1>Search for your favourite restaurant</h1>
             <%= form_tag(restaurants_path, method: :get) do %>
             <%= text_field_tag :name, nil, placeholder: "Search for restaurants by Name or Location", id: "search-rest" %>
             <%= submit_tag 'Search' %>
             <% end %>
         </div>
-        
-        <% @restaurants.each do |restaurant| %>
-        <div class="row card col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <br/>
-            <%= cl_image_tag(restaurant.image_url,  class: "card-img-top") %>
-            <div class="card-body">
-                <h5 class="card-title"><%= restaurant.name %></h5>
-                <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
-                    <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
-                    <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
-                    <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
-                        method: :delete,
-                        data: { confirm: 'Are you sure?' } %></p>
-            </div>
-        </div>
-        <% end %>
 
+			<!--
+			****************************
+			Upon searching, show results
+			**************************** -->
+
+         <% if params[:name] != nil %>
+
+	        <% @restaurants.each do |restaurant| %>
+		        <div class="row card col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		            <br/>
+		            <%= cl_image_tag(restaurant.image_url,  class: "card-img-top") %>
+		            <div class="card-body">
+		                <h5 class="card-title"><%= restaurant.name %></h5>
+		                <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
+		                    <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
+		                    <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
+		                    <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
+		                        method: :delete,
+		                        data: { confirm: 'Are you sure?' } %></p>
+		            </div>
+		        </div>
+	        	<% end %>
+        <%= link_to 'Back', restaurants_path %>
+
+
+        <!--
+			**********************************
+			By default, show categories
+			**********************************-->
+        <% else %>
+	        <% @categories.each do |cat| %>
+	        <div class="food-cat">
+	        	<%= image_tag cat.image_url, class: "img-thumbnail" %><br />
+	           <a href="<%= category_path(cat.id) %>"><%= cat.name %></a>
+	           </div>
+	        <% end %>
+	      <% end %>
+
+
+
+<!--
+**************************
+If restaurant is signed in
+************************** -->
     <% elsif userrest_signed_in? %>
 
         <% @restaurants.each do |restaurant| %>
@@ -42,10 +77,17 @@
             </div>
         </div>
         <% end %>
-        
+
+
+
+<!--
+**************************
+If not signed in
+************************** -->
     <% else %>
 
-<% if false %>
+    	<%# if false %>
+
         <h1>Search for your favourite restaurant</h1>
 
         <%= form_tag(restaurants_path, method: :get) do %>
@@ -53,12 +95,46 @@
         <%= submit_tag 'Search' %>
         <% end %>
 
-        <% @categories.each do |cat| %>
-            <a href="<%= category_path(cat.id) %>"><%= cat.name %></a>
+        <!--
+			****************************
+			Upon searching, show results
+			**************************** -->
+        <% if params[:name] != nil %>
+
+	        <% @restaurants.each do |restaurant| %>
+		        <div class="row card col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		            <br/>
+		            <%= cl_image_tag(restaurant.image_url,  class: "card-img-top") %>
+		            <div class="card-body">
+		                <h5 class="card-title"><%= restaurant.name %></h5>
+		                <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
+		                    <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
+		                    <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
+		                    <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
+		                        method: :delete,
+		                        data: { confirm: 'Are you sure?' } %></p>
+		            </div>
+		        </div>
+		        <% end %>
+
+		        <%= link_to 'Back', restaurants_path %>
+
+
+		    <!--
+			**********************************
+			By default, show categories
+			**********************************-->
+        <% else %>
+	        <% @categories.each do |cat| %>
+	        <div class="food-cat">
+	        	<%= image_tag cat.image_url, class: "img-thumbnail" %><br />
+	           <a href="<%= category_path(cat.id) %>"><%= cat.name %></a>
+	           </div>
+	        <% end %>
         <% end %>
 
+       <%# end %>
 <% end %>
 
-    <% end %>
 </div>
 

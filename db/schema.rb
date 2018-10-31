@@ -17,6 +17,14 @@ ActiveRecord::Schema.define(version: 2018_10_31_030947) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.string "image_url"
+  end
+
+  create_table "categories_restaurants", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "restaurant_id"
+    t.index ["category_id"], name: "index_categories_restaurants_on_category_id"
+    t.index ["restaurant_id"], name: "index_categories_restaurants_on_restaurant_id"
   end
 
   create_table "customers", force: :cascade do |t|
