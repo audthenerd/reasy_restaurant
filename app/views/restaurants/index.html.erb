@@ -61,7 +61,8 @@ If customer is signed in
 If restaurant is signed in
 ************************** -->
     <% elsif userrest_signed_in? %>
-
+    <h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>
+    <h3>Restaurants Owned by You</h3>
         <% @restaurants.each do |restaurant| %>
         <div class="row card col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <br/>
@@ -69,13 +70,20 @@ If restaurant is signed in
             <div class="card-body">
                 <h5 class="card-title"><%= restaurant.name %></h5>
                 <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
-                    <p class="card-text inline"><%= link_to 'Show', restaurant_path(restaurant) %></p>
-                    <p class="card-text inline"><%= link_to 'Edit', edit_restaurant_path(restaurant) %></p>
-                    <p class="card-text inline"><%= link_to 'Destroy', restaurant_path(restaurant),
+                    <p class="card-text inline"><%= link_to 'Restaurant Profile', restaurant_path(restaurant) %></p>
+                    <p class="card-text inline"><%= link_to 'See Restaurant Reservations', restaurant_reservations_path(restaurant) %></p>
+                    <p class="card-text inline"><%= link_to 'Edit Restaurant', edit_restaurant_path(restaurant) %></p>
+                    <p class="card-text inline"><%= link_to 'Delete Restaurant', restaurant_path(restaurant),
                         method: :delete,
                         data: { confirm: 'Are you sure?' } %></p>
             </div>
         </div>
+
+
+   			<div class="links">
+
+
+   			</div>
         <% end %>
 
 

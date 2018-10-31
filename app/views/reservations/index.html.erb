@@ -1,8 +1,49 @@
-<% if params.keys[2] == "customer_id" %>
-	<h1><%= @customer[0].name %>: Your Reservations</h1>
+<!--
+**************************
+If customer signed in
+************************** -->
 
-<% elsif params.keys[2] == "restaurant_id" %>
-	<h1><%= @restaurant[0].name %>: Your Customer Reservations</h1>
+<% if customer_signed_in? %>
+	<h1><%= @customer.name %>: Your Reservations</h1>
+	<%= month_calendar(attribute: :reservation_date, events: @booked, restaurant: @restaurant) do |date, events, restaurant| %>
+
+  <%= date.to_formatted_s(:short) %>
+
+	  <% events.each do |event| %>
+	    <div>
+	    	<%= link_to 'Your reservation at:' + event.restaurant.name, customer_reservation_path(current_customer.id, event.id) %><br>
+	      <%= event.reservation_time %>
+	    </div>
+	  <% end %>
+
+	<% end %>
+
+
+	<% end %>
+
+
+
+<!--
+**************************
+If restaurant signed in
+UNRESOLVED
+************************** -->
+
+<% if userrest_signed_in? %>
+	<h1><%= @restaurant.name %>: Your Customer Reservations</h1>
+
+
+	<%= month_calendar(attribute: :reservation_date, events: @booked) do |date, events| %>
+  <%= date.to_formatted_s(:short) %>
+
+	  <% events.each do |event| %>
+	    <div>
+	      <%= event.customer_id %>
+	      <%= event.reservation_time %>
+	    </div>
+	  <% end %>
+
+	<% end %>
 <% end %>
 
 
