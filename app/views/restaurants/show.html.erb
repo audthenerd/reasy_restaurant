@@ -4,10 +4,10 @@
 
     <div class="row">
         <h1><%= @restaurant.name %></h1>
-        <%= cl_image_tag(@restaurant.image_url) %>
+        <% @restaurant.image_url.each do |image| %>
+            <%= cl_image_tag(image) %>
+        <% end %>
     </div>
-
-
 
     <h5>Categories</h5>
       <div class="row">

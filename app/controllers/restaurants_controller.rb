@@ -2,7 +2,6 @@ class RestaurantsController < ApplicationController
   def index
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
-
     elsif current_customer
       if params[:name] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
@@ -15,7 +14,6 @@ class RestaurantsController < ApplicationController
       if params[:name] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
       else
-
         @categories = Category.all
       end
     end
@@ -45,12 +43,13 @@ class RestaurantsController < ApplicationController
     @categories = Category.all
 
     if @restaurant.image_url
-      uploaded_file = params[:restaurant][:image_url].path
-      cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
-      @restaurant.image_url = cloudnary_file['public_id']
-    # else
-    #   @restaurant.photo_url = $result.data.image_url
+      params[:restaurant][:image_url].each do |image|
+        uploaded_file = image.path
+        cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+        @restaurant.image_url << cloudnary_file['public_id']
+      end
     end
+
     if @restaurant.save
       redirect_to @restaurant
     else
