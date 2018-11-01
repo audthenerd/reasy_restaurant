@@ -19,6 +19,7 @@ $(document).ready(function(){
     }).on('ajax:error',function(e, xhr, status, error){
       $('#reportalert').text('Failed.');
     });
+
   });
 
 

@@ -17,22 +17,37 @@
     </div>
 
     <h5>Reviews</h5>
-
     <% if @reviews.blank? %>
         <h5>no reviews yet!</h5>
     <% else %>
         <div class="row">
-            <% @reviews.each do |review| %>
-                <div><%= review.comment %></div>
-            <% end %>
+        Total: <div class="star-rating" data-score=<%= @average_rating %>></div>
+            <table class="table">
+            <thead>
+            <tr>
+            <th class="col-mid-3">Customer</th>
+            <th class="col-mid-9">Review</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% @reviews.each do |review| %>
+                <tr>
+                    <td>
+                        <h5><%= "#{review.customer.name}" %></h5>
+                    </td>
+                    <td>
+                        <div class="clearfix star-rating" data-score=<%= review.rating %>></div>
+                        <%= review.comment %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
         </div>
-        <div class="star-rating" data-score=<%= @average_rating %></div>
     <% end %>
-
-
-        <h5>Menu</h5>
-
-        <% if @restaurant.menuitems.blank? %>
+    <%= link_to "Create Review", new_restaurant_review_path(@restaurant), class: "btn btn-primary" %>
+    <h5>Menu</h5>
+    <% if @restaurant.menuitems.blank? %>
         <h5>no menu yet!</h5>
     <% else %>
     	<div class="Row">
@@ -48,15 +63,6 @@
         <% end %>
         <% if userrest_signed_in? %>
         <p><%= link_to 'Edit menu', restaurant_menuitems_path(@restaurant) %></p>
-        <% end %>
-    </div>
-
-
-    <div class="row">
-
-        <h5>Reviews</h5>
-        <% @reviews.each do |review| %>
-            <%= review.comment %>
         <% end %>
     </div>
 

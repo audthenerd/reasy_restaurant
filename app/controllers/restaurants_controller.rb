@@ -1,18 +1,20 @@
 class RestaurantsController < ApplicationController
+
   def index
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
     elsif current_customer
-      if params[:name] != nil
-        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
-
+      if params[:option] == "name" && params[:search] != nil
+        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
+      elsif params[:option] == "location" && params[:search] != nil
+        @restaurants = Restaurant.near(params[:search], 3) if params[:search].present?
       else
-        @restaurants = Restaurant.near([current_customer.latitude, current_customer.longitude])
+        @restaurants = Restaurant.near([current_customer.latitude, current_customer.longitude], 5)
          @categories = Category.all
       end
-    else
-      if params[:name] != nil
-        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
+    else # visitors of the page with no logins
+      if params[:search].present?
+        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
       else
         @categories = Category.all
       end
