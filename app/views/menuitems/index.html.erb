@@ -88,7 +88,7 @@
 
   <% end %>
 
-	<%= f.submit %>
+	<%= f.submit id: 'formsubmit' %>
 
 
 <% end %>
@@ -125,7 +125,7 @@
 				if (counter === 10){
 					selectbox.options[0].text = 'Sorry fully booked'
 					selectbox.disabled = true;
-
+					document.getElementById('formsubmit').disabled =true;
 				}
 
 		  	for (var i = 0; i < jsonresponse.length; i ++){
