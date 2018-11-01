@@ -46,7 +46,12 @@
 
 	<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
 	<%= f.label :reservation_date %><br>
-	<%= f.date_field :reservation_date %><br>
+
+
+	<%= f.date_field( :reservation_date, data: { url: restaurant_menuitems_path, remote: true , method: :get} )%><br>
+
+	<%= content_tag :div, "", id: "reportalert" %>
+
 
 	<%= f.time_select :reservation_time,
   :combined => true,
@@ -57,22 +62,14 @@
   :start_minute => 30,
   :end_hour => 14,
   :end_minute => 30,
-  :label => false
+  :label => false,
+  :html_options =>{:disabled => @checkvar}
 %>
+
 
 	<%= f.hidden_field :customer_id, value: current_customer.id %>
 	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
 
-	<%= month_calendar(attribute: :reservation_date, events: @booked) do |date, events| %>
-  <%= date.to_formatted_s(:short) %>
-
-	  <% events.each do |event| %>
-	    <div>
-	      <%= event.customer_id %>
-	    </div>
-	  <% end %>
-
-	<% end %>
 
   <% @menuitems.each do |item| %>
 

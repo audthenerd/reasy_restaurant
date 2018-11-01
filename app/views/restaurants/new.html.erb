@@ -3,7 +3,7 @@
         <h1>Add Restaurant</h1>
     </div>
     <div class="row">
-        <%= form_with model: @restaurant do |form| %>
+        <%= form_with model: @restaurant, local: true do |form| %>
 
             <div>
                 <%= form.label :name %><br>

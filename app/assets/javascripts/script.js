@@ -10,6 +10,24 @@
 
 // }
 
+$(document).ready(function(){
+    $('#reservation_reservation_date').on('ajax:success', function(e, data, status, xhr){
+      // $.ajax({complete: function() { alert(this.data);}});
+
+      $('#reportalert').html("<%= j render data %>");
+
+    }).on('ajax:error',function(e, xhr, status, error){
+      $('#reportalert').text('Failed.');
+    });
+  });
+
+
+// $('#changet').on('change', function(event) {
+//     console.log('ok');
+//   var selected_resource_id = $(this).val();
+//   $.ajax('/restaurants/', data: { id: selected_resource_id })
+// })
+
 
 window.onload = function() {
     if($("#customer_latitude").length){
