@@ -12,6 +12,7 @@ class MenuitemsController < ApplicationController
     @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
     #@restaurants = Restaurant.where(userrest_id: current_userrest.id)
     end
+
     if current_customer
     @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
     @reservation = Reservation.new
@@ -19,9 +20,12 @@ class MenuitemsController < ApplicationController
 
    @checkvar = @booked.each do |x| x.reservation_time.present? end
 
+    if params[:reservation]
+      @reservationtime = Reservation.where(reservation_date: params[:reservation5Breservation_date5D])
+      render plain: params.inspect
     end
 
-
+end
   end
 
   def new
