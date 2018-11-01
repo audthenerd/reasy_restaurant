@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= include_gon %>
-    
+
     <script
     src="https://code.jquery.com/jquery-3.3.1.js"
     integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -58,9 +58,9 @@
     <div class="container">
     <%= yield %>
     </div>
-  
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvIOA1fSvyvcGj-eCn_QA0vIqpBcoNXL0&libraries=places" type="text/javascript"></script>
-    <script>
+<script>
       $('.star-rating').raty({
         path: '/assets',
         readOnly: true,
