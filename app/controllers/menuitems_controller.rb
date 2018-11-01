@@ -1,7 +1,17 @@
 require 'byebug'
 
 class MenuitemsController < ApplicationController
-  before_action :authenticate_userrest!, :except => [ :index ]
+  before_action :authenticate_userrest!, :except => [ :index, :ajax ]
+  skip_before_action :verify_authenticity_token, only: [:ajax]
+
+  def ajax
+
+    @reservationtime = Reservation.where(reservation_date: params[:reservation][:reservation_date])
+
+    #@reservationtime = Reservation.where(reservation_date: params[:reservation][:reservation_date])
+    # byebug
+    render json: { ok: @reservationtime }, status: 200
+  end
 
 
   def index
