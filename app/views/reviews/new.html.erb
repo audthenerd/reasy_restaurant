@@ -1,4 +1,4 @@
-<%= form_with model: @review, url: restaurant_reviews_path(@restaurant.id) do |form| %>
+<%= form_with model: @review, url: restaurant_reviews_path(@restaurant.id), local: true do |form| %>
 
     <%= form.collection_select :restaurant_id, @restaurants, :id, :name %> 
     <%= form.text_area :comment %>
