@@ -10,6 +10,7 @@ class Restaurant < ApplicationRecord
   has_many :reviews
   has_and_belongs_to_many :categories
 
+  serialize :image_url, Array
 
   def address
     [street, city, zip].compact.join(", ")
