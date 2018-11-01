@@ -3,6 +3,7 @@ require 'byebug'
 class MenuitemsController < ApplicationController
   before_action :authenticate_userrest!, :except => [ :index ]
 
+
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
 
@@ -15,6 +16,9 @@ class MenuitemsController < ApplicationController
     @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
     @reservation = Reservation.new
     @booked = Reservation.all
+
+   @checkvar = @booked.each do |x| x.reservation_time.present? end
+
     end
 
 

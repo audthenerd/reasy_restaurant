@@ -76,3 +76,4 @@ gem "geocoder"
 gem "simple_calendar", "~> 2.0"
 
 gem "combined_time_select", "~> 2.0.0"
+
