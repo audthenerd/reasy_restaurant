@@ -10,6 +10,6 @@
 
 Category.create([{name: 'Japanese', image_url: 'jap_food.jpg'}, {name: 'Korean', image_url: 'korean_food.jpg'}, {name: 'Chinese', image_url: 'chinese_food.jpg'}, {name: 'Italian', image_url: 'italian_food.jpg'}, {name: 'French', image_url: 'french_food.jpg'}])
 
+Userrest.create(email: "wh_wang@live.com", encrypted_password: "$2a$11$urCx145J.dXM4JVtKOKiI.6Pjku1fsGjgXQbKa4zb2.1FQpLS9ZvK").first_or_create(email: "wh_wang@live.com")
 
-
-
+# Restaurant.create(name: "firstrestro", ... )
