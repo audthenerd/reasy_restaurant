@@ -54,16 +54,18 @@
 
 	<%= f.time_select :reservation_time,
   :combined => true,
-  :default => Time.now.change(:hour => 11, :min => 30),
+	:prompt => "Choose a time",
   :minute_interval => 15,
   :time_separator => "",
   :start_hour => 10,
   :start_minute => 30,
-  :end_hour => 14,
+  :end_hour => 12,
   :end_minute => 30,
   :label => false,
-  :html_options =>{:disabled => @checkvar}
+  :required => true,
+  :html_options =>{:disabled => @checkvar, :required => true}
 %>
+
 
 
 	<%= f.hidden_field :customer_id, value: current_customer.id %>
@@ -110,18 +112,33 @@
 			var optionvalue = selectbox.options[selectbox.selectedIndex].value;
 			var jsonresponse = Object.values(JSON.parse(ajaxresponse))[0];
 
-			console.log(jsonresponse[0].reservation_time.split('T')[1].split('.')[0]);
+			// console.log(jsonresponse[0].reservation_time.split('T')[1].split('.')[0]);
 
 
-
+			var counter =0;
 			for (var j = 0; j < selectbox.length; j ++){
+
+				if (selectbox.options[j].style.display != 'none'){
+					counter += 1;
+				}
+
+				if (counter === 10){
+					selectbox.options[0].text = 'Sorry fully booked'
+					selectbox.disabled = true;
+
+				}
+
 		  	for (var i = 0; i < jsonresponse.length; i ++){
+
+		  		if (jsonresponse[i].reservation_time != null){
+
 		  		var time = jsonresponse[i].reservation_time.split('T')[1].split('.')[0]
 
 				  	if (selectbox.options[j].value == time){
 						selectbox.options[j].style.display='none'
 						}
 
+					}
 		  	}
 			}
 
