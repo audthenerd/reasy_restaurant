@@ -46,7 +46,6 @@ end
       if params[:name] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
       else
-
         @categories = Category.all
       end
     end
@@ -76,12 +75,13 @@ end
     @categories = Category.all
 
     if @restaurant.image_url
-      uploaded_file = params[:restaurant][:image_url].path
-      cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
-      @restaurant.image_url = cloudnary_file['public_id']
-    # else
-    #   @restaurant.photo_url = $result.data.image_url
+      params[:restaurant][:image_url].each do |image|
+        uploaded_file = image.path
+        cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+        @restaurant.image_url << cloudnary_file['public_id']
+      end
     end
+
     if @restaurant.save
       redirect_to @restaurant
     else
