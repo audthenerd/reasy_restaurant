@@ -17,5 +17,7 @@
 //= require popper
 //= require jquery.raty.js
 //= require bootstrap-sprockets
+//= require Chart.bundle
+//= require chartkick
 
 //turbolinks causes lat and long not to be saved into db at login
