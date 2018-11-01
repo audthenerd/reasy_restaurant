@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'jquery.raty.js', "data-turbolinks-track": false %>
+
 <div class="container">
 
     <div class="row">
@@ -41,7 +43,7 @@
       </div>
        <% end %>
 
- 				<% if customer_signed_in? %>
+ 	<% if customer_signed_in? %>
         <p><%= link_to 'Make reservation', restaurant_menuitems_path(@restaurant) %></p>
         <% end %>
         <% if userrest_signed_in? %>
@@ -85,6 +87,5 @@
        	<% end %>
      <% end %>
     </div>
-
 </div>
 

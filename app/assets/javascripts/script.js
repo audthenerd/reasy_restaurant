@@ -22,6 +22,13 @@ $(document).ready(function(){
   });
 
 
+// $('#changet').on('change', function(event) {
+//     console.log('ok');
+//   var selected_resource_id = $(this).val();
+//   $.ajax('/restaurants/', data: { id: selected_resource_id })
+// })
+
+
 window.onload = function() {
     if($("#customer_latitude").length){
         getLocation();
