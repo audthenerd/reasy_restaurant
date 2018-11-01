@@ -45,12 +45,11 @@
 <% if customer_signed_in? %>
 
 	<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
+
 	<%= f.label :reservation_date %><br>
 
+	<%= f.date_field( :reservation_date, data: { url: monkey_banana_path, remote: true , method: :get} )%><br>
 
-	<%= f.date_field( :reservation_date, data: { url: restaurant_menuitems_path, remote: true , method: :get} )%><br>
-
-	<%= content_tag :div, "", id: "reportalert" %>
 
 
 	<%= f.time_select :reservation_time,
@@ -92,4 +91,46 @@
 
 <% end %>
 <% end %>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#reservation_reservation_date').on('ajax:success', function(data){
+		  // alert('successful request!  data was:  ' + url);
+		  console.log("data:", data);
+		});
+
+		$('#reservation_reservation_date').on('ajax:complete', function(event){
+		  // alert('successful request!  data was:  ' + url);
+		  //console.log("doneeeeeee data:", event.detail[0].response);
+		  var ajaxresponse = event.detail[0].response;
+
+		  var selectbox = document.getElementById("reservation_reservation_time_5i");
+			var optionvalue = selectbox.options[selectbox.selectedIndex].value;
+			var jsonresponse = Object.values(JSON.parse(ajaxresponse))[0];
+
+			console.log(jsonresponse[0].reservation_time.split('T')[1].split('.')[0]);
+
+
+
+			for (var j = 0; j < selectbox.length; j ++){
+		  	for (var i = 0; i < jsonresponse.length; i ++){
+		  		var time = jsonresponse[i].reservation_time.split('T')[1].split('.')[0]
+
+				  	if (selectbox.options[j].value == time){
+						selectbox.options[j].style.display='none'
+						}
+
+		  	}
+			}
+
+
+
+		});
+ 	});
+</script>
+
+
+
 
