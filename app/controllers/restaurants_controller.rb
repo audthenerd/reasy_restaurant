@@ -44,6 +44,7 @@ end
 
 
     elsif current_customer
+      @restaurantlist = Restaurant.all
       if params[:option] == "name" && params[:search] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
       elsif params[:option] == "location" && params[:search] != nil

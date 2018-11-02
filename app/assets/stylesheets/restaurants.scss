@@ -5,6 +5,7 @@
 div.welcome-header {
 	float: right;
 	font-size: 20px;
+	margin-top:0px!important;
 }
 
 img.img-thumbnail {
@@ -25,11 +26,6 @@ a.cat-links {
 	margin: 10px;
 }
 
-div.carousel-image{
-	width:31%;
-	display:inline-block;
-}
-
 div.restimg{
 	width:31%;
 }
@@ -48,3 +44,59 @@ div.card{
 img.card-img-top{
 	border-radius:0;
 }
+
+input.searchbar{
+	width:100%;
+	display: inline-block;
+}
+
+.search{
+	width:40px;
+	z-index:+2;
+	display:inline-block;
+	float:right;
+	position:absolute;
+	top:0;
+	right:10px;
+}
+
+.filter{
+	width:90px;
+	z-index:+2;
+	display:inline-block;
+	float:right;
+	position:absolute;
+	top:4px;
+	right:55px;
+	color:rgba(0,0,0,0.5);
+	text-align:right;
+}
+
+
+.search img{
+	width:100%;
+}
+
+.carousel-caption{
+	font-size:40px
+}
+
+h5{
+	text-align:center;
+}
+
+.jumbotron{
+	height:60vh;
+	border-radius:0
+}
+
+.carousel-item{
+	width:100%;
+	height:60vh;
+}
+
+.carousel-item img{
+	width:100%;
+		object-fit:fill;
+}
+
