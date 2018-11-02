@@ -146,23 +146,19 @@
 
 					selectbox.options[j].style.display='block';
 
+				for (var i = 0; i < jsonresponse.length; i ++){
 
-		  	for (var i = 0; i < jsonresponse.length; i ++){
+					if (jsonresponse[i].reservation_time != null){
 
+					var time = jsonresponse[i].reservation_time.split('T')[1].split('.')[0]
 
-
-		  		if (jsonresponse[i].reservation_time != null){
-
-		  		var time = jsonresponse[i].reservation_time.split('T')[1].split('.')[0]
-
-				  	if (selectbox.options[j].value == time){
-						selectbox.options[j].style.display='none'
+						if (selectbox.options[j].value == time){
+							selectbox.options[j].style.display='none'
 						}
-
 					}
-		  	}
+				}
 
-		}
+			}
 
 		});
  	});
