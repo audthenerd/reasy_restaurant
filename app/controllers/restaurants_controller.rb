@@ -35,14 +35,15 @@ class RestaurantsController < ApplicationController
   end
 end
 
-
-
 # ************************************
 # Graph: To get name of each plot
 # ************************************
 
 
+@array = Reservation.joins(:restaurants).select('restaurants.name, reservations.reservation_date, reservations.reservation_time')
 
+
+ @thisrest = Restaurant.find(id = 2).name
     elsif current_customer
       if params[:option] == "name" && params[:search] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
