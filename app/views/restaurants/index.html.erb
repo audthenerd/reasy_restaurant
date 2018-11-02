@@ -22,8 +22,9 @@ If customer is signed in
 			<%= radio_button_tag :option, "location" %>
 			<%= submit_tag "Search", name: "commit", class: "btn btn-default" %>
 		<% end %>
+
 </div>
-		
+
 			<!--
 			****************************
 			Upon searching, show results
@@ -104,7 +105,9 @@ If restaurant is signed in
 ************************** -->
     <% elsif userrest_signed_in? %>
     <h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>
+
     <%#= line_chart Reservation.group_by_day(:reservation_date).count %>
+
     <div id="graph" style="max-width: 700px; height: 400px; margin: 0 auto"></div>
     <h3>Restaurants Owned by You</h3>
         <% @restaurants.each do |restaurant| %>
@@ -231,7 +234,8 @@ If not signed in
         type: 'spline'
     },
     title: {
-        text: 'Yearly Peak Hours'
+
+        text: 'Restaurant Peak Hours'
     },
     subtitle: {
         text: 'Statistics for manpower management'
@@ -287,8 +291,15 @@ If not signed in
         name: "Year 2018",
         data: <%= @data.inspect.html_safe %>
 
+    },
+    {
+        name: "Year 2018",
+        data: <%= @data.inspect.html_safe %>
+
     }
+
     ]
 });
 
 </script>
+

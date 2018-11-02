@@ -35,6 +35,14 @@ class RestaurantsController < ApplicationController
   end
 end
 
+
+
+# ************************************
+# Graph: To get name of each plot
+# ************************************
+
+
+
     elsif current_customer
       if params[:option] == "name" && params[:search] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
