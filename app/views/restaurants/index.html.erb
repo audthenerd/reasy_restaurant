@@ -104,14 +104,21 @@ If customer is signed in
 If restaurant is signed in
 ************************** -->
     <% elsif userrest_signed_in? %>
-    <h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>
+    <h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>s
 
-    <%#= line_chart Reservation.group_by_day(:reservation_date).count %>
+<!--
+    <div id="graph" style="max-width: 700px; height: 400px; margin: 0 auto"></div> -->
 
-    <div id="graph" style="max-width: 700px; height: 400px; margin: 0 auto"></div>
+    	<h3>Peak Hours</h3>
+    	<%= line_chart @restaurants.map { |restaurant| {name: restaurant.name, data: restaurant.reservations.group(:reservation_time).count}}, xtitle: "Reservation Timings", ytitle: "No.of Reservations", title: "Tracking Peak Hours for Your Businesses", legend: "bottom", id: "rest-chart", width: "800px", height: "500px", messages: {empty: "No reservations"} %>
+
+    	<h3>Popular Items</h3>
+    	<%= column_chart @menuitems.map {|item| item.menuitems_reservations.group(:quantity).count} %>
+
     <h3>Restaurants Owned by You</h3>
         <% @restaurants.each do |restaurant| %>
-        <div class="row card col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+	     <div class="row card col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <br/>
             <%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
             <div class="card-body">
@@ -226,7 +233,7 @@ If not signed in
 
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 
 	Highcharts.chart('graph', {
@@ -302,4 +309,4 @@ If not signed in
 });
 
 </script>
-
+ -->
