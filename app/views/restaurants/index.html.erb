@@ -5,11 +5,14 @@
 If customer is signed in
 ************************** -->
 
+
     <% if customer_signed_in? %>
+    <div class="row">
     		<div class="welcome-header">Hello there, <a href="<%= customer_path(current_customer.id) %>"><%= current_customer.name %></a>!
     		</div>
-        <div class="row">
+    </div>
 
+<div class="row">
 		<h1>Search for your favourite restaurant</h1>
 		<%= form_tag restaurants_path, method: :get do %>
 		<%= text_field_tag :search, params[:search], placeholder: "search for stuff" %>
@@ -19,6 +22,8 @@ If customer is signed in
 			<%= radio_button_tag :option, "location" %>
 			<%= submit_tag "Search", name: "commit", class: "btn btn-default" %>
 		<% end %>
+
+</div>
 
 			<!--
 			****************************
@@ -54,13 +59,43 @@ If customer is signed in
 			By default, show categories
 			**********************************-->
         <% else %>
-	        <% @categories.each do |cat| %>
-	        <div class="food-cat">
-	        	<%= image_tag cat.image_url, class: "img-thumbnail" %><br />
-	           <a href="<%= category_path(cat.id) %>"><%= cat.name %></a>
-	           </div>
-	        <% end %>
-	      <% end %>
+      <div class="row">
+       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+					<div class="carousel-inner">
+							<% @categories.each_with_index do |product| %>
+							<div class="carousel-item <%= " active" if product==@categories.first %> ">
+									<% if product.image_url.present? %>
+									<%= image_tag product.image_url, class: "d-block w-100" %>
+									<% end %>
+									<div class="carousel-caption">
+											<a href="<%= category_path(product.id) %>"><%= product.name %></a>
+									</div>
+							</div>
+							<div class="carousel-item">
+									<% if product.image_url.present? %>
+									<%= image_tag (product.image_url) , class: "d-block w-100" %>
+									<% end %>
+									<div class="carousel-caption">
+											<a href="<%= category_path(product.id) %>"><%= product.name %></a>
+									</div>
+							</div>
+							<% end %>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		    		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		   			 <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+
+			</div>
+
+	<% end %>
+
+
 
 
 
@@ -70,6 +105,9 @@ If restaurant is signed in
 ************************** -->
     <% elsif userrest_signed_in? %>
     <h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>
+
+    <%#= line_chart Reservation.group_by_day(:reservation_date).count %>
+
     <div id="graph" style="max-width: 700px; height: 400px; margin: 0 auto"></div>
     <h3>Restaurants Owned by You</h3>
         <% @restaurants.each do |restaurant| %>
@@ -132,18 +170,55 @@ If not signed in
 			**********************************-->
         <% else %>
         <h1>Search for your favourite restaurant</h1>
+        <form class="form-inline">
 
         <%= form_tag(restaurants_path, method: :get) do %>
         <%= text_field_tag :name, nil, placeholder: "Search for restaurants by Name or Location", id: "search-rest" %>
-        <%= submit_tag 'Search' %>
+        <%= submit_tag 'Search'  ,  class: "btn btn-primary"%>
+      </form>
         <% end %>
 
-	        <% @categories.each do |cat| %>
-	        <div class="food-cat">
-	        	<%= image_tag cat.image_url, class: "img-thumbnail" %><br />
-	           <a href="<%= category_path(cat.id) %>"><%= cat.name %></a>
-	           </div>
-	        <% end %>
+        <div class="row">
+       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+			<div class="carousel-inner">
+
+
+					<div class="carousel-item active">
+					<% @categories.first(3).each do |first| %>
+					<div class= 'col'>
+					<div class="carousel-image">
+							<% if first.image_url.present? %>
+							<%= image_tag first.image_url, class: "d-block w-100" %>
+							<% end %>
+							<div class="carousel-caption">
+									<a href="<%= category_path(first.id) %>"><%= first.name %></a>
+							</div>
+					</div></div>
+					<%end%>
+				</div>
+					<div class="carousel-item">
+						<% @categories.drop(3).first(3).each do |product| %>
+											<div class= 'col'>
+												<div class="carousel-image">
+
+							<% if product.image_url.present? %>
+							<%= image_tag (product.image_url) , class: "d-block w-100" %>
+							<% end %>
+							<div class="carousel-caption">
+									<a href="<%= category_path(product.id) %>"><%= product.name %></a>
+							</div></div></div><%end%>
+					</div>
+			</div>
+			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+   			 <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
+</div>
         <% end %>
 
        <%# end %>
@@ -159,6 +234,7 @@ If not signed in
         type: 'spline'
     },
     title: {
+
         text: 'Restaurant Peak Hours'
     },
     subtitle: {
@@ -226,3 +302,4 @@ If not signed in
 });
 
 </script>
+

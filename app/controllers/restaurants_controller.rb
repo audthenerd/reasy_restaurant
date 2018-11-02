@@ -1,3 +1,5 @@
+require 'byebug'
+
 class RestaurantsController < ApplicationController
 
   def index
@@ -21,6 +23,7 @@ class RestaurantsController < ApplicationController
 @reservations = Reservation.all
 
 @data = @timing.map {|time| [time, 0] }
+
 @counts = Hash.new(0)
 @reservations.each{|reserve| @counts[reserve.reservation_time.strftime("%H:%M")] += 1}
 
@@ -34,13 +37,9 @@ end
 
 
 
-
 # ************************************
 # Graph: To get name of each plot
 # ************************************
-
-
-
 
 
 
