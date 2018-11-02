@@ -60,13 +60,14 @@
 
   	<%= item.item %> | <%= item.price %>
 
-
+	
   	<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
 
   		<%= form.label :quantity %>
   		<%= form.number_field :quantity %>
 
   		<%= form.hidden_field :menuitem_id, value: item.id %>
+		 
 
 		<% end %><br>
 
@@ -86,17 +87,20 @@
 	:prompt => "Choose a time",
   :minute_interval => 15,
   :time_separator => "",
-  :start_hour => 10,
-  :start_minute => 30,
-  :end_hour => 12,
-  :end_minute => 30,
+  :start_hour => @restaurant.starttime.to_s.split(" ")[1].split(":")[0].to_i,
+  :start_minute => @restaurant.starttime.to_s.split(" ")[1].split(":")[1].to_i,
+  :end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
+  :end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
   :label => false,
   :required => true,
   :html_options =>{:disabled => @checkvar, :required => true}
 %>
 
-
-
+	
+		<p>
+		<%= f.label :seats %><br>
+		<%= f.number_field :seats, value: 1, min: 1, max: 5 %>
+	</p>
 	<%= f.hidden_field :customer_id, value: current_customer.id %>
 	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
 
@@ -111,21 +115,30 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		//display none, for those with a break
+		var selectbox = document.getElementById("reservation_reservation_time_5i");
+		for (var j = 0; j < selectbox.length; j ++){
+			if (selectbox.options[j].value >= gon.breakstart && selectbox.options[j].value <= gon.breakend){
+				selectbox.options[j].style.display='none'
+			}
+		}
+
 		$('#reservation_reservation_date').on('ajax:success', function(data){
 		  // alert('successful request!  data was:  ' + url);
-		  console.log("data:", data);
+		  //console.log("data:", data);
 		});
 
 		$('#reservation_reservation_date').on('ajax:complete', function(event){
 		  // alert('successful request!  data was:  ' + url);
 		  //console.log("doneeeeeee data:", event.detail[0].response);
 		  var ajaxresponse = event.detail[0].response;
-
+			
 		  var selectbox = document.getElementById("reservation_reservation_time_5i");
 			var optionvalue = selectbox.options[selectbox.selectedIndex].value;
 			var jsonresponse = Object.values(JSON.parse(ajaxresponse))[0];
 
-			// console.log(jsonresponse[0].reservation_time.split('T')[1].split('.')[0]);
+			 //console.log(jsonresponse[0].reservation_time.split('T')[1].split('.')[0]);
 
 
 			var counter =0;
@@ -150,7 +163,6 @@
 		  	}
 
 		}
-
 
 		});
  	});

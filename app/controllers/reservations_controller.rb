@@ -17,9 +17,9 @@ class ReservationsController < ApplicationController
       @reservation = Reservation.where(restaurant_id: params[:restaurant_id])
       @restaurant = Restaurant.where(id: params[:restaurant_id])
       @customer = Reservation.where(restaurant_id: params[:restaurant_id])
-
-
+      
       @booked = Reservation.all
+    
     end
   end
 
@@ -47,7 +47,7 @@ class ReservationsController < ApplicationController
 
   def create
     params[:reservation].parse_time_select! :reservation_time
-
+    
     @reservation = Reservation.new(reservation_params)
     # ["menuitems_reservations_attributes"]["0"])
 
@@ -88,7 +88,7 @@ class ReservationsController < ApplicationController
 
   def reservation_params
 
-    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time ,  menuitems_reservations_attributes: [:id, :reservation_id, :menuitem_id, :quantity, :destroy])
+    params.require(:reservation).permit(:restaurant_id, :customer_id, :reservation_date, :reservation_time , :seats, menuitems_reservations_attributes: [:id, :reservation_id, :menuitem_id, :quantity, :destroy])
 
   end
 

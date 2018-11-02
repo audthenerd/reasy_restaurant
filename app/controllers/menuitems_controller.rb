@@ -11,6 +11,7 @@ class MenuitemsController < ApplicationController
     #@reservationtime = Reservation.where(reservation_date: params[:reservation][:reservation_date])
     # byebug
     render json: { ok: @reservationtime }, status: 200
+    
   end
 
 
@@ -27,6 +28,9 @@ class MenuitemsController < ApplicationController
     @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
     @reservation = Reservation.new
     @booked = Reservation.all
+
+    gon.breakstart = @restaurant.breakstart.to_s.split(" ")[1]
+    gon.breakend = @restaurant.breakend.to_s.split(" ")[1]
 
    @checkvar = @booked.each do |x| x.reservation_time.present? end
 

@@ -13,6 +13,11 @@
 		<%= form.text_area :reservation_time %>
 	</p>
 
+	<p>
+		<%= form.label :seats %><br>
+		<%= form.number_field :seats, value: 1, min: 1, max: 5 %>
+	</p>
+
 	<%= form.hidden_field :customer_id, value: @customer.id %>
 
 	<p>
