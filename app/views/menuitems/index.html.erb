@@ -80,8 +80,6 @@
 
 	<%= f.date_field( :reservation_date, data: { url: monkey_banana_path, remote: true , method: :get} )%><br>
 
-
-
 	<%= f.time_select :reservation_time,
   :combined => true,
 	:prompt => "Choose a time",
@@ -118,49 +116,70 @@
 
 		//display none, for those with a break
 		var selectbox = document.getElementById("reservation_reservation_time_5i");
-		for (var j = 0; j < selectbox.length; j ++){
+		for (var j=0; j < selectbox.length; j++){
 			if (selectbox.options[j].value >= gon.breakstart && selectbox.options[j].value <= gon.breakend){
 				selectbox.options[j].style.display='none'
 			}
 		}
 
 		$('#reservation_reservation_date').on('ajax:success', function(data){
-		  // alert('successful request!  data was:  ' + url);
-		  //console.log("data:", data);
-		});
-
-		$('#reservation_reservation_date').on('ajax:complete', function(event){
-		  // alert('successful request!  data was:  ' + url);
-		  //console.log("doneeeeeee data:", event.detail[0].response);
-		  var ajaxresponse = event.detail[0].response;
+			console.log("data:", data.detail[0]);
+			var response = data.detail[0];
+			console.log(response)
 			
-		  var selectbox = document.getElementById("reservation_reservation_time_5i");
-			var optionvalue = selectbox.options[selectbox.selectedIndex].value;
-			var jsonresponse = Object.values(JSON.parse(ajaxresponse))[0];
-
-			 //console.log(jsonresponse[0].reservation_time.split('T')[1].split('.')[0]);
-
-
-			var counter =0;
-			for (var j = 0; j < selectbox.length; j ++){
-
-					selectbox.options[j].style.display='block';
-
-				for (var i = 0; i < jsonresponse.length; i ++){
-
-					if (jsonresponse[i].reservation_time != null){
-
-					var time = jsonresponse[i].reservation_time.split('T')[1].split('.')[0]
-
-						if (selectbox.options[j].value == time){
-							selectbox.options[j].style.display='none'
-						}
+			var selectbox = document.getElementById("reservation_reservation_time_5i");
+			for (var j=0; j < selectbox.length; j++){
+				if (selectbox.options[j].value >= gon.breakstart && selectbox.options[j].value <= gon.breakend){
+					selectbox.options[j].style.display='none'
+				}
+			}			
+			for (var key in response) {
+				for(let i=0; i < selectbox.length; i++){
+					//console.log("response key:", response[key] >= gon.availseats)
+					console.log("selectbox boool:", selectbox.options[i].value == key.split(" ")[1].toString())
+					if (response[key] >= gon.availseats && selectbox.options[i].value == key.split(" ")[1]){
+						selectbox.options[i].style.display='none'
 					}
 				}
-
 			}
-
 		});
+
+
+		// =============== if 1 reservation block one one timing ============================
+
+
+		// $('#reservation_reservation_date').on('ajax:complete', function(event){
+		//   // alert('successful request!  data was:  ' + url);
+		//   //console.log("doneeeeeee data:", event.detail[0].response);
+		//   var ajaxresponse = event.detail[0].response;
+		// console.log("hello", ajaxresponse)
+		//   var selectbox = document.getElementById("reservation_reservation_time_5i");
+		// 	var optionvalue = selectbox.options[selectbox.selectedIndex].value;
+		// 	var jsonresponse = Object.values(JSON.parse(ajaxresponse))[0];
+		// 	console.log("json", jsonresponse)
+		// 	 //console.log(jsonresponse[0].reservation_time.split('T')[1].split('.')[0]);
+
+
+		// 	var counter =0;
+		// 	for (var j = 0; j < selectbox.length; j ++){
+
+		// 			selectbox.options[j].style.display='block';
+
+		// 		for (var i = 0; i < jsonresponse.length; i ++){
+
+		// 			if (jsonresponse[i].reservation_time != null){
+
+		// 			var time = jsonresponse[i].reservation_time.split('T')[1].split('.')[0]
+
+		// 				if (selectbox.options[j].value == time){
+		// 					selectbox.options[j].style.display='none'
+		// 				}
+		// 			}
+		// 		}
+
+		// 	}
+
+		// });
  	});
 </script>
 
