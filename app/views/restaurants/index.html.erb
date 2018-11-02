@@ -1,4 +1,4 @@
-<div class = "container">
+
 
 <!--
 **************************
@@ -6,25 +6,54 @@ If customer is signed in
 ************************** -->
 
 
-    <% if customer_signed_in? %>
-    <div class="row">
-    		<div class="welcome-header">Hello there, <a href="<%= customer_path(current_customer.id) %>"><%= current_customer.name %></a>!
-    		</div>
-    </div>
+<% if customer_signed_in? %>
+<div class="jumbotron">
+<div class="row carousel">
+	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+				<% @categories.each_with_index do |product| %>
+				<div class="carousel-item <%= " active" if product==@categories.first %> ">
+						<% if product.image_url.present? %>
+						<%= link_to image_tag product.image_url,  class: "d-block w-100" %>
+						<% end %>
+				</div>
+				<div class="carousel-item">
+						<% if product.image_url.present? %>
+						<%= image_tag (product.image_url) , class: "d-block w-100" %>
+						<% end %>
+				</div>
+				<% end %>
+</div>
+</div>
+</div></div>
 
-<div class="row">
-		<h1>Search for your favourite restaurant</h1>
+
+<div class="row justify-content-md-center">
+
+	<div class='col-8'>
+		<h5>Search for your favourite restaurant</h5>
+	</div>
+	</div>
+
+	<div class="row justify-content-md-center">
+	<div class='col-8'>
 		<%= form_tag restaurants_path, method: :get do %>
-		<%= text_field_tag :search, params[:search], placeholder: "search for stuff" %>
-			<%= label_tag :name %>
-			<%= radio_button_tag :option, "name" %>
-			<%= label_tag :location %>
-			<%= radio_button_tag :option, "location" %>
-			<%= submit_tag "Search", name: "commit", class: "btn btn-default" %>
+		<%= text_field_tag :search, params[:search], placeholder: "search for stuff", class: 'searchbar' %>
+		<%= image_submit_tag "search.png", name: "commit", class: "btn btn-default search" %>
+    <%= select_tag(:option, options_for_select(["name", "location"], selected: :option ), class: 'dropdown-item filter') %>
+
+
 		<% end %>
 
 </div>
+</div>
 
+<div class="row justify-content-md-center">
+	<div class='col-8'>
+
+	</div>
+</div>
+<div class = "container">
 			<!--
 			****************************
 			Upon searching, show results
@@ -59,39 +88,8 @@ If customer is signed in
 			By default, show categories
 			**********************************-->
         <% else %>
-      <div class="row">
-       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
-					<div class="carousel-inner">
-							<% @categories.each_with_index do |product| %>
-							<div class="carousel-item <%= " active" if product==@categories.first %> ">
-									<% if product.image_url.present? %>
-									<%= image_tag product.image_url, class: "d-block w-100" %>
-									<% end %>
-									<div class="carousel-caption">
-											<a href="<%= category_path(product.id) %>"><%= product.name %></a>
-									</div>
-							</div>
-							<div class="carousel-item">
-									<% if product.image_url.present? %>
-									<%= image_tag (product.image_url) , class: "d-block w-100" %>
-									<% end %>
-									<div class="carousel-caption">
-											<a href="<%= category_path(product.id) %>"><%= product.name %></a>
-									</div>
-							</div>
-							<% end %>
-					</div>
-					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-		    		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		   			 <span class="sr-only">Previous</span>
-				  </a>
-				  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="sr-only">Next</span>
-				  </a>
 
-			</div>
 
 	<% end %>
 

@@ -7,6 +7,7 @@ class RestaurantsController < ApplicationController
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
       @menuitems = Menuitem.where(restaurant_id: @restaurants)
     elsif current_customer
+      @restaurantlist = Restaurant.all
       if params[:option] == "name" && params[:search] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
       elsif params[:option] == "location" && params[:search] != nil
