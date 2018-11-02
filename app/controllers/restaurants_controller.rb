@@ -1,18 +1,52 @@
+require 'byebug'
+
 class RestaurantsController < ApplicationController
+
   def index
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
-    elsif current_customer
-      if params[:name] != nil
-        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
 
+# ******************************
+# Graph: To get x-axis (timing)
+# ******************************
+      time_start = DateTime.new(2018, 02, 24, 10, 30, 0, "+8:00")
+      time_end = DateTime.new(2018, 02, 24, 22, 30, 0, "+8:00")
+       @timing = Array.new
+
+      (time_start.to_i..time_end.to_i).step(15.minutes).each do |time|
+        @timing.push(Time.at(time).strftime("%H:%M"))
+      end
+
+# ************************************
+# Graph: To get y-axis (reservations)
+# ************************************
+@reservations = Reservation.all
+
+@data = @timing.map {|time| [time, 0] }
+
+@counts = Hash.new(0)
+@reservations.each{|reserve| @counts[reserve.reservation_time.strftime("%H:%M")] += 1}
+
+@counts.length.times do |x|
+  @data.length.times do |y|
+    if @counts.keys[x] == @data[y].first
+      @data[y][1] += @counts.values[x]
+    end
+  end
+end
+
+    elsif current_customer
+      if params[:option] == "name" && params[:search] != nil
+        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
+      elsif params[:option] == "location" && params[:search] != nil
+        @restaurants = Restaurant.near(params[:search], 3) if params[:search].present?
       else
-        @restaurants = Restaurant.near([current_customer.latitude, current_customer.longitude])
+        @restaurants = Restaurant.near([current_customer.latitude, current_customer.longitude], 5)
          @categories = Category.all
       end
-    else
-      if params[:name] != nil
-        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:name.downcase]}%")
+    else # visitors of the page with no logins
+      if params[:search].present?
+        @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
       else
         @categories = Category.all
       end
