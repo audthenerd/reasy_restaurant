@@ -19,7 +19,7 @@ If customer is signed in
 			<%= radio_button_tag :option, "location" %>
 			<%= submit_tag "Search", name: "commit", class: "btn btn-default" %>
 		<% end %>
-		
+
 			<!--
 			****************************
 			Upon searching, show results
@@ -70,6 +70,7 @@ If restaurant is signed in
 ************************** -->
     <% elsif userrest_signed_in? %>
     <h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>
+    <div id="graph" style="max-width: 700px; height: 400px; margin: 0 auto"></div>
     <h3>Restaurants Owned by You</h3>
         <% @restaurants.each do |restaurant| %>
         <div class="row card col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -150,3 +151,78 @@ If not signed in
 
 </div>
 
+<script type="text/javascript">
+
+
+	Highcharts.chart('graph', {
+    chart: {
+        type: 'spline'
+    },
+    title: {
+        text: 'Restaurant Peak Hours'
+    },
+    subtitle: {
+        text: 'Statistics for manpower management'
+    },
+    xAxis: {
+    		categories: <%= @timing.inspect.html_safe %>,
+        // type: 'datetime',
+        // min: 10.30,
+        // max: 22.30,
+        // tickInterval: 900,
+        // dateTimeLabelFormats: { // don't display the dummy year
+        //     hour: '%I %p',
+       	// 		minute: '%I:%M %p'
+        // },
+        endOnTick: true,
+        title: {
+            text: 'Reservation Timings'
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'No. of Reservations'
+        },
+        min: 0,
+        tickInterval: 1
+    },
+    tooltip: {
+    	 formatter:function(){
+         return 'At ' + this.key + ', ' + this.y + ' reservation(s)';
+                },
+    		backgroundColor: '#FFF862',
+        headerFormat: '<b>{series.name}</b><br>',
+        // pointFormat: 'At {point.x}, {point.y}',
+        // valueSuffix: ' reservation(s)',
+        crosshairs: [true,true]
+    },
+
+    plotOptions: {
+        spline: {
+            marker: {
+                enabled: true
+            }
+        }
+    },
+
+    colors: ['#6CF', '#39F', '#06C', '#036', '#000'],
+
+    // Define the data points. All series have a dummy year
+    // of 1970/71 in order to be compared on the same x axis. Note
+    // that in JavaScript, months start at 0 for January, 1 for February etc.
+
+    series: [{
+        name: "Year 2018",
+        data: <%= @data.inspect.html_safe %>
+
+    },
+    {
+        name: "Year 2018",
+        data: <%= @data.inspect.html_safe %>
+
+    }
+
+    ]
+});
+
+</script>
