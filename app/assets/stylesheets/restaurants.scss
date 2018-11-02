@@ -24,3 +24,27 @@ margin: 10px;
 a.cat-links {
 	margin: 10px;
 }
+
+div.carousel-image{
+	width:31%;
+	display:inline-block;
+}
+
+div.restimg{
+	width:31%;
+}
+
+
+div.restimg img{
+	object-fit:cover;
+	height:20vh;
+}
+
+div.card{
+	border:none;
+	border-radius:0;
+}
+
+img.card-img-top{
+	border-radius:0;
+}
