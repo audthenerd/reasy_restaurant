@@ -14,12 +14,14 @@ Userrest.create(email: "wenhao@live.com", password: "password")
 Userrest.create(email: "audrey@gmail.com", password: "password")
 Userrest.create(email: "clara@live.com", password: "password")
 
-Restaurant.create(name: "Sushi Tei", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 1, image_url: ["ckfnaqz5yltmqrmeofr8", "wgkgrfbz0fewutrejsli"])
-Restaurant.create(name: "Pots and Pans", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 2, image_url: ["ckfnaqz5yltmqrmeofr8", "wgkgrfbz0fewutrejsli"])
-Restaurant.create(name: "Miso Place", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 3, image_url: ["ckfnaqz5yltmqrmeofr8", "wgkgrfbz0fewutrejsli"])
-Restaurant.create(name: "Chicks and Fries", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 1, image_url: ["ckfnaqz5yltmqrmeofr8", "wgkgrfbz0fewutrejsli"])
-Restaurant.create(name: "Fisto", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 2, image_url: ["ckfnaqz5yltmqrmeofr8", "wgkgrfbz0fewutrejsli"])
-Restaurant.create(name: "Koko", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 3, image_url: ["ckfnaqz5yltmqrmeofr8", "wgkgrfbz0fewutrejsli"])
+
+Restaurant.create(name: "firstrestro", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 1, image_url: ["r8se1apiuq2infg3ilnk", "stomyt0cxeuisfpqmpyy","wokteh06yeng3e49jzf0"], starttime: "09:00:00", endtime: "20:00:00", breakstart: "11:00:00", breakend: "15:00:00", avail_seats: 20)
+Restaurant.create(name: "secrestro", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 2, image_url: ["photo-1481931098730-318b6f776db0", "photo-1536408437497-34525e7ee715","photo-1498588747262-0f2241707d13"], starttime: "09:00:00", endtime: "20:00:00", breakstart: "11:00:00", breakend: "15:00:00", avail_seats: 20)
+Restaurant.create(name: "thirdrestro", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 3, image_url: ["r8se1apiuq2infg3ilnk", "stomyt0cxeuisfpqmpyy","wokteh06yeng3e49jzf0"], starttime: "09:00:00", endtime: "20:00:00", breakstart: "11:00:00", breakend: "15:00:00", avail_seats: 20)
+Restaurant.create(name: "fourthrestro", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 1, image_url: ["photo-1481931098730-318b6f776db0", "photo-1536408437497-34525e7ee715","photo-1498588747262-0f2241707d13"], starttime: "09:00:00", endtime: "20:00:00", breakstart: "11:00:00", breakend: "15:00:00", avail_seats: 20)
+Restaurant.create(name: "fifthrestro", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 2, image_url: ["r8se1apiuq2infg3ilnk", "stomyt0cxeuisfpqmpyy","wokteh06yeng3e49jzf0"], starttime: "09:00:00", endtime: "20:00:00", breakstart: "11:00:00", breakend: "15:00:00", avail_seats: 20)
+Restaurant.create(name: "sixthrestro", street: "1 hougang street 91", city: "singapore", zip: "538692", userrest_id: 3, image_url: ["photo-1481931098730-318b6f776db0", "photo-1536408437497-34525e7ee715","photo-1498588747262-0f2241707d13"], starttime: "09:00:00", endtime: "20:00:00", breakstart: "11:00:00", breakend: "15:00:00", avail_seats: 20)
+
 
 Customer.create(name:"wenhao", email:"what@gmail.com", password: "password", image_url: "fa3ingoojck75cf5akgw")
 Customer.create(name:"audrey", email:"the@gmail.com", password: "password", image_url: "fa3ingoojck75cf5akgw")

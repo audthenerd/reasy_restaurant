@@ -18,6 +18,10 @@ total
 <%= @price %>
 
 <%= link_to 'Back', customer_reservations_path(current_customer.id)%>
+<%= link_to 'edit', edit_customer_reservation_path(current_customer.id, @reservation)%>
+<%= link_to 'Destroy', customer_reservation_path(current_customer.id, @reservation),
+			                        method: :delete,
+			                        data: { confirm: 'Are you sure?' } %>
 
 
 

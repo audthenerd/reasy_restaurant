@@ -19,13 +19,13 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
       <%= link_to 'Restaurants', root_path, class: "navbar-brand" %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="nav navbar-nav">
+      <div class="collapse navbar-collapse justify-content-end " id="navbarNavDropdown">
+        <ul class="nav navbar-nav ">
           <% if userrest_signed_in? %>
             <li class="nav-item active">
               <a class="nav-link" href="/restaurants">Home <span class="sr-only">(current)</span></a>
@@ -34,33 +34,36 @@
               <%= link_to 'Add Restaurant', new_restaurant_path, class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to 'log out', destroy_userrest_session_url, method: :delete, class: "nav-link" %>
+              <%= link_to 'Log Out', destroy_userrest_session_url, method: :delete, class: "nav-link" %>
             </li>
           <% elsif customer_signed_in? %>
             <li class="nav-item active">
               <a class="nav-link" href="/restaurants">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <%= link_to 'log out', destroy_customer_session_url, method: :delete, class: "nav-link" %>
+              <%= link_to 'Cust', customer_path(current_customer.id), class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Log Out', destroy_customer_session_url, method: :delete, class: "nav-link" %>
             </li>
           <% else %>
             <li class="nav-item">
-              <%= link_to 'Restaurant log in', new_userrest_session_url, class: "nav-link" %>
+              <%= link_to 'Restaurant Log In', new_userrest_session_url, class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to 'User log in', new_customer_session_url, class: "nav-link" %>
+              <%= link_to 'User Log In', new_customer_session_url, class: "nav-link" %>
             </li>
           <% end %>
         </ul>
       </div>
     </nav>
-
-  	<p class="notice"><%= notice %></p>
+   	<p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <div class="container">
-    <%= yield %>
-    </div>
+    	<%= yield %>
+
+
+
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvIOA1fSvyvcGj-eCn_QA0vIqpBcoNXL0&libraries=places" type="text/javascript"></script>
     <script>

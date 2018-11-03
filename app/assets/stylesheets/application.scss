@@ -14,3 +14,49 @@
  @import "bootstrap";
  @import "customers.scss";
   @import "restaurants.scss";
+  @import "reviews.scss";
+
+
+body{
+	background-color:#31323F;
+	color:white;
+}
+.container{
+width:100%!important;
+}
+
+p.notice{
+	display:none;
+}
+
+p.alert{
+	display:none;
+}
+nav{
+	background-color: #2A2F38;
+	color:white;
+}
+
+.navbar-light .navbar-brand{
+	color:white;
+}
+
+.navbar-light .navbar-nav .active > .nav-link{
+	color:#A08963;
+}
+
+.navbar-light .navbar-nav .nav-link{
+	color:#A08963;
+}
+
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus{
+	color:white;
+}
+
+.navbar-light .navbar-toggler{
+	border:none;
+}
+
+h1{
+	font-size: 1.5rem;
+}

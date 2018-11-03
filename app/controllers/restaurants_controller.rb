@@ -16,6 +16,7 @@ class RestaurantsController < ApplicationController
       end
 
     elsif current_customer
+      @restaurantlist = Restaurant.all
       if params[:option] == "name" && params[:search] != nil
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
       elsif params[:option] == "location" && params[:search] != nil
@@ -52,6 +53,10 @@ class RestaurantsController < ApplicationController
 
   def create
     #render plain: params[:restaurant].inspect
+    params[:restaurant].parse_time_select! :starttime
+    params[:restaurant].parse_time_select! :endtime
+    params[:restaurant].parse_time_select! :breakstart
+    params[:restaurant].parse_time_select! :breakend
     @restaurant = Restaurant.new(restro_params)
     @restaurant.userrest = current_userrest
     @categories = Category.all
@@ -106,7 +111,7 @@ class RestaurantsController < ApplicationController
 
   def restro_params
 
-    params.require(:restaurant).permit(:name, :street, :city, :zip, :latitude, :longitude, :image_url, :image2_url, :image3_url, :userrest_id, :category_ids => [])
+    params.require(:restaurant).permit(:name, :starttime, :endtime, :breakstart, :breakend, :avail_seats, :telephone, :opening_hours, :street, :city, :zip, :latitude, :longitude, :image_url, :image2_url, :image3_url, :userrest_id, :category_ids => [])
   end
 
 end
