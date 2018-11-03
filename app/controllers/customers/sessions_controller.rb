@@ -13,11 +13,13 @@ class Customers::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    @customer = Customer.find(current_customer.id)
+    if current_customer
+      @customer = Customer.find(current_customer.id)
 
-    @customer.update(latitude: params[:customer][:latitude], longitude: params[:customer][:longitude])
-    customer_session["latitude"] = params[:customer][:latitude]
-    customer_session["longitude:"] = params[:customer][:longitude]
+      @customer.update(latitude: params[:customer][:latitude], longitude: params[:customer][:longitude])
+      customer_session["latitude"] = params[:customer][:latitude]
+      customer_session["longitude:"] = params[:customer][:longitude]
+    end
 
     super
   end

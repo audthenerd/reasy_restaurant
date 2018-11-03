@@ -30,9 +30,9 @@ class ReservationsController < ApplicationController
       # customer signed in RESOLVED
       @customer = Customer.find(params[:customer_id])
       @reservation = Reservation.find(params[:id])
-
+      
       @price = @reservation.menuitems_reservations.map{|y| y.menuitem.price * y.quantity}.reduce(:+)
-
+     
     elsif current_userrest
      # restaurant signed in UNRESOLVED
 
