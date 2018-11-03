@@ -42,7 +42,16 @@ class ReservationsController < ApplicationController
   end
 
   def edit
-
+    if current_customer
+      @customer = Customer.find(params[:customer_id])
+      @reservation = Reservation.find(params[:id])
+      @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
+      @restaurant = Restaurant.find(@reservation.restaurant_id)
+      gon.breakstart = @restaurant.breakstart.to_s.split(" ")[1]
+      gon.breakend = @restaurant.breakend.to_s.split(" ")[1]
+      gon.availseats = @restaurant.avail_seats
+    end
+    
   end
 
   def create
@@ -76,11 +85,15 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    @reservation = Reservation.update(reservation_params)
 
   end
 
   def destroy
+    @reservation = Reservation.find(params[:id])
 
+    @reservation.destroy
+    redirect_to customer_reservations_path(current_customer.id)
   end
 
 

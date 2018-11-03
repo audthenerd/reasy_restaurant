@@ -1,0 +1,79 @@
+<div class="container">
+
+    <div class="row">
+        <h1>Edit Reservation</h1>
+    </div>
+
+    <div class="row">
+        <%= form_with scope: @reservation, local: true do |form| %>
+
+
+            <%= form.date_field( :reservation_date, data: { url: seatstaken_path, remote: true , method: :get} )%><br>
+            <p> 
+                <%= form.time_select :reservation_time,
+                :combined => true,
+                :prompt => "Choose a time",
+                :minute_interval => 15,
+                :time_separator => "",
+                :start_hour => @restaurant.starttime.to_s.split(" ")[1].split(":")[0].to_i,
+                :start_minute => @restaurant.starttime.to_s.split(" ")[1].split(":")[1].to_i,
+                :end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
+                :end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[1].to_i,
+                :label => false,
+                :required => true
+                %>
+            </p>
+
+            <p>
+                <%= form.label :seats %><br>
+                <%= form.number_field :seats, value: 1, min: 1, max: 5 %>
+            </p>
+
+            <%= form.hidden_field :customer_id, value: @customer.id %>
+            
+            <p>
+                <%= form.submit %>
+            </p>
+        <% end %>
+    </div>
+    <br>
+    <div class="row">
+        <%= link_to 'Back', restaurants_path, class:'btn btn-primary' %>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		//display none, for those with a break
+		var selectbox = document.getElementById("reservation_reservation_time_5i");
+		for (var j=0; j < selectbox.length; j++){
+			if (selectbox.options[j].value >= gon.breakstart && selectbox.options[j].value <= gon.breakend){
+				selectbox.options[j].style.display='none'
+			}
+		}
+
+		$('#reservation_reservation_date').on('ajax:success', function(data){
+			console.log("data:", data.detail[0]);
+			var response = data.detail[0];
+			console.log(response)
+			
+			var selectbox = document.getElementById("reservation_reservation_time_5i");
+			for (var j=0; j < selectbox.length; j++){
+				if (selectbox.options[j].value >= gon.breakstart && selectbox.options[j].value <= gon.breakend){
+					selectbox.options[j].style.display='none'
+				}
+			}			
+			for (var key in response) {
+				for(let i=0; i < selectbox.length; i++){
+					//console.log("response key:", response[key] >= gon.availseats)
+					console.log("selectbox boool:", selectbox.options[i].value == key.split(" ")[1])
+					if (response[key] >= gon.availseats && selectbox.options[i].value == key.split(" ")[1]){
+						selectbox.options[i].style.display='none'
+					}
+				}
+			}
+		});
+ 	});
+</script>
