@@ -1,9 +1,14 @@
-<%= form_with model: @review, url: restaurant_reviews_path(@restaurant.id), local: true do |form| %>
-
-    <%= form.collection_select :restaurant_id, @restaurants, :id, :name %> 
-    <%= form.text_area :comment %>
-    <%= form.number_field :rating, value: 1, min: 1, max: 5 %>
-
-    <%= form.submit %>
-
-<% end %>
+<div class="container">
+		<div class="reviewsbody">
+				<h5>Tell us about your experience at <%=@restaurant.name %></h5>
+				<%= form_with model: @review, url: restaurant_reviews_path(@restaurant.id), local: true do |form| %>
+				<%= form.hidden_field :restaurant_id, value:@restaurant.id %>
+				<%= form.hidden_field :restaurant_name, value:@restaurant.id %>
+				<%= form.text_area :comment %>
+				<br><br>
+				Number of stars
+				<%= form.number_field :rating, value: 1, min: 1, max: 5 %>
+				<%= form.submit %>
+				<% end %>
+		</div>
+</div>

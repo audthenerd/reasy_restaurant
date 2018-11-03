@@ -1,9 +1,12 @@
-<h1>Here you go...</h1>
-
+<div class="container">
+<!--
+**************************
+If userrest is signed in
+************************** -->
 <% if userrest_signed_in? %>
 	<h2>Your restaurants listed under <%= @category.name %></h2>
 <% else %>
-	<h2>Our suggestions for <%= @category.name %> food</h2>
+	<h1>Select from our range of <%= @category.name %> restaurants</h1>
 <% end %>
 
 <div class = "container">
@@ -12,12 +15,11 @@
 
 <div class='row'>
 <% @restaurants.each do |restaurant| %>
-		        <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		        <div class="card coverimg">
 		            <br/>
 			            <%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
 		            <div class="card-body">
-		                <h5 class="card-title"><%= restaurant.name %></h5>
-		                    <p class="card-text inline"><%= link_to 'Restaurant Profile', restaurant_path(restaurant) %></p>
+		                    <h5 class="card-text inline"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 		                    <% if userrest_signed_in? %>
 			                    <p class="card-text inline"><%= link_to 'Edit Restaurant Profile', edit_restaurant_path(restaurant) %></p>
 			                    <p class="card-text inline"><%= link_to 'Delete Restaurant', restaurant_path(restaurant),
@@ -36,4 +38,5 @@ No restaurants listed under this category!
 </div>
 <div>
 <%= link_to 'Back', restaurants_path %>
+</div>
 </div>
