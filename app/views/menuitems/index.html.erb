@@ -37,12 +37,11 @@ If userrest is signed in
 <% end %>
 <%= link_to 'Back', restaurant_path(@restaurant) %>
 <% end %>
-<% end %>
 <!--
 **************************
 If customer is signed in
 ************************** -->
-<% if customer_signed_in? %>
+<% else %>
 <div class="container">
 		<div class="row">
 				<h1><%= @restaurant.name %></h1>
@@ -56,26 +55,26 @@ If customer is signed in
 		</div>
 		<div class="row">
 				<div class="col-8">
-
-					<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
+						<% if customer_signed_in? %>
+						<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
 						<% @menuitems.each do |item| %>
 						<%= item.item %> |
 						<%= item.price %>
-							<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
-									<%= form.label :quantity %>
-									<%= form.number_field :quantity %>
-									<%= form.hidden_field :menuitem_id, value: item.id %>
-							<% end %>
+						<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
+						<%= form.label :quantity %>
+						<%= form.number_field :quantity %>
+						<%= form.hidden_field :menuitem_id, value: item.id %>
+						<% end %>
 						<br>
 						<% end %>
 				</div>
 				<div class="col-4">
-					<p>
-						<%= f.label :reservation_date %><br>
-						<%= f.date_field( :reservation_date, data: { url: monkey_banana_path, remote: true , method: :get} )%>
-					</p>
-					<p>
-						<%= f.time_select :reservation_time,
+						<p>
+								<%= f.label :reservation_date %><br>
+								<%= f.date_field( :reservation_date, data: { url: monkey_banana_path, remote: true , method: :get} )%>
+						</p>
+						<p>
+								<%= f.time_select :reservation_time,
 				  :combined => true,
 					:prompt => "Choose a time",
 				  :minute_interval => 15,
@@ -92,17 +91,25 @@ If customer is signed in
 								<%= f.label :seats %>
 								<%= f.number_field :seats, value: 1, min: 1, max: 5 %>
 						</p>
-
 						<%= f.hidden_field :customer_id, value: current_customer.id %>
 						<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
-
 						<%= f.submit id: 'formsubmit' %>
 				</div>
 				<% end %>
 		</div>
-		<% end %>
+				<% else %>
+			<div class='row'>
+						<% @menuitems.each do |item| %>
+						<div class="col-lg-8">
+														<%= item.item %>
+												</div>
+												<div class="col">
+														<%= item.price %>
+												</div>
+						<% end %></div>
+				<% end %>
+<% end %>
 </div>
-
 
 <script type="text/javascript">
 $(document).ready(function() {

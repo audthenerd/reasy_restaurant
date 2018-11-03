@@ -32,22 +32,25 @@ UNRESOLVED
 <% if userrest_signed_in? %>
 	<h1><%= @restaurant.name %>: Your Customer Reservations</h1>
 
-
-	<%= month_calendar(attribute: :reservation_date, events: @booked) do |date, events| %>
+	<%= calendar(attribute: :reservation_date, events: @booked, number_of_days: 1) do |date, events| %>
   <%= date.to_formatted_s(:short) %>
 
 	  <% events.each do |event| %>
 	    <div>
-	      <%= event.customer_id %>
-	      <%= event.reservation_time %>
+	      <%= event.customer.name %><br>
+	      <%= event.reservation_time %> <br>
+	      Pax:<%= event.seats %><br>
+	      <%= link_to 'Order', restaurant_reservation_path(event.restaurant_id, event.id) %>
 	    </div>
 	  <% end %>
 
 	<% end %>
+
 <% end %>
 
 
+<div class="row justify-content-md-center">
 <%= link_to 'Back', restaurants_path %>
-
+</div>
 
 

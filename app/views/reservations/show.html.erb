@@ -1,8 +1,9 @@
 <!--
 **************************
 If customer signed in
-UNRESOLVED
+RESOLVED
 ************************** -->
+<% if customer_signed_in? %>
 <h1>HELLO</h1>
 
 <%= @reservation.restaurant.name %>
@@ -20,9 +21,23 @@ total
 <%= link_to 'Back', customer_reservations_path(current_customer.id)%>
 
 
-
+<% elsif userrest_signed_in? %>
 <!--
 **************************
 If restaurant signed in
-UNRESOLVED
+RESOLVED
 ************************** -->
+<%= @reservation.restaurant.name %>
+<br><br>
+
+<% @reservation.menuitems_reservations.each do |x| %>
+<p>
+<%= x.quantity %> <%= x.menuitem.item %> <%= x.menuitem.price %></p>
+
+<% end %>
+
+total
+<%= @price %>
+
+
+<% end %>
