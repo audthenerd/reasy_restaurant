@@ -28,8 +28,8 @@ class MenuitemsController < ApplicationController
 
     if @restaurant.userrest == current_userrest
 
-    @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
-    #@restaurants = Restaurant.where(userrest_id: current_userrest.id)
+      @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
+      #@restaurants = Restaurant.where(userrest_id: current_userrest.id)
     end
 
     if current_customer
@@ -40,15 +40,15 @@ class MenuitemsController < ApplicationController
     gon.breakstart = @restaurant.breakstart.to_s.split(" ")[1]
     gon.breakend = @restaurant.breakend.to_s.split(" ")[1]
     gon.availseats = @restaurant.avail_seats
-
-   @checkvar = @booked.each do |x| x.reservation_time.present? end
+    @checkvar = @booked.each do |x| x.reservation_time.present? 
+    end
+    end
 
     if params[:reservation]
       @reservationtime = Reservation.where(reservation_date: params[:reservation5Breservation_date5D])
       render plain: params.inspect
     end
 
-end
   end
 
   def new
