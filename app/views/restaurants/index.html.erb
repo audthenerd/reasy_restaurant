@@ -82,16 +82,18 @@ If customer is signed in
 **************************
 If restaurant is signed in
 ************************** -->
+
 <% elsif userrest_signed_in? %>
 <div class="container">
 		<h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>
 		<!--
     <div id="graph" style="max-width: 700px; height: 400px; margin: 0 auto"></div> -->
 		<h3>Peak Hours</h3>
-		<%= line_chart @restaurants.map { |restaurant| {name: restaurant.name, data: restaurant.reservations.group(:reservation_time).count}}, xtitle: "Reservation Timings", ytitle: "No.of Reservations", title: "Tracking Peak Hours for Your Businesses", legend: "bottom", id: "rest-chart", width: "800px", height: "500px", messages: {empty: "No reservations"} %>
-		<h3>Popular Items</h3>
-		<%= column_chart @menuitems.map {|item| item.menuitems_reservations.group(:quantity).count} %>
-		<h3>Restaurants Owned by You</h3>
+		<%= line_chart @restaurants.map { |restaurant| {name: restaurant.name, data: restaurant.reservations.group(:reservation_time).count, library: {Tension: 0}}}, xtitle: "Reservation Timings", ytitle: "No.of Reservations", title: "Tracking Peak Hours for Your Businesses", legend: "bottom", id: "rest-chart", width: "800px", height: "500px", messages: {empty: "No reservations yet"} %>
+    <h3>Popular Items</h3>
+	  <% @pie.each do |p| %>
+	    <p><%= pie_chart (p), messages: {empty: "No items added yet"}, library: {backgroundColor: 'transparent', animation:{easing: 'easeOutQuad'}, elements: {arc: {borderWidth: 0}}}, class: "pie-chart" %></p>
+    <% end %>
 		<div class="row">
 				<% @restaurants.each do |restaurant| %>
 				<div class="card coverimg float-left">
