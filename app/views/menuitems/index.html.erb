@@ -3,16 +3,14 @@
  <h1><%= @restaurant.name %></h1>
 
 	 <%= image_tag cl_image_tag(@restaurant.image_url) %>
-	 <%= image_tag cl_image_tag(@restaurant.image2_url) %>
-	 <%= image_tag cl_image_tag(@restaurant.image3_url) %>
 
 	<% @menuitems.each do |item| %>
-	<p><%= item.item %>
-	<%= item.price %>
-	<%= link_to 'Edit', edit_restaurant_menuitem_path(@restaurant, item) %>
-	<%= link_to 'Delete', restaurant_menuitem_path(@restaurant, item),
-								method: :delete,
-        				data: { confirm: 'Are you sure?' } %></p>
+		<p><%= item.item %>
+		<%= item.price %>
+		<%= link_to 'Edit', edit_restaurant_menuitem_path(@restaurant, item) %>
+		<%= link_to 'Delete', restaurant_menuitem_path(@restaurant, item),
+		method: :delete,
+		data: { confirm: 'Are you sure?' } %></p>
 	<% end %>
 
 
@@ -81,29 +79,32 @@
 	<%= f.date_field( :reservation_date, data: { url: monkey_banana_path, remote: true , method: :get} )%><br>
 
 	<%= f.time_select :reservation_time,
-  :combined => true,
+	:combined => true,
 	:prompt => "Choose a time",
-  :minute_interval => 15,
-  :time_separator => "",
-  :start_hour => @restaurant.starttime.to_s.split(" ")[1].split(":")[0].to_i,
-  :start_minute => @restaurant.starttime.to_s.split(" ")[1].split(":")[1].to_i,
-  :end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
-  :end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
-  :label => false,
-  :required => true,
-  :html_options =>{:disabled => @checkvar, :required => true}
-%>
+	:minute_interval => 15,
+	:time_separator => "",
+	:start_hour => @restaurant.starttime.to_s.split(" ")[1].split(":")[0].to_i,
+	:start_minute => @restaurant.starttime.to_s.split(" ")[1].split(":")[1].to_i,
+	:end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
+	:end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[1].to_i,
+	:label => false,
+	:required => true,
+	:html_options =>{:disabled => @checkvar, :required => true}
+	%>
 
 	
-		<p>
+	<p>
 		<%= f.label :seats %><br>
 		<%= f.number_field :seats, value: 1, min: 1, max: 5 %>
 	</p>
+
 	<%= f.hidden_field :customer_id, value: current_customer.id %>
 	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
 
 	<%= f.submit id: 'formsubmit' %>
+
 </div>
+
 <% end %>
 <% end %>
 </div>
