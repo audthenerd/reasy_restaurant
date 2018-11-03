@@ -67,7 +67,7 @@ class MenuitemsController < ApplicationController
 
   def edit
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @menuitem = Menuitem.find(params[:id])
+    @menuitems = Menuitem.where(restaurant_id: @restaurant.id)
     # render plain: @menuitem.inspect
   end
 
