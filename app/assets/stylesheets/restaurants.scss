@@ -8,6 +8,12 @@ div.welcome-header {
 	margin-top:0px!important;
 }
 
+h1{
+	text-transform:uppercase;
+	text-align:center;
+}
+
+
 img.img-thumbnail {
 	width: 300px;
 }
@@ -27,18 +33,21 @@ a.cat-links {
 }
 
 div.restimg{
-	width:31%;
+	width:25vw;
+	height:25vw;
+	object-fit:cover
 }
 
 
 div.restimg img{
 	object-fit:cover;
-	height:20vh;
+	height:25vw;
 }
 
 div.card{
 	border:none;
 	border-radius:0;
+	margin:0 auto;
 }
 
 img.card-img-top{
@@ -72,7 +81,6 @@ input.searchbar{
 	text-align:right;
 }
 
-
 .search img{
 	width:100%;
 }
@@ -88,6 +96,10 @@ h5{
 .jumbotron{
 	height:60vh;
 	border-radius:0
+}
+
+.jumbotron .row{
+	width:100%;
 }
 
 .carousel-item{
