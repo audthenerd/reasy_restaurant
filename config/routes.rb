@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :signups, :path => "signup"
 
-  get '/monkey/banana', to: 'menuitems#ajax', as: 'monkey_banana'
+  get '/seatstaken', to: 'menuitems#ajax', as: 'seatstaken'
 
   root to: "restaurants#index"
 end

@@ -1,112 +1,103 @@
 <% if userrest_signed_in? %>
-<% if @restaurant.userrest_id == current_userrest.id %>
- <h1><%= @restaurant.name %></h1>
+	<% if @restaurant.userrest_id == current_userrest.id %>
+		<h1><%= @restaurant.name %></h1>
 
-	 <%= image_tag cl_image_tag(@restaurant.image_url) %>
-	 <%= image_tag cl_image_tag(@restaurant.image2_url) %>
-	 <%= image_tag cl_image_tag(@restaurant.image3_url) %>
+			<%= image_tag cl_image_tag(@restaurant.image_url) %>
 
-	<% @menuitems.each do |item| %>
-	<p><%= item.item %>
-	<%= item.price %>
-	<%= link_to 'Edit', edit_restaurant_menuitem_path(@restaurant, item) %>
-	<%= link_to 'Delete', restaurant_menuitem_path(@restaurant, item),
-								method: :delete,
-        				data: { confirm: 'Are you sure?' } %></p>
+			<% @menuitems.each do |item| %>
+				<p><%= item.item %>
+				<%= item.price %>
+				<%= link_to 'Edit', edit_restaurant_menuitem_path(@restaurant, item) %>
+				<%= link_to 'Delete', restaurant_menuitem_path(@restaurant, item),
+				method: :delete,
+				data: { confirm: 'Are you sure?' } %></p>
+			<% end %>
+
+
+		<h1>Add a new menu item</h1>
+			<%= form_with scope: :menuitem, url: restaurant_menuitems_path, local: true do |form| %>
+			<p>
+				<%= form.label :item %><br>
+				<%= form.text_field :item %>
+			</p>
+
+			<p>
+				<%= form.label :price %><br>
+				<%= form.text_field :price %>
+			</p>
+
+
+			<%= form.hidden_field :restaurant_id, value:@restaurant.id %>
+
+			<p>
+				<%= form.submit %>
+			</p>
+		<% end %>
+
+		<%= link_to 'Back', restaurant_path(@restaurant) %>
 	<% end %>
-
-
-<h1>Add a new menu item</h1>
-	<%= form_with scope: :menuitem, url: restaurant_menuitems_path, local: true do |form| %>
-
-	<p>
-		<%= form.label :item %><br>
-		<%= form.text_field :item %>
-	</p>
-
-	<p>
-		<%= form.label :price %><br>
-		<%= form.text_field :price %>
-	</p>
-
-
-	<%= form.hidden_field :restaurant_id, value:@restaurant.id %>
-
-	<p>
-		<%= form.submit %>
-	</p>
-
 <% end %>
-
-<%= link_to 'Back', restaurant_path(@restaurant) %>
-<% end %><% end %>
 
 
 <% if customer_signed_in? %>
-	 <div class="row restimg">
-
-	 <% @restaurant.image_url.each do |image| %>
-		          <div class='col'>
-			       <%= cl_image_tag(image,  class: "card-img-top") %>
-          </div>
-        <% end%>
-      </div>
+	<div class="row restimg">
+			<% @restaurant.image_url.each do |image| %>
+			<div class='col'>
+			<%= cl_image_tag(image,  class: "card-img-top") %>
+			</div>
+		<% end%>
+	</div>
 
 <div class="row">
-<div class="col">
+	<div class="col">
 		<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
 
-	  <% @menuitems.each do |item| %>
+		<% @menuitems.each do |item| %>
 
-  	<%= item.item %> | <%= item.price %>
+			<%= item.item %> | <%= item.price %>
+			<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
+			<%= form.label :quantity %>
+			<%= form.number_field :quantity, value: 0, min: 0 %>
 
-	
-  	<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
+			<%= form.hidden_field :menuitem_id, value: item.id %>
+			<% end %><br>
 
-  		<%= form.label :quantity %>
-  		<%= form.number_field :quantity %>
+		<% end %>
+	</div>
 
-  		<%= form.hidden_field :menuitem_id, value: item.id %>
-		 
+	<div class="col">
 
-		<% end %><br>
+		<%= f.label :reservation_date %><br>
 
-  <% end %>
-</div>
+		<%= f.date_field( :reservation_date, data: { url: seatstaken_path, remote: true , method: :get} )%><br>
 
-<div class="col">
-
-	<%= f.label :reservation_date %><br>
-
-	<%= f.date_field( :reservation_date, data: { url: monkey_banana_path, remote: true , method: :get} )%><br>
-
-	<%= f.time_select :reservation_time,
-  :combined => true,
-	:prompt => "Choose a time",
-  :minute_interval => 15,
-  :time_separator => "",
-  :start_hour => @restaurant.starttime.to_s.split(" ")[1].split(":")[0].to_i,
-  :start_minute => @restaurant.starttime.to_s.split(" ")[1].split(":")[1].to_i,
-  :end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
-  :end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
-  :label => false,
-  :required => true,
-  :html_options =>{:disabled => @checkvar, :required => true}
-%>
-
-	
+		<%= f.time_select :reservation_time,
+		:combined => true,
+		:prompt => "Choose a time",
+		:minute_interval => 15,
+		:time_separator => "",
+		:start_hour => @restaurant.starttime.to_s.split(" ")[1].split(":")[0].to_i,
+		:start_minute => @restaurant.starttime.to_s.split(" ")[1].split(":")[1].to_i,
+		:end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
+		:end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[1].to_i,
+		:label => false,
+		:required => true,
+		:html_options =>{:disabled => @checkvar, :required => true}
+		%>
+		
 		<p>
-		<%= f.label :seats %><br>
-		<%= f.number_field :seats, value: 1, min: 1, max: 5 %>
-	</p>
-	<%= f.hidden_field :customer_id, value: current_customer.id %>
-	<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
+			<%= f.label :seats %><br>
+			<%= f.number_field :seats, value: 1, min: 1, max: 5 %>
+		</p>
 
-	<%= f.submit id: 'formsubmit' %>
-</div>
+		<%= f.hidden_field :customer_id, value: current_customer.id %>
+		<%= f.hidden_field :restaurant_id, value: @restaurant.id %>
+
+		<%= f.submit id: 'formsubmit' %>
+	</div>
+	<% end %>
 <% end %>
-<% end %>
-</div>
+</div> 
 
 
 
