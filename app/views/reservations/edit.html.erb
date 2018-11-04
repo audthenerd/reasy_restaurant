@@ -5,7 +5,7 @@
     </div>
 
     <div class="row">
-        <%= form_with model: @reservation, url: customer_reservation_path(@customer, @reservation), local: true do |form| %>
+        <%= form_with model: @reservation, url: customer_reservation_path(@customer.id, @reservation), local: true do |form| %>
 
 
             <%= form.date_field( :reservation_date, data: { url: seatstaken_path, remote: true , method: :get} )%><br>
@@ -31,13 +31,20 @@
 
             <%= form.hidden_field :customer_id, value: @customer.id %>
             
-            <div>
+            <div><span class="reservation items">
+                    <% @menuitems.each do |item| %>
+                        <%= item.item %> | <%= item.price %> |<br>
+                    <% end %>
+                </span>
+                <span class="reservation">
+                    <%= form.fields_for :menuitems_reservations, @reservation.menuitems_reservations do |f| %>
+                    <%= f.hidden_field :menuitem_id %>
+                    <%= f.label :quantity %>
+                    <%= f.number_field :quantity, min: 0 %>
+                    <br>
+                    <% end %>
+                </span>
                
-                <%= form.fields_for :menuitems_reservations, @reservation.menuitems_reservations do |f| %>
-                <%= f.label :menuitem_id %>
-                <%= f.label :quantity %>
-                <%= f.number_field :quantity, min: 0 %>
-                <% end %><br>
             </div>
 		   
             <p>
