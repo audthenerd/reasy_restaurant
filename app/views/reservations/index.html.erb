@@ -11,9 +11,11 @@ If customer signed in
 
 	  <% events.each do |event| %>
 	    <div>
-	    	<%= link_to 'Your reservation at:' + event.restaurant.name, customer_reservation_path(current_customer.id, event.id) %><br>
-	      <%= event.reservation_time %>
-	    </div>
+	    	Reservation at:
+	    	<%= link_to event.restaurant.name, customer_reservation_path(current_customer.id, event.id) %><br>
+	      <%= event.reservation_date %>
+	      <%= event.reservation_time.strftime("%I:%M") %>
+	    </div><br>
 	  <% end %>
 
 	<% end %>
@@ -38,7 +40,7 @@ UNRESOLVED
 	  <% events.each do |event| %>
 	    <div>
 	      <%= event.customer.name %><br>
-	      <%= event.reservation_time %> <br>
+	      <%= event.reservation_time.strftime("%I:%M") %> <br>
 	      Pax:<%= event.seats %><br>
 	      <%= link_to 'Order', restaurant_reservation_path(event.restaurant_id, event.id) %>
 	    </div>
