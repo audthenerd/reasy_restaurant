@@ -25,6 +25,7 @@ If customer is signed in
 								<% end %>
 						</div>
 </div>
+
 <div class="jumbotronsearch">
 				<div class="row justify-content-md-center">
 						<div class='col-8'>
@@ -39,12 +40,12 @@ If customer is signed in
 						</div>
 				</div>
 </div>
-<div class="container">
-		<!--
+<!--
 			****************************
 			Upon searching, show results
 			**************************** -->
-		<% if params[:search].present? %>
+<div class="container">
+		<% if params[:search] != nil %>
 		<% if @restaurants.present? %>
 		<div class='row'>
 				<% @restaurants.each do |restaurant| %>
@@ -64,11 +65,12 @@ If customer is signed in
 			By default, show categories
 			**********************************-->
 		<% else %>
-<div class='row'>
+		<div class='row'>
 			<h4>Suggested places:</h4>
 		</div>
 		<div class="row">
 				<% @restaurantlist.drop(5).first(3).each do |restaurant| %>
+
 				<div class="card coverimg">
 						<%=  cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
 						<div class="card-body align-middle">
@@ -77,9 +79,6 @@ If customer is signed in
 				</div>
 				<% end %>
 		</div>
-
-
-
 		<% end %>
 </div>
 <!--
