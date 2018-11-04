@@ -72,18 +72,29 @@ If customer is signed in
 		<div class="row">
 				<div class="col-8">
 						<% if customer_signed_in? %>
+						<div class="row">
+
 						<%= form_with model: @reservation, url: customer_reservations_path(current_customer.id), local: true do |f| %>
+						<div class="row">
 						<% @menuitems.each do |item| %>
-						<%= item.item %> |
+					<div class="col-6">
+						<%= item.item %>
+					</div>
+					<div class="col-3">
 						<%= item.price %>
+					</div>
+					<div class="col-3">
 						<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
 						<%= form.label :quantity %>
-						<%= form.number_field :quantity, value: 0, min: 0 %>
+						<%= form.number_field :quantity, value: 0, min: 0, class: 'qty' %>
 						<%= form.hidden_field :menuitem_id, value: item.id %>
 						<% end %>
+					</div>
 						<br>
 						<% end %>
+					</div>
 				</div>
+			</div>
 				<div class="col-4">
 						<p>
 								<%= f.label :reservation_date %><br>
@@ -112,7 +123,7 @@ If customer is signed in
 						<%= f.submit id: 'formsubmit' %>
 				</div>
 				<% end %>
-		</div>
+	</div>
 		<% else %>
 		<div class='row'>
 				<% @menuitems.each do |item| %>
@@ -125,6 +136,7 @@ If customer is signed in
 				<% end %>
 		</div>
 		<% end %>
+	</div>
 		<% end %>
 </div>
 <script type="text/javascript">
