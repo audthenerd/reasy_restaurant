@@ -79,17 +79,24 @@ class RestaurantsController < ApplicationController
 
   def edit
     @restaurant = Restaurant.find(params[:id])
+    @categories = Category.all
   end
 
   def update
+    params[:restaurant].parse_time_select! :starttime
+    params[:restaurant].parse_time_select! :endtime
+    params[:restaurant].parse_time_select! :breakstart
+    params[:restaurant].parse_time_select! :breakend
     @restaurant = Restaurant.find(params[:id])
 
     if @restaurant.userrest == current_userrest
-      @restaurant.update(restro_params)
+      @restaurant. update(restro_params)
       if @restaurant.image_url
-        uploaded_file = params[:restaurant][:image_url].path
-        cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
-        @restaurant.image_url = cloudnary_file['public_id']
+        params[:restaurant][:image_url].each do |image|
+          uploaded_file = image.path
+          cloudnary_file = Cloudinary::Uploader.upload(uploaded_file)
+          @restaurant.image_url << cloudnary_file['public_id']
+        end
       end
       if @restaurant.save
         redirect_to @restaurant

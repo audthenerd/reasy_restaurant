@@ -11,9 +11,9 @@ If customer signed in
 
 	  <% events.each do |event| %>
 	    <div>
-	    	<%= link_to 'Your reservation at:' + event.restaurant.name, customer_reservation_path(current_customer.id, event.id) %><br>
-	      <%= event.reservation_time %>
-	    </div>
+	    	<%= link_to event.restaurant.name + ' at ' + event.reservation_time.strftime("%I:%M") , customer_reservation_path(current_customer.id, event.id) %><br>
+
+	    </div><br>
 	  <% end %>
 
 	<% end %>
@@ -35,14 +35,17 @@ UNRESOLVED
 	<%= calendar(attribute: :reservation_date, events: @booked, number_of_days: 1) do |date, events| %>
   <%= date.to_formatted_s(:short) %>
 
+  	<div class="row">
 	  <% events.each do |event| %>
-	    <div>
-	      <%= event.customer.name %><br>
-	      <%= event.reservation_time %> <br>
+	    <div class='col-2'>
+	      <%= event.customer.name %> at
+	      <%= event.reservation_time.strftime("%I:%M") %> <br>
 	      Pax:<%= event.seats %><br>
-	      <%= link_to 'Order', restaurant_reservation_path(event.restaurant_id, event.id) %>
+	      <%= link_to 'Order', restaurant_reservation_path(event.restaurant_id, event.id) %><br>
+	      <hr>
 	    </div>
 	  <% end %>
+	</div>
 
 	<% end %>
 

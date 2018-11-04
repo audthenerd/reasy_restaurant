@@ -1,13 +1,20 @@
 <div class="container">
 
-<h1>Your Profile</h1>
-
-<%= cl_image_tag(@customer.image_url, class: "profile-pic", width: "300px" ) %><br>
-
-Name: <%= @customer.name %><br>
-Email: <%= @customer.email %>
-
-<div><%= link_to 'Edit Your Profile', edit_customer_registration_path %></div>
-<div><%= link_to 'View Your Reservations', customer_reservations_path(@customer) %></div>
-<div><%= link_to 'Back to Homepage', restaurants_path %></div>
-</div>
+		<div class="row justify-content-center">
+				<h2>Your Profile</h2>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-6 d-flex justify-content-end">
+						<%= cl_image_tag(@customer.image_url, class: "profile-pic", width: "300px" ) %><br>
+				</div>
+				<div class="col-6">
+						Name:
+						<%= @customer.name %><br>
+						Email:
+						<%= @customer.email %><br>
+						<div>
+						<%= link_to 'Edit Your Profile', edit_customer_registration_path %><br>
+						<%= link_to 'Back to Homepage', restaurants_path %>
+					</div>
+				</div>
+		</div>

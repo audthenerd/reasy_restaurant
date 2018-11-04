@@ -14,17 +14,18 @@ If customer is signed in
 								<% @restaurantlist.first(3).each_with_index do |product| %>
 								<div class="carousel-item <%= " active" if product==@restaurantlist.first %> ">
 										<% if product.image_url.present? %>
-										<%= link_to cl_image_tag product.image_url[0],  class: "d-block w-100" %>
+										<%= link_to cl_image_tag(product.image_url[0]), restaurant_path(product.id),  class: "d-block w-100" %>
 										<% end %>
 								</div>
 								<div class="carousel-item">
 										<% if product.image_url.present? %>
-										<%= cl_image_tag (product.image_url[0]) , class: "d-block w-100" %>
+										<%= link_to cl_image_tag(product.image_url[0]), restaurant_path(product.id) , class: "d-block w-100" %>
 										<% end %>
 								</div>
 								<% end %>
 						</div>
-								</div>
+</div>
+
 <div class="jumbotronsearch">
 				<div class="row justify-content-md-center">
 						<div class='col-8'>
@@ -50,7 +51,7 @@ If customer is signed in
 				<% @restaurants.each do |restaurant| %>
 				<div class="card coverimg">
 						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
-						<div class="card-body">
+						<div class="card-body ">
 								<h5 class="card-title"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 						</div>
 				</div>
@@ -68,11 +69,12 @@ If customer is signed in
 			<h4>Suggested places:</h4>
 		</div>
 		<div class="row">
-				<% @restaurantlist.first(3).each do |restaurant| %>
+				<% @restaurantlist.drop(5).first(3).each do |restaurant| %>
+
 				<div class="card coverimg">
-						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
-						<div class="card-body">
-								<h5 class="card-title"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
+						<%=  cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
+						<div class="card-body align-middle">
+								<h5 class="card-title align-middle"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 						</div>
 				</div>
 				<% end %>
@@ -148,17 +150,18 @@ If restaurant is signed in
   	</div>
   </div>
 
-		<div class="row">
+  <h3>Your Restaurants</h3>
+  		<div class="row">
 				<% @restaurants.each do |restaurant| %>
 				<div class="card coverimg float-left">
 						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
 						<div class="card-body">
 								<h5 class="card-title"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 								<p class="card-text inline">
-										<%= link_to 'See Restaurant Reservations', restaurant_reservations_path(restaurant) %>
+										<%= link_to 'Restaurant Reservations', restaurant_reservations_path(restaurant) %>
 								</p>
 								<p class="card-text inline">
-										<%= link_to 'Edit Restaurant', edit_restaurant_path(restaurant) %>
+										<%= link_to 'Restaurant Profile', edit_restaurant_path(restaurant) %>
 								</p>
 								<p class="card-text inline">
 										<%= link_to 'Delete Restaurant', restaurant_path(restaurant),
@@ -186,17 +189,17 @@ If not signed in
 								<% @restaurantlist.first(3).each_with_index do |product| %>
 								<div class="carousel-item <%= " active" if product==@restaurantlist.first %> ">
 										<% if product.image_url.present? %>
-										<%= link_to cl_image_tag product.image_url[0],  class: "d-block w-100" %>
+										<%= link_to cl_image_tag(product.image_url[0]), restaurant_path(product.id),  class: "d-block w-100" %>
 										<% end %>
 								</div>
 								<div class="carousel-item">
 										<% if product.image_url.present? %>
-										<%= cl_image_tag (product.image_url[0]) , class: "d-block w-100" %>
+										<%= link_to cl_image_tag(product.image_url[0]), restaurant_path(product.id) , class: "d-block w-100" %>
 										<% end %>
 								</div>
 								<% end %>
 						</div>
-								</div>
+</div>
 <div class="jumbotronsearch">
 				<div class="row justify-content-md-center">
 						<div class='col-8'>
@@ -241,11 +244,11 @@ If not signed in
 			<h4>Suggested places:</h4>
 		</div>
 		<div class="row">
-				<% @restaurantlist.first(3).each do |restaurant| %>
+				<% @restaurantlist.drop(5).first(3).each do |restaurant| %>
 				<div class="card coverimg">
-						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
-						<div class="card-body">
-								<h5 class="card-title"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
+						<%=  cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
+						<div class="card-body align-middle">
+								<h5 class="card-title align-middle"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 						</div>
 				</div>
 				<% end %>
@@ -254,5 +257,4 @@ If not signed in
 </div>
 <%# end %>
 <% end %>
-</div>
 

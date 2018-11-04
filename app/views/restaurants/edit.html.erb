@@ -6,30 +6,127 @@
 
     <div class="row">
         <%= form_with scope: :restaurant, model: @restaurant, local: true do |form| %>
+
             <div>
                 <%= form.label :name %><br>
-                <%= form.text_field :name, class:"form-control" %>
+                <%= form.text_field :name, {class: 'form-control'}%>
             </div>
 
             <div>
                 <%= form.label :image_url %><br>
-                <%= form.file_field :image_url, class:"form-control" %>
+                <%= form.file_field :image_url, multiple: true, class: 'form-control' %>
             </div>
 
             <div>
-                <%= form.label :location %><br>
-                <%= form.text_field :location, {class: 'form-control'} %>
+                <%= form.label :street %><br>
+                <%= form.text_field :street, {class: 'form-control'} %>
             </div>
 
             <div>
-                <%= form.hidden_field :lat, {class: 'form-control'}%>
+                <%= form.label :city %><br>
+                <%= form.text_field :city, {class: 'form-control'} %>
             </div>
 
             <div>
-                <%= form.hidden_field :long, {class: 'form-control'} %>
-            </div>    
+                <%= form.label :zipcode %><br>
+                <%= form.text_field :zip, {class: 'form-control'} %>
+            </div>
+
+            <div>
+                <%= form.label :opening_hours %><br>
+                <%= form.text_field :opening_hours, {class: 'form-control'} %>
+            </div>
+
+            <div>
+                <%= form.label :telephone %><br>
+                <%= form.text_field :telephone, {class: 'form-control'} %>
+            </div>
 
 
+            <div>
+                <%= form.label :categories %><br>
+                <%= form.collection_check_boxes :category_ids, @categories, :id, :name %>
+            </div>
+
+            <br>
+            <% # let restaurant choose their start/end and break and conditionals %>
+            <div style="border:solid;"> !!!CUSTOMIZE YOUR RESERVATION!!!
+
+                <div>
+                    <span>
+                        <%= form.label :start_time %>
+                        <%= form.time_select :starttime,
+                            :combined => true,
+                            :prompt => "Choose a time",
+                            :minute_interval => 15,
+                            :time_separator => "",
+                            :start_hour => 8,
+                            :start_minute => 00,
+                            :end_hour => 22,
+                            :end_minute => 00,
+                            :label => false,
+                            :required => true
+                            %>
+                    </span>
+                    <span>
+                        <%= form.label :end_time %>
+                        <%= form.time_select :endtime,
+                            :combined => true,
+                            :prompt => "Choose a time",
+                            :minute_interval => 15,
+                            :time_separator => "",
+                            :start_hour => 8,
+                            :start_minute => 00,
+                            :end_hour => 22,
+                            :end_minute => 00,
+                            :label => false,
+                            :required => true
+                            %>
+                    </span>
+                </div>
+
+                <div>
+                    <span>
+                        <%= form.label :break_start %>
+                        <%= form.time_select :breakstart,
+                            :combined => true,
+                            :prompt => "Choose a time",
+                            :minute_interval => 15,
+                            :time_separator => "",
+                            :start_hour => 8,
+                            :start_minute => 15,
+                            :end_hour => 21,
+                            :end_minute => 45,
+                            :label => false,
+                            :required => true
+                            %>
+                    </span>
+                    <span>
+                        <%= form.label :break_end %>
+                        <%= form.time_select :breakend,
+                            :combined => true,
+                            :prompt => "Choose a time",
+                            :minute_interval => 15,
+                            :time_separator => "",
+                            :start_hour => 8,
+                            :start_minute => 00,
+                            :end_hour => 22,
+                            :end_minute => 00,
+                            :label => false,
+                            :required => true
+                            %>
+                    </span>
+                </div>
+
+                <div>
+                    <%= form.label :Available_seats_per_slot %><br>
+                    <%= form.number_field :avail_seats, {class: 'form-control'} %>
+                </div>
+
+            </div>
+
+            <br>
+            
             <div>
                 <%= form.submit class:'btn btn-primary'%>
             </div>

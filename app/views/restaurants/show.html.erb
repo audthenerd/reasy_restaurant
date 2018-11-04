@@ -20,7 +20,6 @@ Menu
 ************************** -->
 		<div class="row">
 				<div class='col-8'>
-						<div class="row">
 								<div class="menu">
 										<h5>Menu</h5>
 										<% if @restaurant.menuitems.blank? %>
@@ -32,7 +31,7 @@ Menu
 														<%= menuitems.item %>
 												</div>
 												<div class="col">
-														<%= menuitems.price %>
+														$<%= menuitems.price %>
 												</div>
 												<% end %>
 										</div>
@@ -42,12 +41,11 @@ Menu
 				Edit menu for userrest
 				************************** -->
 										<% if userrest_signed_in? %>
-										<p>
-												<%= link_to 'Edit menu', restaurant_menuitems_path(@restaurant) %>
-										</p>
+										<div><br>
+												<%= link_to 'Edit menu', restaurant_menuitems_path(@restaurant) %><br>
+										</div>
 										<% end %>
 								</div>
-						</div>
 				</div>
 				<!--
 **************************
@@ -58,24 +56,18 @@ Reviews
 **************************
 Description
 ************************** -->
-						<div class="row">
 								<h5>Categories:</h5>
 								<% @restaurant.categories.each do |cat| %>
 								<p><a href="<%= category_path(cat.id) %>" class="cat-links"><%= cat.name %></a></p>
 								<% end %>
-						</div>
-						<div class="row">
 								<h5>Telephone:</h5>
 								<p>
 										<%= @restaurant.telephone %>
 								</p>
-						</div>
-						<div class="row">
 								<h5>Opening Hours:</h5>
 								<p>
 										<%= @restaurant.opening_hours %>
 								</p>
-						</div>
 						<!--
 **************************
 Reservation for customer
@@ -132,6 +124,7 @@ Reservation for customer
 				Userrest view review
 				************************** -->
 						<% if userrest_signed_in? %>
+						<hr>
 						<h5>Reviews</h5>
 						<% if @reviews.blank? %>
 						<p>no reviews yet!</p>
@@ -145,14 +138,12 @@ Reservation for customer
 						</div>
 						<div class="star-rating" data-score=<%=@average_rating %>>
 								<% end %>
-								<div class="row">
 										<p>
 												<%= link_to 'Edit Restaurant Profile', edit_restaurant_path(@restaurant) %>
 										</p>
 										<p>
 												<%= link_to 'Delete', restaurant_path(@restaurant)%>
 										</p>
-								</div>
 						</div>
 						<% end %>
 				</div>
