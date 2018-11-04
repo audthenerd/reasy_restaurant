@@ -21,20 +21,18 @@ div.pop-items {
 	margin: 100px 0;
 }
 
-div#chart-1 {
-float:left;
-margin-left: 20px;
-}
+$startIndexOne: 1;
 
-div#chart-2 {
-	float:right;
-	margin-right: 59px;
+@for $i from $startIndexOne through 10000 {
+	div#chart-#{$i} {
+	display: inline-block;
+	margin: 0 125px;
+	}
 }
 
 div.clearfix {
-	width: 961px;
+	width: 100%;
 	overflow: auto;
-	margin: 20px 100px;
 }
 
 .row{
