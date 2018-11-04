@@ -48,6 +48,10 @@ If customer is signed in
 		<% if params[:search] != nil %>
 		<% if @restaurants.present? %>
 		<div class='row'>
+
+		<h4>Search results:</h4>
+	</div>
+		<div class='row'>
 				<% @restaurants.each do |restaurant| %>
 				<div class="card coverimg">
 						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
@@ -222,6 +226,9 @@ If not signed in
 <div class="container">
 		<% if params[:search] != nil %>
 		<% if @restaurants.present? %>
+		<div class='row'>
+			<h4>Search results:</h4>
+		</div>
 		<div class='row'>
 				<% @restaurants.each do |restaurant| %>
 				<div class="card coverimg">
