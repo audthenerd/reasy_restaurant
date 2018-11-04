@@ -20,13 +20,14 @@
                 :end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
                 :end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[1].to_i,
                 :label => false,
-                :required => true
+                :required => true,
+                :html_options =>{:disabled => @checkvar, :required => true}
                 %>
             </p>
 
             <p>
                 <%= form.label :seats %><br>
-                <%= form.number_field :seats, value: 1, min: 1, max: 5 %>
+                <%= form.number_field :seats, min: 1, max: 5 %>
             </p>
 
             <%= form.hidden_field :customer_id, value: @customer.id %>
