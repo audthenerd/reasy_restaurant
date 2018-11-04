@@ -4,11 +4,41 @@
         <h1>Edit Reservation</h1>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-center">
         <%= form_with model: @reservation, url: customer_reservation_path(@customer.id, @reservation), local: true do |form| %>
 
+            <%= form.hidden_field :customer_id, value: @customer.id %>
 
-            <%= form.date_field( :reservation_date, data: { url: seatstaken_path, remote: true , method: :get} )%><br>
+            <div class = "row">
+            				<div class="col-4">
+            					Order details:
+
+            					<div class="row">
+                    <% @menuitems.each do |item| %>
+										<div class="col-10">
+                    <p><%= item.item %></p>
+                    </div>
+                    <div class="col-2">
+                    <p>$<%= item.price %></p>
+                  </div>
+                    <% end %>
+                  </div>
+                  </div>
+                  <div class="col-4"><br>
+                    <%= form.fields_for :menuitems_reservations, @reservation.menuitems_reservations do |f| %>
+                    <p>
+                    <%= f.hidden_field :menuitem_id %>
+                    <%= f.number_field :quantity, min: 0 , class: 'qty'%>
+                  </p>
+                    <% end %>
+                  </div>
+
+
+
+            <div class="col-4">
+            	Reservation Details:<br>
+             <%= form.date_field( :reservation_date, data: { url: seatstaken_path, remote: true , method: :get} )%>
+             <br><br>
             <p>
                 <%= form.time_select :reservation_time,
                 :combined => true,
@@ -27,37 +57,18 @@
 
             <p>
                 <%= form.label :seats %><br>
-                <%= form.number_field :seats, min: 1, max: 5 , value: @reservation.seats%>
+                <%= form.number_field :seats, min: 1, max: 5, value: @reservation.seats%>
             </p>
-
-            <%= form.hidden_field :customer_id, value: @customer.id %>
-
-            <div>
-            	<span class="reservation items">
-                    <% @menuitems.each do |item| %>
-                        <%= item.item %> | <%= item.price %> |<br>
-                    <% end %>
-                </span>
-                <span class="reservation">
-                    <%= form.fields_for :menuitems_reservations, @reservation.menuitems_reservations do |f| %>
-                    <%= f.hidden_field :menuitem_id %>
-                    <%= f.label :quantity %>
-                    <%= f.number_field :quantity, min: 0 %>
-                    <br>
-                    <% end %>
-                </span>
-
-            </div>
-
+          </div>
+				</div>
             <p>
-                <%= form.submit %>
+                <%= form.submit %><br><br>
+                <%= link_to 'Back', restaurants_path %>
+
             </p>
         <% end %>
     </div>
-    <br>
-    <div class="row">
-        <%= link_to 'Back', restaurants_path, class:'btn btn-primary' %>
-    </div>
+
 
 </div>
 

@@ -97,6 +97,7 @@ class ReservationsController < ApplicationController
     params[:reservation].parse_time_select! :reservation_time
     @reservation.update(reservation_params)
 
+
     redirect_to customer_reservations_path(@customer)
   end
 

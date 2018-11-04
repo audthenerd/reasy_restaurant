@@ -3,7 +3,7 @@ class Restaurant < ApplicationRecord
   after_validation :geocode, if: :address_changed?
 
   belongs_to :userrest
-  has_many :menuitems
+  has_many :menuitems, dependent: :delete_all
   has_many :orders
   has_many :reservations
   has_many :customers, through: :reservations
