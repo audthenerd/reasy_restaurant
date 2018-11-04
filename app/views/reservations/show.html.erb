@@ -32,17 +32,27 @@ Total:
 If restaurant signed in
 RESOLVED
 ************************** -->
-<%= @reservation.restaurant.name %>
+<div class="container">
+<h1>Order#<%= @reservation.id %></h1>
+<h1>
+	<%= @reservation.customer.name %> at
+	<%= @reservation.reservation_time.strftime("%I:%M") %>
+	<%= @reservation.reservation_date %>
+</h1>
 <br><br>
 
 <% @reservation.menuitems_reservations.each do |x| %>
 <p>
-<%= x.quantity %> <%= x.menuitem.item %> <%= x.menuitem.price %></p>
+<%= x.quantity %> <%= x.menuitem.item %> $<%= x.menuitem.price %></p>
 
 <% end %>
 
-total
+Total: $
 <%= @price %>
 
 
-<% end %>
+<% end %><br>
+<%= link_to 'Back', restaurant_reservations_path(@reservation.id) %><br>
+
+
+</div>
