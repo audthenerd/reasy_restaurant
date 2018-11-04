@@ -26,6 +26,7 @@ class RestaurantsController < ApplicationController
          @categories = Category.all
       end
     else # visitors of the page with no logins
+      @restaurantlist = Restaurant.all
       if params[:search].present?
         @restaurants = Restaurant.where('lower(name) LIKE ?', "%#{params[:search.downcase]}%")
       else

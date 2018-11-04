@@ -4,28 +4,33 @@ If customer is signed in
 ************************** -->
 <% if customer_signed_in? %>
 <div class="jumbotron">
-		<div class="row carousel">
-				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner">
-								<% @restaurants.each_with_index do |product| %>
-								<div class="carousel-item <%= " active" if product==@restaurants.first %> ">
-										<% if product.image_url.present? %>
-										<%= link_to cl_image_tag product.image_url,  class: "d-block w-100" %>
-										<% end %>
-								</div>
-								<div class="carousel-item">
-										<% if product.image_url.present? %>
-										<%= cl_image_tag (product.image_url) , class: "d-block w-100" %>
-										<% end %>
-								</div>
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner">
+						<ol class="carousel-indicators">
+								<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						</ol>
+						<% @restaurants.each_with_index do |product| %>
+						<div class="carousel-item <%= " active" if product==@restaurants.first %> ">
+								<% if product.image_url.present? %>
+								<%= link_to cl_image_tag product.image_url[0],  class: "d-block w-100" %>
 								<% end %>
 						</div>
+						<div class="carousel-item">
+								<% if product.image_url.present? %>
+								<%= cl_image_tag (product.image_url[0]) , class: "d-block w-100" %>
+								<% end %>
+						</div>
+						<% end %>
 				</div>
+		</div>
+<div class="jumbotronsearch">
 				<div class="row justify-content-md-center">
 						<div class='col-8'>
-								<h4>Search for your favourite restaurant</h4>
-						</div>
-						<div class='col-8'>
+								<h2>Search for your favourite restaurant</h2>
+						</div><br>
+						<div class='col-6'>
 								<%= form_tag restaurants_path, method: :get do %>
 								<%= text_field_tag :search, params[:search], placeholder: "search for stuff", class: 'searchbar' %>
 								<%= image_submit_tag "search.png", name: "commit", class: "btn btn-default search" %>
@@ -33,7 +38,6 @@ If customer is signed in
 								<% end %>
 						</div>
 				</div>
-		</div>
 </div>
 <div class="container">
 		<!--
@@ -174,19 +178,41 @@ If restaurant is signed in
 If not signed in
 ************************** -->
 <% else %>
-<div class="row justify-content-md-center">
-		<div class='col-8'>
-				<h4>Search for your favourite restaurant</h4>
-		</div>
-</div>
-<div class="row justify-content-md-center">
-		<div class='col-8'>
-				<%= form_tag restaurants_path, method: :get do %>
-				<%= text_field_tag :search, params[:search], placeholder: "search for stuff", class: 'searchbar' %>
-				<%= image_submit_tag "search.png", name: "commit", class: "btn btn-default search" %>
-				<%= select_tag(:option, options_for_select(["name", "location"], selected: :option ), class: 'dropdown-item filter') %>
-				<% end %>
-		</div>
+<div class="jumbotron">
+				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<ol class="carousel-indicators">
+									<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+									<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+									<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+							</ol>
+								<% @restaurantlist.first(3).each_with_index do |product| %>
+								<div class="carousel-item <%= " active" if product==@restaurantlist.first %> ">
+										<% if product.image_url.present? %>
+										<%= link_to cl_image_tag product.image_url[0],  class: "d-block w-100" %>
+										<% end %>
+								</div>
+								<div class="carousel-item">
+										<% if product.image_url.present? %>
+										<%= cl_image_tag (product.image_url[0]) , class: "d-block w-100" %>
+										<% end %>
+								</div>
+								<% end %>
+						</div>
+								</div>
+<div class="jumbotronsearch">
+				<div class="row justify-content-md-center">
+						<div class='col-8'>
+								<h2>Search for your favourite restaurant</h2>
+						</div><br>
+						<div class='col-6'>
+								<%= form_tag restaurants_path, method: :get do %>
+								<%= text_field_tag :search, params[:search], placeholder: "search for stuff", class: 'searchbar' %>
+								<%= image_submit_tag "search.png", name: "commit", class: "btn btn-default search" %>
+								<%= select_tag(:option, options_for_select(["name", "location"], selected: :option ), class: 'dropdown-item filter') %>
+								<% end %>
+						</div>
+				</div>
 </div>
 <%# if false %>
 <!--
@@ -214,6 +240,19 @@ If not signed in
 			By default, show categories
 			**********************************-->
 		<% else %>
+		<div class='row'>
+			<h4>Suggested places:</h4>
+		</div>
+		<div class="row">
+				<% @restaurantlist.first(3).each do |restaurant| %>
+				<div class="card coverimg">
+						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
+						<div class="card-body">
+								<h5 class="card-title"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
+						</div>
+				</div>
+				<% end %>
+		</div>
 		<% end %>
 </div>
 <%# end %>

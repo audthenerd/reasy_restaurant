@@ -5,7 +5,7 @@ class MenuitemsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:ajax]
 
   def ajax
-   
+
     @reservationtime = Reservation.where(reservation_date: params[:reservation][:reservation_date])
     hash = {}
     if !@reservationtime.empty?
@@ -19,12 +19,14 @@ class MenuitemsController < ApplicationController
     end
      render json: hash.to_json
     # render json: { ok: @reservationtime }, status: 200
-    
+
   end
 
 
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
+    @menuitems = Menuitem.where(restaurant_id: params[:restaurant_id])
+
 
     if @restaurant.userrest == current_userrest
 
@@ -40,7 +42,8 @@ class MenuitemsController < ApplicationController
     gon.breakstart = @restaurant.breakstart.to_s.split(" ")[1]
     gon.breakend = @restaurant.breakend.to_s.split(" ")[1]
     gon.availseats = @restaurant.avail_seats
-    @checkvar = @booked.each do |x| x.reservation_time.present? 
+    @checkvar = @booked.each do |x| x.reservation_time.present?
+      
     end
     end
 

@@ -17,9 +17,9 @@ class ReservationsController < ApplicationController
       @reservation = Reservation.where(restaurant_id: params[:restaurant_id])
       @restaurant = Restaurant.where(id: params[:restaurant_id])
       @customer = Reservation.where(restaurant_id: params[:restaurant_id])
-      
+
       @booked = Reservation.all
-    
+
     end
   end
 
@@ -30,11 +30,16 @@ class ReservationsController < ApplicationController
       # customer signed in RESOLVED
       @customer = Customer.find(params[:customer_id])
       @reservation = Reservation.find(params[:id])
-      
+
       @price = @reservation.menuitems_reservations.map{|y| y.menuitem.price * y.quantity}.reduce(:+)
-     
+
     elsif current_userrest
-     # restaurant signed in UNRESOLVED
+     # restaurant signed in RESOLVED
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @reservation = Reservation.find(params[:id])
+
+      @price = @reservation.menuitems_reservations.map{|y| y.menuitem.price * y.quantity}.reduce(:+)
+
 
     end
 
@@ -50,13 +55,15 @@ class ReservationsController < ApplicationController
       gon.breakstart = @restaurant.breakstart.to_s.split(" ")[1]
       gon.breakend = @restaurant.breakend.to_s.split(" ")[1]
       gon.availseats = @restaurant.avail_seats
+      @booked = Reservation.all
+      @checkvar = @booked.each do |x| x.reservation_time.present? end
     end
     
   end
 
   def create
     params[:reservation].parse_time_select! :reservation_time
-    
+
     @reservation = Reservation.new(reservation_params)
     # ["menuitems_reservations_attributes"]["0"])
 
@@ -88,6 +95,8 @@ class ReservationsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @reservation = Reservation.find(params[:id])
     @reservation.update(reservation_params)
+
+    redirect_to customer_reservations_path(@customer)
   end
 
   def destroy

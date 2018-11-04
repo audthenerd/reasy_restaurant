@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1>Your Profile</h1>
 
 <%= cl_image_tag(@customer.image_url, class: "profile-pic", width: "300px" ) %><br>
@@ -7,3 +9,4 @@ Email: <%= @customer.email %>
 
 <div><%= link_to 'Edit Your Profile', edit_customer_registration_path %></div>
 <div><%= link_to 'Back to Homepage', restaurants_path %></div>
+</div>
