@@ -5,7 +5,16 @@ class RestaurantsController < ApplicationController
   def index
     if current_userrest
       @restaurants = Restaurant.where(userrest_id: current_userrest.id)
-      @menuitems = Menuitem.where(restaurant_id: @restaurants)
+
+      @pie = @restaurants.map do |x|
+        @menuitems = Menuitem.where(restaurant_id: x)
+        @mr = MenuitemsReservation.where(menuitem_id: @menuitems)
+        @group = @mr.map do |y|
+          [y.menuitem.item, y.quantity]
+        end
+        @group.each_with_object(Hash.new(0)){|(k,v), h| h[k] +=v}
+      end
+
     elsif current_customer
       @restaurantlist = Restaurant.all
       if params[:option] == "name" && params[:search] != nil

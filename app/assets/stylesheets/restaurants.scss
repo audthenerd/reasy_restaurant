@@ -13,6 +13,21 @@ h1{
 	text-align:center;
 }
 
+div#chart-1 {
+float:left;
+margin-right: 20px;
+}
+
+div#chart-2 {
+	float:right;
+	margin-bottom: 25px;
+}
+
+div.clearfix {
+	width: 961px;
+	overflow: auto;
+}
+
 .row{
 	margin-top: 10px;
 }
@@ -25,7 +40,6 @@ div.food-cat {
 	display: inline-block;
 	width: 400px;
 }
-
 
 a.minor-links {
 margin: 10px;
