@@ -93,6 +93,8 @@ class ReservationsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @reservation = Reservation.find(params[:id])
     @reservation.update(reservation_params)
+
+    redirect_to customer_reservations_path(@customer)
   end
 
   def destroy
