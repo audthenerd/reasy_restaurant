@@ -72,12 +72,10 @@ Description
 **************************
 Reservation for customer
 ************************** -->
-						<div class="row">
 								<% if customer_signed_in? %>
 								<h5><%= link_to 'Make reservation', restaurant_menuitems_path(@restaurant) %></h5>
 								</p>
 								<% end %>
-						</div>
 				</div>
 		</div>
 				<!--
@@ -86,10 +84,8 @@ Reservation for customer
 				************************** -->
 				<% if customer_signed_in? %>
 				<% if @reviews.blank? %>
-				<div class="row">
 						<h5>Reviews</h5>
 						<p>no reviews yet!</p>
-				</div>
 				<% else %>
 				<div class="col-12">
 						<h5>Reviews</h5>

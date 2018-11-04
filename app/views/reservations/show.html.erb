@@ -8,20 +8,32 @@ RESOLVED
 		<h1>Your reservation at :<br> <%= @reservation.restaurant.name %>
 </h1>
 		<br><br>
-		<% @reservation.menuitems_reservations.each do |x| %>
-		<p>
-				<%= x.quantity %>
-				<%= x.menuitem.item %>
-				<%= x.menuitem.price %>
-		</p>
-		<% end %>
-		Total:
-		<%= @price %><br>
-		<%= link_to 'Back', customer_reservations_path(current_customer.id)%><br>
-		<%= link_to 'Edit', edit_customer_reservation_path(current_customer.id, @reservation)%><br>
-		<%= link_to 'Destroy', customer_reservation_path(current_customer.id, @reservation),
+		<div class="row justify-content-center">
+				<% @reservation.menuitems_reservations.each do |x| %>
+				<div class="col-6">
+						<%= x.quantity %>
+						<%= x.menuitem.item %>
+				</div>
+				<div class="col-2">
+						$
+						<%= x.menuitem.price %>
+				</div>
+				<% end %>
+		</div>
+		<div class="row justify-content-center">
+				<div class="col-6">
+						Total:<br><br>
+						<%= link_to 'Back', customer_reservations_path(current_customer.id)%><br>
+						<%= link_to 'Edit', edit_customer_reservation_path(current_customer.id, @reservation)%><br>
+						<%= link_to 'Destroy', customer_reservation_path(current_customer.id, @reservation),
 			                        method: :delete,
 			                        data: { confirm: 'Are you sure?' } %>
+				</div>
+				<div class="col-2">
+						$
+						<%= @price %>
+				</div>
+		</div>
 </div>
 <% elsif userrest_signed_in? %>
 <!--
@@ -44,20 +56,20 @@ RESOLVED
 						<%= x.menuitem.item %>
 				</div>
 				<div class="col-2">
-						$<%= x.menuitem.price %>
+						$
+						<%= x.menuitem.price %>
 				</div>
 				<% end %>
 		</div>
 		<div class="row justify-content-center">
 				<div class="col-6">
 						Total:<br><br>
-								<%= link_to 'Back', restaurant_reservations_path(@reservation.id) %><br>
-
+						<%= link_to 'Back', restaurant_reservations_path(@reservation.id) %><br>
 				</div>
 				<div class="col-2">
-						$<%= @price %>
+						$
+						<%= @price %>
 				</div>
 		</div>
-
 		<% end %><br>
 </div>
