@@ -5,26 +5,23 @@ RESOLVED
 ************************** -->
 <% if customer_signed_in? %>
 <div class="container">
-<h1>Your reservation at :<br> <%= @reservation.restaurant.name %>
+		<h1>Your reservation at :<br> <%= @reservation.restaurant.name %>
 </h1>
-
-<br><br>
-
-<% @reservation.menuitems_reservations.each do |x| %>
-<p>
-<%= x.quantity %> <%= x.menuitem.item %> <%= x.menuitem.price %></p>
-
-<% end %>
-
-Total:
-<%= @price %><br>
-
-<%= link_to 'Back', customer_reservations_path(current_customer.id)%><br>
-<%= link_to 'Edit', edit_customer_reservation_path(current_customer.id, @reservation)%><br>
-<%= link_to 'Destroy', customer_reservation_path(current_customer.id, @reservation),
+		<br><br>
+		<% @reservation.menuitems_reservations.each do |x| %>
+		<p>
+				<%= x.quantity %>
+				<%= x.menuitem.item %>
+				<%= x.menuitem.price %>
+		</p>
+		<% end %>
+		Total:
+		<%= @price %><br>
+		<%= link_to 'Back', customer_reservations_path(current_customer.id)%><br>
+		<%= link_to 'Edit', edit_customer_reservation_path(current_customer.id, @reservation)%><br>
+		<%= link_to 'Destroy', customer_reservation_path(current_customer.id, @reservation),
 			                        method: :delete,
 			                        data: { confirm: 'Are you sure?' } %>
-
 </div>
 <% elsif userrest_signed_in? %>
 <!--
@@ -32,17 +29,35 @@ Total:
 If restaurant signed in
 RESOLVED
 ************************** -->
-<%= @reservation.restaurant.name %>
-<br><br>
+<div class="container">
+		<h1>Order#<%= @reservation.id %></h1>
+		<h1>
+	<%= @reservation.customer.name %> at
+	<%= @reservation.reservation_time.strftime("%I:%M") %>
+	<%= @reservation.reservation_date %>
+</h1>
+		<br><br>
+		<div class="row justify-content-center">
+				<% @reservation.menuitems_reservations.each do |x| %>
+				<div class="col-6">
+						<%= x.quantity %>
+						<%= x.menuitem.item %>
+				</div>
+				<div class="col-2">
+						$<%= x.menuitem.price %>
+				</div>
+				<% end %>
+		</div>
+		<div class="row justify-content-center">
+				<div class="col-6">
+						Total:<br><br>
+								<%= link_to 'Back', restaurant_reservations_path(@reservation.id) %><br>
 
-<% @reservation.menuitems_reservations.each do |x| %>
-<p>
-<%= x.quantity %> <%= x.menuitem.item %> <%= x.menuitem.price %></p>
+				</div>
+				<div class="col-2">
+						$<%= @price %>
+				</div>
+		</div>
 
-<% end %>
-
-total
-<%= @price %>
-
-
-<% end %>
+		<% end %><br>
+</div>

@@ -151,17 +151,18 @@ If restaurant is signed in
   	</div>
   </div>
 
-		<div class="row">
+  <h3>Your Restaurants</h3>
+  		<div class="row">
 				<% @restaurants.each do |restaurant| %>
 				<div class="card coverimg float-left">
 						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
 						<div class="card-body">
 								<h5 class="card-title"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
 								<p class="card-text inline">
-										<%= link_to 'See Restaurant Reservations', restaurant_reservations_path(restaurant) %>
+										<%= link_to 'Restaurant Reservations', restaurant_reservations_path(restaurant) %>
 								</p>
 								<p class="card-text inline">
-										<%= link_to 'Edit Restaurant', edit_restaurant_path(restaurant) %>
+										<%= link_to 'Restaurant Profile', edit_restaurant_path(restaurant) %>
 								</p>
 								<p class="card-text inline">
 										<%= link_to 'Delete Restaurant', restaurant_path(restaurant),
