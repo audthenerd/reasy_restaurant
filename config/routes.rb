@@ -27,5 +27,5 @@ Rails.application.routes.draw do
 
   get '/seatstaken', to: 'menuitems#ajax', as: 'seatstaken'
 
-  root to: "restaurants#index"
+  root "restaurants#index"
 end
