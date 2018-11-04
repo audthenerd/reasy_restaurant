@@ -8,6 +8,30 @@ div.welcome-header {
 	margin-top:0px!important;
 }
 
+h1, h2{
+	text-transform:uppercase;
+	text-align:center;
+}
+
+div#chart-1 {
+float:left;
+margin-right: 20px;
+}
+
+div#chart-2 {
+	float:right;
+	margin-bottom: 25px;
+}
+
+div.clearfix {
+	width: 961px;
+	overflow: auto;
+}
+
+.row{
+	margin-top: 10px;
+}
+
 img.img-thumbnail {
 	width: 300px;
 }
@@ -16,7 +40,6 @@ div.food-cat {
 	display: inline-block;
 	width: 400px;
 }
-
 
 a.minor-links {
 margin: 10px;
@@ -27,18 +50,32 @@ a.cat-links {
 }
 
 div.restimg{
-	width:31%;
+	width:25vw;
+	height:25vw;
+	object-fit:cover
 }
 
 
+div.coverimg{
+	width:25vw;
+	object-fit:cover;
+	background-color:rgba(0,0,0,0);
+}
+
 div.restimg img{
 	object-fit:cover;
-	height:20vh;
+	height:25vw;
+}
+
+div.coverimg img{
+	object-fit:cover;
+	height:25vw;
 }
 
 div.card{
 	border:none;
 	border-radius:0;
+	margin:0 auto;
 }
 
 img.card-img-top{
@@ -81,13 +118,25 @@ input.searchbar{
 	font-size:40px
 }
 
-h5{
+h4{
 	text-align:center;
 }
 
 .jumbotron{
 	height:60vh;
-	border-radius:0
+	border-radius:0;
+	padding:0!important;
+}
+
+.jumbotronsearch{
+	position:absolute;
+	z-index:+4;
+	width:100%;
+	top:30vh;
+}
+
+.jumbotron .row{
+	width:100%;
 }
 
 .carousel-item{
@@ -97,6 +146,10 @@ h5{
 
 .carousel-item img{
 	width:100%;
-		object-fit:fill;
+	object-fit:cover;
+	height:60vh;
 }
 
+.card-body{
+	text-align:center;
+}

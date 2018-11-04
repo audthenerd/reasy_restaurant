@@ -1,39 +1,43 @@
-<h1>Here you go...</h1>
-
-<% if userrest_signed_in? %>
-	<h2>Your restaurants listed under <%= @category.name %></h2>
-<% else %>
-	<h2>Our suggestions for <%= @category.name %> food</h2>
-<% end %>
-
-<div class = "container">
-
-<% if @restaurants.exists? %>
-
-<div class='row'>
-<% @restaurants.each do |restaurant| %>
-		        <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12">
-		            <br/>
-			            <%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
-		            <div class="card-body">
-		                <h5 class="card-title"><%= restaurant.name %></h5>
-		                    <p class="card-text inline"><%= link_to 'Restaurant Profile', restaurant_path(restaurant) %></p>
-		                    <% if userrest_signed_in? %>
-			                    <p class="card-text inline"><%= link_to 'Edit Restaurant Profile', edit_restaurant_path(restaurant) %></p>
-			                    <p class="card-text inline"><%= link_to 'Delete Restaurant', restaurant_path(restaurant),
-			                        method: :delete,
-			                        data: { confirm: 'Are you sure?' } %></p>
-			                    <p class="card-text">Date created: <%= restaurant.created_at.to_date %></p>
-		                 		<% else %>
-		                 			<p class="card-text inline"><%= link_to 'View Menu', restaurant_menuitems_path(restaurant) %></p>
-		                 		<% end %>
-		            </div>
-		        </div>
-	        	<% end %></div>
-<% else %>
-No restaurants listed under this category!
-<% end %>
-</div>
-<div>
-<%= link_to 'Back', restaurants_path %>
+<div class="container">
+		<!--
+**************************
+If userrest is signed in
+************************** -->
+		<% if userrest_signed_in? %>
+		<h2>Your restaurants listed under <%= @category.name %></h2>
+		<% else %>
+		<h1>Select from our range of <%= @category.name %> restaurants</h1>
+		<% end %>
+		<div class="container">
+				<% if @restaurants.exists? %>
+					<% if userrest_signed_in? %>
+						<% @restaurants.each do |restaurant| %>
+							<% if restaurant.userrest_id == current_userrest.id%>
+								<div class="card coverimg">
+										<br />
+										<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
+										<div class="card-body">
+												<h5 class="card-text inline"><%= link_to restaurant.name, restaurant_path(restaurant) %></h5>
+												<% if userrest_signed_in? %>
+												<p class="card-text inline">
+														<%= link_to 'Edit Restaurant Profile', edit_restaurant_path(restaurant) %>
+												</p>
+												<p class="card-text inline">
+														<%= link_to 'Delete Restaurant', restaurant_path(restaurant),
+							                        method: :delete,
+							                        data: { confirm: 'Are you sure?' } %>
+												</p>
+												<% end %>
+										</div>
+								</div>
+							<% end %>
+						<% end %>
+					<% end %>
+					<% else %>
+					No restaurants listed under this category!
+				<% end %>
+		</div>
+		<div>
+				<%= link_to 'Back', restaurants_path %>
+		</div>
 </div>

@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-    before_action :authenticate_customer! 
+    before_action :authenticate_customer!
 
     def new
         @restaurant = Restaurant.find(params[:restaurant_id])
@@ -27,5 +27,5 @@ class ReviewsController < ApplicationController
     def review_params
         params.require(:review).permit(:comment, :rating, :restaurant_id)
     end
-        
+
 end

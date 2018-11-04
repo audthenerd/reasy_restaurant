@@ -14,6 +14,9 @@
  @import "bootstrap";
  @import "customers.scss";
   @import "restaurants.scss";
+  @import "reviews.scss";
+  @import "reservations.scss";
+
 
 body{
 	background-color:#31323F;
@@ -58,6 +61,7 @@ nav{
 h1{
 	font-size: 1.5rem;
 }
+
 
 .reservation {
 	display: inline-block;

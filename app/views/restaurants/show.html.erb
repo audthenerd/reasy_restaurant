@@ -1,97 +1,158 @@
 <%= javascript_include_tag 'jquery.raty.js', "data-turbolinks-track": false %>
-
 <div class="container">
-
-    <div class="row">
-        <h1><%= @restaurant.name %></h1>
-
-        <% @restaurant.image_url.each do |image| %>
-        <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12 restimg">
-		            <br/>
-			       <%= cl_image_tag(image,  class: "card-img-top") %>
-          </div>
-        <% end %>
-    </div>
-
-    <h5>Reviews</h5>
-    <% if @reviews.blank? %>
-        <h5>no reviews yet!</h5>
-    <% else %>
-        <div class="row">
-        Total: <div class="star-rating" data-score=<%= @average_rating %>></div>
-            <table class="table">
-            <thead>
-            <tr>
-            <th class="col-mid-3">Customer</th>
-            <th class="col-mid-9">Review</th>
-            </tr>
-            </thead>
-            <tbody>
-                <% @reviews.each do |review| %>
-                <tr>
-                    <td>
-                        <h5><%= "#{review.customer.name}" %></h5>
-                    </td>
-                    <td>
-                        <div class="clearfix star-rating" data-score=<%= review.rating %>></div>
-                        <%= review.comment %>
-                    </td>
-                </tr>
-                <% end %>
-            </tbody>
-        </table>
-        </div>
-    <% end %>
-    <%= link_to "Create Review", new_restaurant_review_path(@restaurant), class: "btn btn-primary" %>
-    <h5>Menu</h5>
-    <% if @restaurant.menuitems.blank? %>
-
-        <h5>no menu yet!</h5>
-    <% else %>
-    	<div class="row">
-        <% @restaurant.menuitems.each do |menuitems| %>
-            <div class="col-lg-8"><%= menuitems.item %></div>
-            <div class="col"><%= menuitems.price %></div>
-        <% end %>
-      </div>
-       <% end %>
-
- 	<% if customer_signed_in? %>
-        <p><%= link_to 'Make reservation', restaurant_menuitems_path(@restaurant) %></p>
-        <% end %>
-        <% if userrest_signed_in? %>
-        <p><%= link_to 'Edit menu', restaurant_menuitems_path(@restaurant) %></p>
-        <% end %>
-    </div>
-
-    <h5>Categories</h5>
-      <div class="row">
-        <% @restaurant.categories.each do |cat| %>
-            <p><a href="<%= category_path(cat.id) %>" class="cat-links"><%= cat.name %></a></p>
-        <% end %>
-    </div>
-
-    <h5>Reviews</h5>
-
-    <% if @reviews.blank? %>
-        <p>no reviews yet!</p>
-    <% else %>
-        <div class="row">
-            <% @reviews.each do |review| %>
-                <div><%= review.comment %></div>
-            <% end %>
-        </div>
-        <div class="star-rating" data-score=<%= @average_rating %></div>
-    <% end %>
-
-
-   <div class="row">
-  <p><%= link_to 'Edit Restaurant Profile', edit_restaurant_path(@restaurant) %></p>
-        <p><%= link_to 'Delete', restaurant_path(@restaurant),
-
-
-
-</div>
-
-
-
+		<!--
+**************************
+header image and res title
+************************** -->
+		<div class="row">
+				<h1><%= @restaurant.name %></h1>
+		</div>
+		<div class="row">
+				<% @restaurant.image_url.each do |image| %>
+				<div class="card restimg">
+						<%= cl_image_tag(image,  class: "card-img-top") %>
+				</div>
+				<% end %>
+		</div>
+		<!--
+**************************
+Menu
+************************** -->
+		<div class="row">
+				<div class='col-8'>
+						<div class="row">
+								<div class="menu">
+										<h5>Menu</h5>
+										<% if @restaurant.menuitems.blank? %>
+										<h5>no menu yet!</h5>
+										<% else %>
+										<div class="row">
+												<% @restaurant.menuitems.each do |menuitems| %>
+												<div class="col-lg-8">
+														<%= menuitems.item %>
+												</div>
+												<div class="col">
+														<%= menuitems.price %>
+												</div>
+												<% end %>
+										</div>
+										<% end %>
+										<!--
+				**************************
+				Edit menu for userrest
+				************************** -->
+										<% if userrest_signed_in? %>
+										<p>
+												<%= link_to 'Edit menu', restaurant_menuitems_path(@restaurant) %>
+										</p>
+										<% end %>
+								</div>
+						</div>
+				</div>
+				<!--
+**************************
+Reviews
+************************** -->
+				<div class="col-4">
+						<!--
+**************************
+Description
+************************** -->
+						<div class="row">
+								<h5>Categories:</h5>
+								<% @restaurant.categories.each do |cat| %>
+								<p><a href="<%= category_path(cat.id) %>" class="cat-links"><%= cat.name %></a></p>
+								<% end %>
+						</div>
+						<div class="row">
+								<h5>Telephone:</h5>
+								<p>
+										<%= @restaurant.telephone %>
+								</p>
+						</div>
+						<div class="row">
+								<h5>Opening Hours:</h5>
+								<p>
+										<%= @restaurant.opening_hours %>
+								</p>
+						</div>
+						<!--
+**************************
+Reservation for customer
+************************** -->
+						<div class="row">
+								<% if customer_signed_in? %>
+								<h5><%= link_to 'Make reservation', restaurant_menuitems_path(@restaurant) %></h5>
+								</p>
+								<% end %>
+						</div>
+				</div>
+		</div>
+				<!--
+				**************************
+				Customer add review
+				************************** -->
+				<% if customer_signed_in? %>
+				<% if @reviews.blank? %>
+				<div class="row">
+						<h5>Reviews</h5>
+						<p>no reviews yet!</p>
+				</div>
+				<% else %>
+				<div class="col-12">
+						<h5>Reviews</h5>
+						<h5>Total: <div class="star-rating" data-score=<%=@average_rating %>></h5>
+						<table class="table">
+								<thead>
+										<tr>
+												<th class="col-mid-3">Customer</th>
+												<th class="col-mid-9">Review</th>
+										</tr>
+								</thead>
+								<tbody>
+										<% @reviews.each do |review| %>
+										<tr>
+												<td>
+														<h5><%= "#{review.customer.name}" %></h5>
+												</td>
+												<td>
+														<div class="clearfix star-rating" data-score=<%=review.rating %>>
+																<%= review.comment %>
+												</td>
+										</tr>
+										<% end %>
+								</tbody>
+						</table>
+						</div>
+						<% end %>
+						<%= link_to "Create Review", new_restaurant_review_path(@restaurant)%><br>
+						<%end%>
+						<!--
+				**************************
+				Userrest view review
+				************************** -->
+						<% if userrest_signed_in? %>
+						<h5>Reviews</h5>
+						<% if @reviews.blank? %>
+						<p>no reviews yet!</p>
+						<% else %>
+						<div class="row">
+								<% @reviews.each do |review| %>
+								<div>
+										<%= review.comment %>
+								</div>
+								<% end %>
+						</div>
+						<div class="star-rating" data-score=<%=@average_rating %>>
+								<% end %>
+								<div class="row">
+										<p>
+												<%= link_to 'Edit Restaurant Profile', edit_restaurant_path(@restaurant) %>
+										</p>
+										<p>
+												<%= link_to 'Delete', restaurant_path(@restaurant)%>
+										</p>
+								</div>
+						</div>
+						<% end %>
+				</div>
