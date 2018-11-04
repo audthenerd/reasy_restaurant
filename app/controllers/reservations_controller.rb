@@ -58,7 +58,7 @@ class ReservationsController < ApplicationController
       @booked = Reservation.all
       @checkvar = @booked.each do |x| x.reservation_time.present? end
     end
-    
+
   end
 
   def create
