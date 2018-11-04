@@ -1,10 +1,19 @@
 .simple-calendar{
-	width:50vw;
+	width:80vw;
 	margin: 20px auto 0 auto;
+}
+
+.simple-calendar tbody tr{
+	height:10vw;
+}
+
+.simple-calendar tbody td{
+	width:10vw;
 }
 
 .right{
 	float:right;
 	position:relative;
 	right:0;
+	margin-left:10px;
 }
