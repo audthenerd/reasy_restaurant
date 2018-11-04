@@ -4,9 +4,10 @@ If customer signed in
 RESOLVED
 ************************** -->
 <% if customer_signed_in? %>
-<h1>HELLO</h1>
+<div class="container">
+<h1>Your reservation at :<br> <%= @reservation.restaurant.name %>
+</h1>
 
-<%= @reservation.restaurant.name %>
 <br><br>
 
 <% @reservation.menuitems_reservations.each do |x| %>
@@ -15,16 +16,16 @@ RESOLVED
 
 <% end %>
 
-total
-<%= @price %>
+Total:
+<%= @price %><br>
 
-<%= link_to 'Back', customer_reservations_path(current_customer.id)%>
-<%= link_to 'edit', edit_customer_reservation_path(current_customer.id, @reservation)%>
+<%= link_to 'Back', customer_reservations_path(current_customer.id)%><br>
+<%= link_to 'Edit', edit_customer_reservation_path(current_customer.id, @reservation)%><br>
 <%= link_to 'Destroy', customer_reservation_path(current_customer.id, @reservation),
 			                        method: :delete,
 			                        data: { confirm: 'Are you sure?' } %>
 
-
+</div>
 <% elsif userrest_signed_in? %>
 <!--
 **************************
