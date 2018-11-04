@@ -86,23 +86,67 @@ If restaurant is signed in
 <% elsif userrest_signed_in? %>
 <div class="container">
 		<h1>Welcome,<a href="<%= edit_userrest_registration_path %>"> <%= current_userrest.email %></a>!</h1>
-		<!--
-    <div id="graph" style="max-width: 700px; height: 400px; margin: 0 auto"></div> -->
+
+  <div class="peak-hours">
 		<h3>Peak Hours</h3>
-		<%= line_chart @restaurants.map { |restaurant| {name: restaurant.name, data: restaurant.reservations.group(:reservation_time).count, library: {Tension: 0}}}, xtitle: "Reservation Timings", xAxis: {
-				labels: {
-					style: {
-						color: '#FF2813'
-						}
-					}
-				},
-				ytitle: "No.of Reservations", title: "Tracking Peak Hours for Your Businesses", legend: "bottom", id: "rest-chart", width: "800px", height: "500px", messages: {empty: "No reservations yet"} %>
+		<%= line_chart @restaurants.map { |restaurant| {name: restaurant.name, data: restaurant.reservations.group(:reservation_time).count}}, title: "Tracking Peak Hours for Your Businesses", legend: "bottom", id: "rest-chart", width: "1100px", height: "500px", messages: {empty: "No reservations yet"}, library: {Tension: 0, animation: {easing: 'easeInElastic'}, scales: {
+            yAxes: [{
+	            	scaleLabel: {
+	            	display: true,
+	            	labelString: "No.of Reservations",
+	        			fontColor: "white",
+	        			fontSize: 18
+	        		},
+                ticks: {
+                    fontColor: "white",
+                    fontSize: 15,
+                    stepSize: 2,
+                    beginAtZero: true
+                },
+                gridLines: {
+                	color: "#F7F7F7",
+                zeroLineColor: "#F7F7F7"
+                }
+            }],
+            xAxes: [{
+            	scaleLabel: {
+            	display: true,
+            	labelString: "Reservation Timings",
+        			fontColor: "white",
+        			fontSize: 18
+        		},
+                ticks: {
+                    fontColor: "white",
+                    fontSize: 15
+                }
+            }],
+        		},
+		        legend: {
+		            labels: {
+		            	fontColor: "white",
+		            	fontSize: 20
+		            }
+		            },
+		        title: {
+		           fontColor: "white"
+		          }
+		      } %>
+</div>
+	<div class="pop-items">
     <h3>Popular Items</h3>
     <div class="clearfix">
 	  <% @pie.each do |p| %>
-	    <%= pie_chart (p), messages: {empty: "No items added yet"}, width: "300px", library: {backgroundColor: 'transparent', animation:{easing: 'easeOutQuad'}, elements: {arc: {borderWidth: 0}}}, className: "pie-chart" %>
+	    <%= pie_chart (p), messages: {empty: "No items added yet"}, width: "300px", height: "500px", library: {backgroundColor: 'transparent', animation:{easing: 'easeOutQuad'}, elements: {arc: {borderWidth: 0}}, legend: {
+		            labels: {
+		            	fontColor: "white",
+		            	fontSize: 18
+		            }
+		         },
+		     }, className: "pie-chart" %>
     <% end %>
   	</div>
+  </div>
+
 		<div class="row">
 				<% @restaurants.each do |restaurant| %>
 				<div class="card coverimg float-left">

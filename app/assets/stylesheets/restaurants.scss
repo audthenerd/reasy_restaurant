@@ -13,19 +13,28 @@ h1{
 	text-align:center;
 }
 
+div.peak-hours {
+	margin: 80px 0;
+}
+
+div.pop-items {
+	margin: 100px 0;
+}
+
 div#chart-1 {
 float:left;
-margin-right: 20px;
+margin-left: 20px;
 }
 
 div#chart-2 {
 	float:right;
-	margin-bottom: 25px;
+	margin-right: 59px;
 }
 
 div.clearfix {
 	width: 961px;
 	overflow: auto;
+	margin: 20px 100px;
 }
 
 .row{
