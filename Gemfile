@@ -7,6 +7,8 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
+
+gem 'pg','>= 0.18', '< 2.0', group: :production
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -80,3 +82,5 @@ gem "combined_time_select", "~> 2.0.0"
 gem "chartkick"
 
 gem "groupdate"
+
+gem 'rails_12factor', group: :production
