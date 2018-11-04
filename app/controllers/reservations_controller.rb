@@ -55,6 +55,8 @@ class ReservationsController < ApplicationController
       gon.breakstart = @restaurant.breakstart.to_s.split(" ")[1]
       gon.breakend = @restaurant.breakend.to_s.split(" ")[1]
       gon.availseats = @restaurant.avail_seats
+      @booked = Reservation.all
+      @checkvar = @booked.each do |x| x.reservation_time.present? end
     end
     
   end

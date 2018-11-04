@@ -43,6 +43,7 @@ class MenuitemsController < ApplicationController
     gon.breakend = @restaurant.breakend.to_s.split(" ")[1]
     gon.availseats = @restaurant.avail_seats
     @checkvar = @booked.each do |x| x.reservation_time.present?
+      
     end
     end
 

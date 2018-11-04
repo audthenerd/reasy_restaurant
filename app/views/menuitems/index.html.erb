@@ -62,7 +62,7 @@ If customer is signed in
 						<%= item.price %>
 						<%= f.fields_for :menuitems_reservations, MenuitemsReservation.new do |form| %>
 						<%= form.label :quantity %>
-						<%= form.number_field :quantity %>
+						<%= form.number_field :quantity, value: 0, min: 0 %>
 						<%= form.hidden_field :menuitem_id, value: item.id %>
 						<% end %>
 						<br>
@@ -71,7 +71,7 @@ If customer is signed in
 				<div class="col-4">
 						<p>
 								<%= f.label :reservation_date %><br>
-								<%= f.date_field( :reservation_date, data: { url: monkey_banana_path, remote: true , method: :get} )%>
+								<%= f.date_field( :reservation_date, data: { url: seatstaken_path, remote: true , method: :get} )%>
 						</p>
 						<p>
 								<%= f.time_select :reservation_time,
@@ -82,7 +82,7 @@ If customer is signed in
 				  :start_hour => @restaurant.starttime.to_s.split(" ")[1].split(":")[0].to_i,
 				  :start_minute => @restaurant.starttime.to_s.split(" ")[1].split(":")[1].to_i,
 				  :end_hour => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
-				  :end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[0].to_i,
+				  :end_minute => @restaurant.endtime.to_s.split(" ")[1].split(":")[1].to_i,
 				  :label => false,
 				  :required => true,
 				  :html_options =>{:disabled => @checkvar, :required => true}%>
