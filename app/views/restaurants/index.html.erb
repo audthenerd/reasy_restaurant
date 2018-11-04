@@ -4,27 +4,27 @@ If customer is signed in
 ************************** -->
 <% if customer_signed_in? %>
 <div class="jumbotron">
-		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-				<div class="carousel-inner">
-						<ol class="carousel-indicators">
-								<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-								<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-						</ol>
-						<% @restaurants.each_with_index do |product| %>
-						<div class="carousel-item <%= " active" if product==@restaurants.first %> ">
-								<% if product.image_url.present? %>
-								<%= link_to cl_image_tag product.image_url[0],  class: "d-block w-100" %>
+				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<ol class="carousel-indicators">
+									<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+									<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+									<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+							</ol>
+								<% @restaurantlist.first(3).each_with_index do |product| %>
+								<div class="carousel-item <%= " active" if product==@restaurantlist.first %> ">
+										<% if product.image_url.present? %>
+										<%= link_to cl_image_tag product.image_url[0],  class: "d-block w-100" %>
+										<% end %>
+								</div>
+								<div class="carousel-item">
+										<% if product.image_url.present? %>
+										<%= cl_image_tag (product.image_url[0]) , class: "d-block w-100" %>
+										<% end %>
+								</div>
 								<% end %>
 						</div>
-						<div class="carousel-item">
-								<% if product.image_url.present? %>
-								<%= cl_image_tag (product.image_url[0]) , class: "d-block w-100" %>
-								<% end %>
-						</div>
-						<% end %>
-				</div>
-		</div>
+								</div>
 <div class="jumbotronsearch">
 				<div class="row justify-content-md-center">
 						<div class='col-8'>
@@ -39,12 +39,12 @@ If customer is signed in
 						</div>
 				</div>
 </div>
-<div class="container">
-		<!--
+<!--
 			****************************
 			Upon searching, show results
 			**************************** -->
-		<% if params[:search].present? %>
+<div class="container">
+		<% if params[:search] != nil %>
 		<% if @restaurants.present? %>
 		<div class='row'>
 				<% @restaurants.each do |restaurant| %>
@@ -64,11 +64,11 @@ If customer is signed in
 			By default, show categories
 			**********************************-->
 		<% else %>
-<div class='row'>
+		<div class='row'>
 			<h4>Suggested places:</h4>
 		</div>
 		<div class="row">
-				<% @restaurants.first(3).each do |restaurant| %>
+				<% @restaurantlist.first(3).each do |restaurant| %>
 				<div class="card coverimg">
 						<%= cl_image_tag(restaurant.image_url[0],  class: "card-img-top") %>
 						<div class="card-body">
@@ -77,9 +77,6 @@ If customer is signed in
 				</div>
 				<% end %>
 		</div>
-
-
-
 		<% end %>
 </div>
 <!--

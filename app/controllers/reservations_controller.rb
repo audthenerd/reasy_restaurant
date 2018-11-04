@@ -58,7 +58,7 @@ class ReservationsController < ApplicationController
       @booked = Reservation.all
       @checkvar = @booked.each do |x| x.reservation_time.present? end
     end
-    
+
   end
 
   def create
@@ -95,6 +95,7 @@ class ReservationsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @reservation = Reservation.find(params[:id])
     @reservation.update(reservation_params)
+
 
     redirect_to customer_reservations_path(@customer)
   end

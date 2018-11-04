@@ -8,5 +8,6 @@ Name: <%= @customer.name %><br>
 Email: <%= @customer.email %>
 
 <div><%= link_to 'Edit Your Profile', edit_customer_registration_path %></div>
+<div><%= link_to 'View Your Reservations', customer_reservations_path(@customer) %></div>
 <div><%= link_to 'Back to Homepage', restaurants_path %></div>
 </div>
