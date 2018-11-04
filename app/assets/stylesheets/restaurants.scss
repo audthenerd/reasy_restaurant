@@ -8,7 +8,7 @@ div.welcome-header {
 	margin-top:0px!important;
 }
 
-h1{
+h1, h2{
 	text-transform:uppercase;
 	text-align:center;
 }
@@ -124,7 +124,15 @@ h4{
 
 .jumbotron{
 	height:60vh;
-	border-radius:0
+	border-radius:0;
+	padding:0!important;
+}
+
+.jumbotronsearch{
+	position:absolute;
+	z-index:+4;
+	width:100%;
+	top:30vh;
 }
 
 .jumbotron .row{
@@ -138,7 +146,8 @@ h4{
 
 .carousel-item img{
 	width:100%;
-		object-fit:fill;
+	object-fit:cover;
+	height:60vh;
 }
 
 .card-body{
